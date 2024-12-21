@@ -1,4 +1,4 @@
-# le-piaje di Giuliana e Stefano
+# lepiaje di Giuliana e Stefano
 
 Siamo una famiglia di imprenditori agricoli dadicati alla coltivazione della vite e dell'olivo con particolare riguardo, in questi ultimi anni, al mondo dell'ospitalità e della valorizzazione delle bellezze naturali e culurali della Tuscia.
 
