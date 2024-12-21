@@ -44,10 +44,11 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
+          name: github-pages
           path: './dist'
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+          artifact_name: github-pages
