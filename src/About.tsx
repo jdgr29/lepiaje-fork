@@ -17,7 +17,7 @@ export default function About() {
 
     {
       icon: <BadgeCent />,
-      title: "Hello World",
+      title: "Hello World, I am in my first call with Juan.",
       description:
         "Hello World.",
     },
