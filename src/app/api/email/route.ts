@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 export async function GET(request:Request) {
-    console.log("route working as expected");
+    console.log("route working as expected", request);
     return NextResponse.json({data: {
         text:"hello world", 
         error:false,
