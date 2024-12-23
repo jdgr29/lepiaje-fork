@@ -3,16 +3,28 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   experimental: {
     esmExternals: "loose"
-  
+
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: "picsum.photos",
+      }
+    ]
   },
 
   serverExternalPackages: ["mongoose"],
   webpack: (config) => {
-    config.experiments = {
-      topLevelAwait: true,
-      layers:true
-      
-    }
+    config.resolve.fallback = {
+      ...config.resolve.fallbe
+      , fs: false
+    },
+      config.experiments = {
+        topLevelAwait: true,
+        layers: true
+
+      }
     return config;
   }
 };
