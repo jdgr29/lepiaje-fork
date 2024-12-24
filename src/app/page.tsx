@@ -8,7 +8,7 @@ export default function Home() {
       <React.Fragment>
         <Hero
           title="Le Piaje"
-          subtitle="Discover something new"
+          subtitle="Azienda Agricola"
           text="     Siamo una famiglia di imprenditori agricoli dadicati alla coltivazione della vite e dell'olivo 
           con particolare riguardo, in questi ultimi anni, al mondo dell'ospitalità e della valorizzazione delle bellezze 
           naturali e culurali della Tuscia.
