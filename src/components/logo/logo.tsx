@@ -4,7 +4,7 @@ import logoPath from "../../../public/assets/logos/logo.jpeg";
 const Logo = () => (
   <Image
     src={logoPath}
-    alt="LePiaje Logo"
+    alt="Le Piaje Logo"
     width={80}
     height={80}
     objectFit="cover"
