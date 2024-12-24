@@ -1,7 +1,9 @@
 import React from "react";
 import Hero from "@/components/hero/hero";
-
 import Gallery from "@/components/gallery/gallery";
+import Carousel from "@/components/carousel/carousel";
+import ContactForm from "@/components/contactForm/contact-form";
+
 export default function Home() {
   return (
     <div>
@@ -20,8 +22,8 @@ export default function Home() {
         />
         {/* <AnimatedCarouselGallery /> */}
         <Gallery />
-        <div className="h-[600px] bg-[#121212] w-full"></div>
-        <div className="h-[300px] bg-[#1222] w-full"></div>
+        <Carousel />
+        <ContactForm />
       </React.Fragment>
     </div>
   );
