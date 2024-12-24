@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import heroBackgroundImage from "../../../public/assets/farm/vigna2.jpeg";
+import heroBackgroundImage from "../../../public/assets/farm/melograni.jpeg";
 
 interface HeroProps {
   title: string;
