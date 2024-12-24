@@ -39,7 +39,7 @@ export default function ContactForm() {
               ) : (
                 <Logo />
               )}
-              <p className="text-lepiajeBrown font-normal text-2xl text-center">
+              <p className="text-lepiajeBrown font-light text-2xl text-center">
                 We want to hear from you
               </p>
             </div>
