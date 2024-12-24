@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { farmImages as images } from "../../../public/assets/farm";
-import galleryBackground from "../../../public/assets/villa_perlata/notte_sotto.jpeg";
+import galleryBackground from "../../../public/assets/villa_perlata/13.jpg";
 
 export default function Gallery() {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);

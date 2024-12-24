@@ -17,7 +17,11 @@ export function Navbar() {
           <Link href={"/"} prefetch={false}>
             <div className="flex items-center gap-2">
               {true ? <GiMountainRoad color="#c39c41" size={55} /> : <Logo />}
+<<<<<<< HEAD
               <div className="text-[#ffff] font-thin text-2xl">LePiaje</div>
+=======
+              <div className="text-[#ffff]">Le Piaje</div>
+>>>>>>> main
             </div>
           </Link>
         </SheetTitle>
