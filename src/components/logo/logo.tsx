@@ -1,10 +1,10 @@
 import Image from "next/image";
-import logoPath from "../../../public/assets/logos/place_holder_logo.png";
+import logoPath from "../../../public/assets/logos/logo.jpeg";
 
 const Logo = () => (
   <Image
     src={logoPath}
-    alt="LePiaje Logo"
+    alt="Le Piaje Logo"
     width={80}
     height={80}
     objectFit="cover"
