@@ -1,6 +1,5 @@
 import React from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { Mail, Phone } from "lucide-react";
 import { FaFacebookF, FaInstagram } from "react-icons/fa6";
 import { GiMountainRoad } from "react-icons/gi";
