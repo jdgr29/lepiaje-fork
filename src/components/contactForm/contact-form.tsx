@@ -1,3 +1,5 @@
+"use client";
+import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -6,8 +8,51 @@ import Logo from "../logo/logo";
 import Image from "next/image";
 import { GiMountainRoad } from "react-icons/gi";
 import formImageBackground from "../../../public/assets/villa_perlata/interno3.jpeg";
+import { submitForm } from "@/services/submitForm.services";
+import { FormType } from "@/types";
 
 export default function ContactForm() {
+  const [formData, setFormData] = useState<FormType>({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    e.preventDefault();
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async () => {
+    //TODO add validation to form
+    const wao = await submitForm(formData);
+    //TODO add a smooth alert
+    if (wao) {
+      alert("submmited! ✅");
+      setFormData((prev) => ({
+        ...prev,
+        name: "",
+        message: "",
+        phone: "",
+        email: "",
+      }));
+    }
+  };
+
+  useEffect(() => {
+    return setFormData((prev) => ({
+      ...prev,
+      name: "",
+      message: "",
+      phone: "",
+      email: "",
+    }));
+  }, []);
+
   return (
     <div className="w-full py-20 h-full max-h-[65em] bg-[#121212] flex  items-center justify-center p-4">
       <div className=" w-full flex md:max-2xl:flex-row flex-col  max-w-4xl h-full bg-white rounded-lg shadow-lepiajeBrown/40 shadow-2xl drop-shadow-2xl overflow-hidden">
@@ -58,25 +103,46 @@ export default function ContactForm() {
         </div>
 
         {/* Right side - Form */}
+        {/* //TODO limit characters of message, add regular expression to make sure the email is valid */}
         <div className="md:max-2xl:w-1/2 w-full p-8">
           <form className="space-y-4 my-4">
             <div>
-              <Label className="text-lepiajeWhite" htmlFor="fullName">
+              <Label className="text-lepiajeWhite" htmlFor="name">
                 Full Name
               </Label>
-              <Input id="fullName" placeholder="John Doe" />
+              <Input
+                onChange={handleInputChange}
+                value={formData.name}
+                id="fullName"
+                placeholder="John Doe"
+                name="name"
+              />
             </div>
             <div>
               <Label className="text-lepiajeWhite" htmlFor="email">
                 Email
               </Label>
-              <Input id="email" type="email" placeholder="john@example.com" />
+              <Input
+                onChange={handleInputChange}
+                value={formData.email}
+                id="email"
+                type="email"
+                name="email"
+                placeholder="john@example.com"
+              />
             </div>
             <div>
               <Label className="text-lepiajeWhite" htmlFor="phone">
                 Phone
               </Label>
-              <Input id="phone" type="tel" placeholder="+1 (555) 123-4567" />
+              <Input
+                onChange={handleInputChange}
+                value={formData.phone}
+                id="phone"
+                type="tel"
+                placeholder="+1 (555) 123-4567"
+                name="phone"
+              />
             </div>
             <div>
               <Label className="text-lepiajeWhite" htmlFor="message">
@@ -86,10 +152,17 @@ export default function ContactForm() {
                 id="message"
                 placeholder="Your message here..."
                 className="h-32"
+                onChange={handleInputChange}
+                value={formData.message}
+                name="message"
               />
             </div>
 
-            <Button type="submit" className="w-full bg-lepiajeBrown">
+            <Button
+              onClick={async () => await handleSubmit()}
+              type="button"
+              className="w-full bg-lepiajeBrown"
+            >
               Submit
             </Button>
           </form>

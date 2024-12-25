@@ -1,7 +1,8 @@
-import { Schema, model } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
 import { v4 as uuidv4 } from "uuid";
+import { PurchaseType } from "@/types";
 
-const purchaseSchema = new Schema(
+const purchaseSchema = new Schema<PurchaseType>(
     {
         uuid: {
             type: String,
@@ -9,37 +10,43 @@ const purchaseSchema = new Schema(
             trim: true,
             default: uuidv4
         },
-        product_name: {
+        amountOfProduct: {
+            required: true,
+            trim: true,
+            type: Number
+        },
+        productName: {
             type: String,
             required: true,
             trim: true,
         },
-        product_id: {
+        productId: {
             type: String,
             required: true,
             trim: true,
         },
-        amount: {
+        amountPaid: {
             type: Number,
             required: true,
             trim: true,
         },
-        total: {
-            type: Number,
-            required: true,
-            trim: true
-        },
-        client_email: {
+        clientEmail: {
             type: String,
             required: true,
             trim: true,
         },
-        client_number: {
+        clientNumber: {
             type: Number,
             required: false,
             trim: true,
         },
-        stripe_id: {
+        purchasedOn: {
+            required: true,
+            trim: true,
+            type: Date,
+            default: Date.now()
+        },
+        stripeId: {
             type: String,
             required: true,
             trim: true
@@ -48,4 +55,4 @@ const purchaseSchema = new Schema(
     { timestamps: true }
 )
 
-export default model("Purchases", purchaseSchema);
+export default mongoose.models.Purchases || model("Purchases", purchaseSchema);

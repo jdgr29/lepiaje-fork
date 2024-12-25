@@ -1,5 +1,5 @@
 import Image from "next/image";
-import logoPath from "../../../public/assets/logos/logo.jpeg";
+import logoPath from "../../../public/assets/logos/place_holder_logo.png";
 
 const Logo = () => (
   <Image
