@@ -7,9 +7,7 @@ import olivetwo from "./olive2.jpeg"
 import orto from "./orto1.jpeg";
 import ortotwo from "./orto2.jpeg";
 import vignaone from "./vigna1.jpeg"
-import vigantwo from "./vigna2.jpeg";
-
 
 export const farmImages = [
-    legna, legna2, melograni, nonna, olive, olivetwo, orto, ortotwo, vignaone, vigantwo
+    legna, legna2, melograni, nonna, olive, olivetwo, orto, ortotwo, vignaone
 ]
