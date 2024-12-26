@@ -25,21 +25,21 @@ export default function Footer() {
 
           <div className="flex space-x-6">
             <Link
-              href="mailto:contact@lepiaje.com"
+              href="mailto:giulianaclementini.ad@gmail.com"
               className="hover:text-gray-900 transition-colors"
             >
               <Mail color="#f1f1f1" size={21} />
               <span className="sr-only">Email</span>
             </Link>
             <Link
-              href="tel:+1234567890"
+              href="tel:+393383032673"
               className="hover:text-gray-900 transition-colors"
             >
               <Phone color="#f1f1f1" size={20} />
               <span className="sr-only">Phone</span>
             </Link>
             <Link
-              href="https://instagram.com/lepiaje"
+              href="#" // TODO: add link when page existing.
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-gray-900 transition-colors"
@@ -48,7 +48,7 @@ export default function Footer() {
               <span className="sr-only">Instagram</span>
             </Link>
             <Link
-              href="https://facebook.com/lepiaje"
+              href="#" // TODO: add link when page existing.
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-gray-900 transition-colors"
