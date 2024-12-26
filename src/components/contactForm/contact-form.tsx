@@ -114,7 +114,7 @@ export default function ContactForm() {
                 onChange={handleInputChange}
                 value={formData.name}
                 id="fullName"
-                placeholder="John Doe"
+                placeholder="Mario Rossi"
                 name="name"
               />
             </div>
@@ -128,7 +128,7 @@ export default function ContactForm() {
                 id="email"
                 type="email"
                 name="email"
-                placeholder="john@example.com"
+                placeholder="mario@gmail.com"
               />
             </div>
             <div>
@@ -140,7 +140,7 @@ export default function ContactForm() {
                 value={formData.phone}
                 id="phone"
                 type="tel"
-                placeholder="+1 (555) 123-4567"
+                placeholder="+393381234567"
                 name="phone"
               />
             </div>
