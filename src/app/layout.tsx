@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/navbar/navbar";
 import Footer from "@/components/footer/footer";
+import WhatsAppAndEmail from "@/components/whatsappEmailButtons/whatsappEmailButtons";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -31,6 +32,7 @@ export default function RootLayout({
         <Navbar />
         {children}
         <Footer />
+        <WhatsAppAndEmail />
       </body>
     </html>
   );
