@@ -3,8 +3,10 @@ import Hero from "@/components/hero/hero";
 import Gallery from "@/components/gallery/gallery";
 import Carousel from "@/components/carousel/carousel";
 import ContactForm from "@/components/contactForm/contact-form";
+import { useTranslations } from "next-intl";
 
 export default function Home() {
+  const t = useTranslations("hero");
   return (
     <div>
       <React.Fragment>
@@ -20,7 +22,9 @@ export default function Home() {
           turistico e francigeno, dove i colori e i profumi Falisci vi porteranno ad immergervi nella quarta dimensione."
           overlayColor="rgba(0,0,0,0.5)"
         />
-        {/* <AnimatedCarouselGallery /> */}
+        <div className="h-[20em] w-full bg-[#f4f4]">
+          <p>{t("title")}</p>
+        </div>
         <Gallery />
         <Carousel />
         <ContactForm />
