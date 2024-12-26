@@ -11,6 +11,9 @@ export default {
 
   theme: {
     extend: {
+      boxShadow: {
+        blur: '0 0 20px 10px rgba(0, 0, 0, 0.2)', // Custom blurred border
+      },
       colors: {
         ...colors, // Extends default colors
         lepiajeBrown: "#c39c41",
