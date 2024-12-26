@@ -1,7 +1,12 @@
 {
+    "LocaleSwitcher": {
+        "it": "Italian",
+        "en": "English",
+        "label": "Language"
+      },
     "hero": {
-        "title": "this is some title",
-        "sub_title":" this is the subtitle",
-        "main_text": "this is the main text yay!"
+        "title": "Le Piaje",
+        "sub_title":"Agricultural Company",
+        "main_text": "We are a family of agricultural entrepreneurs dedicated to the cultivation of vines and olives with particular attention, in recent years, to the world of hospitality and the enhancement of the natural and cultural beauties of Tuscia. Travelers, tourists, families, gourmets, lovers of uncontaminated nature: Le Piaje will be happy to open the doors to the agricultural, touristic and Francigena world, where the Falisci colors and scents will take you to immerse yourself in the fourth dimension."
     }
 }
