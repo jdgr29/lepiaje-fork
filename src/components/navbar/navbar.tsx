@@ -6,20 +6,19 @@ import {
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import Logo from "../logo/logo";
-import { GiMountainRoad } from "react-icons/gi"; //Temporal
+import { Mail, Phone } from "lucide-react";
+import { FaFacebookF, FaInstagram } from "react-icons/fa6";
+
 import Link from "next/link";
 import LanguageSwitcher from "../languageSwitcher/languageSwitcher";
 
 export function Navbar() {
   return (
-    <header className=" top-0 fixed z-50  bg-lepiajeBrown flex h-20 w-full bg-opacity-0 backdrop-filter backdrop-blur-md shrink-0 items-center px-4 md:px-6">
+    <header className=" top-0 fixed z-50  bg-lepiajeBrown flex h-28 w-full bg-opacity-0 backdrop-filter backdrop-blur-md shrink-0 items-center px-4 md:px-6">
       <Sheet>
         <SheetTitle>
           <Link href={"/"} prefetch={false}>
-            <div className="flex items-center w-[8em] max-w-[8em] gap-2">
-              {true ? <GiMountainRoad color="#c39c41" size={55} /> : <Logo />}
-              <div className="text-[#ffff] font-light text-2xl">Le Piaje</div>
-            </div>
+            <Logo width="w-[6em]" height="h-[6em]" blur="blur-lg" />
           </Link>
         </SheetTitle>
         <SheetTrigger asChild>
@@ -27,10 +26,10 @@ export function Navbar() {
             <Button
               variant="outline"
               size="icon"
-              className="lg:hidden flex bg-[rgba(0,0,0,0.3)]  m-1"
+              className="lg:hidden flex bg-[rgba(0,0,0,0.3)] m-1"
             >
               <MenuIcon />
-              <span className="sr-only">Toggle navigation menu</span>
+              <span className="sr-only text-white">Toggle navigation menu</span>
             </Button>
           </div>
         </SheetTrigger>
@@ -41,35 +40,70 @@ export function Navbar() {
         >
           {/* Mobile devices */}
 
-          <div className="text-[#ffff]  grid gap-2 py-6">
+          <div className="text-[#ffff] place-content-center  grid gap-2 py-6">
             <Link
               href="#"
-              className="text-[#ffff] flex w-full items-center py-2 text-lg font-semibold"
+              className="text-center text-[#ffff] justify-center flex w-full items-center py-2 text-lg font-semibold"
               prefetch={false}
             >
-              Rental 1
+              La Villa Perlata
             </Link>
             <Link
               href="#"
-              className="text-[#ffff] flex w-full items-center py-2 text-lg font-semibold"
+              className="text-center text-[#ffff] justify-center flex w-full items-center py-2 text-lg font-semibold"
               prefetch={false}
             >
-              Rental 2
+              Al Centesimo Chilometro
             </Link>
             <Link
               href="#"
-              className="text-[#ffff] flex w-full items-center py-2 text-lg font-semibold"
+              className="text-center text-[#ffff] justify-center flex w-full items-center py-2 text-lg font-semibold"
               prefetch={false}
             >
               About Us
             </Link>
             <Link
               href="#"
-              className="text-[#ffff] flex w-full items-center py-2 text-lg font-semibold"
+              className=" text-[#ffff] justify-center flex w-full items-center py-2 text-lg font-semibold"
               prefetch={false}
             >
               How to reach Us
             </Link>
+            <div className="flex justify-center items-center my-16 space-x-6">
+              <Link
+                href="mailto:contact@lepiaje.com"
+                className="hover:text-gray-900 transition-colors"
+              >
+                <Mail color="#f1f1f1" size={21} />
+                <span className="sr-only">Email</span>
+              </Link>
+              <Link
+                href="tel:+1234567890"
+                className="hover:text-gray-900 transition-colors"
+              >
+                <Phone color="#f1f1f1" size={20} />
+                <span className="sr-only">Phone</span>
+              </Link>
+              <Link
+                href="https://instagram.com/lepiaje"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-gray-900 transition-colors"
+              >
+                <FaInstagram color="#fd1d1d" size={20} />
+                <span className="sr-only">Instagram</span>
+              </Link>
+              <Link
+                href="https://facebook.com/lepiaje"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-gray-900 transition-colors"
+              >
+                <FaFacebookF color="#1877F2" size={20} />
+                <span className="sr-only">Facebook</span>
+              </Link>
+            </div>
+            <Logo width="w-[6em]" height="h-[6em]" blur="blur-lg" />
           </div>
         </SheetContent>
       </Sheet>
@@ -79,28 +113,28 @@ export function Navbar() {
         <LanguageSwitcher />
         <Link
           href="#"
-          className="text-lepiajeWhite group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
+          className="text-lepiajeWhite group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium  hover:bg-lepiajeBrown hover:scale-105 duration-150 transition-all hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
           prefetch={false}
         >
-          Rental 1
+          La Villa Perlata
         </Link>
         <Link
           href="#"
-          className="text-lepiajeWhite group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
+          className="text-lepiajeWhite group inline-flex h-9 w-max items-center justify-center rounded-md  px-4 py-2 text-sm font-medium  hover:bg-lepiajeBrown hover:scale-105 duration-150 ease-linear hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
           prefetch={false}
         >
-          Rental 2
+          Al Centesimo Chilometro
         </Link>
         <Link
           href="#"
-          className="text-lepiajeWhite group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
+          className="text-lepiajeWhite group inline-flex h-9 w-max items-center justify-center rounded-md  px-4 py-2 text-sm font-medium  hover:bg-lepiajeBrown hover:scale-105 duration-150 ease-linear hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
           prefetch={false}
         >
           About Us
         </Link>
         <Link
           href="#"
-          className="text-lepiajeWhite group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
+          className="text-lepiajeWhite group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium  hover:bg-lepiajeBrown hover:scale-105 duration-150 ease-linear hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
           prefetch={false}
         >
           How to reach Us
@@ -117,8 +151,8 @@ function MenuIcon() {
       width="24"
       height="24"
       viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
+      fill="#fff"
+      stroke="#fff"
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"

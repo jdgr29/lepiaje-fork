@@ -1,6 +1,7 @@
-import { Schema, model } from "mongoose";
+import { FormType } from "@/types";
+import mongoose, { Schema, model } from "mongoose";
 
-const formSchema = new Schema({
+const formSchema = new Schema<FormType>({
     name: {
         type: String,
         required: [true, "name is required"],
@@ -28,4 +29,4 @@ const formSchema = new Schema({
     }
 }, { timestamps: true });
 
-export default model("forms", formSchema);
+export default mongoose.models.Form || model("Form", formSchema);

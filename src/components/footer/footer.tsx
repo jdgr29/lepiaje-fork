@@ -2,7 +2,6 @@ import React from "react";
 import Link from "next/link";
 import { Mail, Phone } from "lucide-react";
 import { FaFacebookF, FaInstagram } from "react-icons/fa6";
-import { GiMountainRoad } from "react-icons/gi";
 import Logo from "../logo/logo";
 export default function Footer() {
   return (
@@ -13,33 +12,26 @@ export default function Footer() {
             style={{ borderRadius: "100%" }}
             className="flex flex-col items-center justify-center w-[5em] space-x-4"
           >
-            {true ? (
-              <div className="flex flex-col items-center justify-center">
-                <GiMountainRoad color="#c39c41" size={55} />
-                <p className="text-lepiajeBrown font-thin text-2xl">Le Piaje</p>
-              </div>
-            ) : (
-              <Logo />
-            )}
+            <Logo height="h-[6em]" width="w-[6em]" blur="blur-lg" />
           </div>
 
           <div className="flex space-x-6">
             <Link
-              href="mailto:contact@lepiaje.com"
+              href="mailto:giulianaclementini.ad@gmail.com"
               className="hover:text-gray-900 transition-colors"
             >
               <Mail color="#f1f1f1" size={21} />
               <span className="sr-only">Email</span>
             </Link>
             <Link
-              href="tel:+1234567890"
+              href="tel:+393383032673"
               className="hover:text-gray-900 transition-colors"
             >
               <Phone color="#f1f1f1" size={20} />
               <span className="sr-only">Phone</span>
             </Link>
             <Link
-              href="https://instagram.com/lepiaje"
+              href="#" // TODO: add link when page existing.
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-gray-900 transition-colors"
@@ -48,7 +40,7 @@ export default function Footer() {
               <span className="sr-only">Instagram</span>
             </Link>
             <Link
-              href="https://facebook.com/lepiaje"
+              href="#" // TODO: add link when page existing.
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-gray-900 transition-colors"
