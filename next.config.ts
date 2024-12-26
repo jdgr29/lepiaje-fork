@@ -3,9 +3,11 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   experimental: {
     esmExternals: "loose"
-
   },
+
   images: {
+    loader: "default",
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
