@@ -2,7 +2,6 @@ import React from "react";
 import Link from "next/link";
 import { Mail, Phone } from "lucide-react";
 import { FaFacebookF, FaInstagram } from "react-icons/fa6";
-import { GiMountainRoad } from "react-icons/gi";
 import Logo from "../logo/logo";
 export default function Footer() {
   return (
@@ -13,14 +12,7 @@ export default function Footer() {
             style={{ borderRadius: "100%" }}
             className="flex flex-col items-center justify-center w-[5em] space-x-4"
           >
-            {true ? (
-              <div className="flex flex-col items-center justify-center">
-                <GiMountainRoad color="#c39c41" size={55} />
-                <p className="text-lepiajeBrown font-thin text-2xl">Le Piaje</p>
-              </div>
-            ) : (
-              <Logo />
-            )}
+            <Logo height="h-[6em]" width="w-[6em]" blur="blur-lg" />
           </div>
 
           <div className="flex space-x-6">
