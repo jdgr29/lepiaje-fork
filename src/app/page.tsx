@@ -11,9 +11,9 @@ export default function Home() {
         <Hero
           title="Le Piaje"
           subtitle="Azienda Agricola"
-          text="     Siamo una famiglia di imprenditori agricoli dadicati alla coltivazione della vite e dell'olivo 
+          text="     Siamo una famiglia di imprenditori agricoli dedicati alla coltivazione della vite e dell'olivo 
           con particolare riguardo, in questi ultimi anni, al mondo dell'ospitalità e della valorizzazione delle bellezze 
-          naturali e culurali della Tuscia.
+          naturali e culturali della Tuscia.
 
           Viaggiatori, turisti, famiglie, buongustai, amanti della natura incontaminata: 
           Le Piaje saranno liete di aprirvi le porte sul mondo agricolo, 
