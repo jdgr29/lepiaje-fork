@@ -96,7 +96,7 @@ export default function ContactForm() {
 
         {/* Right side - Form */}
 
-        <div className="md:max-2xl:w-1/2 bg-gradient-to-r from-[#121212] to-lepiajeBrown w-full p-8">
+        <div className="md:max-2xl:w-1/2 bg-gradient-to-r from-[#121212] to-[#664906] w-full p-8">
           <form onSubmit={formik.handleSubmit} className="space-y-4 my-4">
             <div>
               <Label className="text-lepiajeWhite" htmlFor="name">
