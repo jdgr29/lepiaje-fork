@@ -6,7 +6,6 @@ import {
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import Logo from "../logo/logo";
-import { GiMountainRoad } from "react-icons/gi"; //Temporal
 import { Mail, Phone } from "lucide-react";
 import { FaFacebookF, FaInstagram } from "react-icons/fa6";
 
@@ -14,14 +13,11 @@ import Link from "next/link";
 
 export function Navbar() {
   return (
-    <header className=" top-0 fixed z-50  bg-lepiajeBrown flex h-20 w-full bg-opacity-0 backdrop-filter backdrop-blur-md shrink-0 items-center px-4 md:px-6">
+    <header className=" top-0 fixed z-50  bg-lepiajeBrown flex h-28 w-full bg-opacity-0 backdrop-filter backdrop-blur-md shrink-0 items-center px-4 md:px-6">
       <Sheet>
         <SheetTitle>
           <Link href={"/"} prefetch={false}>
-            <div className="flex items-center w-[8em] max-w-[8em] gap-2">
-              {true ? <GiMountainRoad color="#c39c41" size={55} /> : <Logo />}
-              <div className="text-[#ffff] font-light text-2xl">Le Piaje</div>
-            </div>
+            <Logo width="w-[6em]" height="h-[6em]" blur="blur-lg" />
           </Link>
         </SheetTitle>
         <SheetTrigger asChild>
@@ -29,7 +25,7 @@ export function Navbar() {
             <Button
               variant="outline"
               size="icon"
-              className="lg:hidden flex bg-[rgba(0,0,0,0.3)]  m-1"
+              className="lg:hidden flex bg-[rgba(0,0,0,0.3)] m-1"
             >
               <MenuIcon />
               <span className="sr-only text-white">Toggle navigation menu</span>
@@ -72,7 +68,7 @@ export function Navbar() {
             >
               How to reach Us
             </Link>
-            <div className="flex my-16 space-x-6">
+            <div className="flex justify-center items-center my-16 space-x-6">
               <Link
                 href="mailto:contact@lepiaje.com"
                 className="hover:text-gray-900 transition-colors"
@@ -106,18 +102,7 @@ export function Navbar() {
                 <span className="sr-only">Facebook</span>
               </Link>
             </div>
-            {true ? (
-              <div className="flex flex-col items-center justify-center gap-y-8">
-                <div className="flex flex-col items-center justify-center">
-                  <GiMountainRoad color="#c39c41" size={55} />
-                  <p className="text-lepiajeWhite font-light text-2xl">
-                    Le Piaje
-                  </p>
-                </div>
-              </div>
-            ) : (
-              <Logo />
-            )}
+            <Logo width="w-[6em]" height="h-[6em]" blur="blur-lg" />
           </div>
         </SheetContent>
       </Sheet>

@@ -6,7 +6,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import Logo from "../logo/logo";
 import Image from "next/image";
-import { GiMountainRoad } from "react-icons/gi";
 import formImageBackground from "../../../public/assets/villa_perlata/interno3.jpeg";
 import { submitForm } from "@/services/submitForm.services";
 import { useFormik } from "formik";
@@ -64,18 +63,7 @@ export default function ContactForm() {
           <div className="absolute inset-0 bg-black bg-opacity-50"></div>
           <div className="relative z-10 p-8 gap-y-8 text-white h-full flex w-full flex-col justify-center">
             <div className="flex flex-col gap-y-2">
-              {true ? (
-                <div className="flex flex-col items-center justify-center gap-y-8">
-                  <div className="flex flex-col items-center justify-center">
-                    <GiMountainRoad color="#c39c41" size={55} />
-                    <p className="text-lepiajeWhite font-light text-2xl">
-                      Le Piaje
-                    </p>
-                  </div>
-                </div>
-              ) : (
-                <Logo />
-              )}
+              <Logo width="w-[8em]" height="h-[8em]" blur="blur-lg" />
               <p className="text-lepiajeBrown font-light text-2xl text-center">
                 We want to hear from you
               </p>
@@ -108,7 +96,7 @@ export default function ContactForm() {
                 value={formik.values.name}
                 id="name"
                 name="name"
-                placeholder="John Doe"
+                placeholder="Mario Rossi"
                 className="input"
               />
               {formik.touched.name && formik.errors.name && (
@@ -127,7 +115,7 @@ export default function ContactForm() {
                 id="email"
                 name="email"
                 type="email"
-                placeholder="john@example.com"
+                placeholder="mario@gmail.com"
               />
               {formik.touched.email && formik.errors.email && (
                 <div className="text-red-500 text-sm">
@@ -147,7 +135,7 @@ export default function ContactForm() {
                 id="phone"
                 name="phone"
                 type="tel"
-                placeholder="+1 (555) 123-4567"
+                placeholder="+393381234567"
               />
               {formik.touched.phone && formik.errors.phone && (
                 <div className="text-red-500 text-sm">

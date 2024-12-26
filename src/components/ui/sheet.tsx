@@ -64,7 +64,7 @@ const SheetContent = React.forwardRef<
       className={cn(sheetVariants({ side }), className)}
       {...props}
     >
-      <SheetDescription>
+      <SheetDescription hidden>
         <label className="text-2xl font-semibold text-lepiajeBrown">
           Le Piaje
         </label>
