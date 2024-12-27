@@ -1,61 +1,70 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import Logo from "../logo/logo";
 import Image from "next/image";
-import { GiMountainRoad } from "react-icons/gi";
 import formImageBackground from "../../../public/assets/villa_perlata/interno3.jpeg";
 import { submitForm } from "@/services/submitForm.services";
-import { FormType } from "@/types";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { useSuccessAlert } from "@/hooks/use.alert";
+import { Alert } from "../alerts/alerst";
+
+const validationSchema = Yup.object({
+  name: Yup.string().required("full name is required"),
+  email: Yup.string()
+    .email("Invalid email format")
+    .required("The email is required"),
+  phone: Yup.string().matches(
+    /^[+]?[0-9]{1,4}[ ]?[(]?[0-9]{1,4}[)]?[ ]?[0-9]{1,4}[ ]?[-]?[0-9]{1,4}$/,
+    "Phone number is not valid"
+  ),
+  message: Yup.string()
+    .max(500, "The message cannot exceed 500 characters")
+    .required("A message is required"), //Adjust the characters according to your liking
+});
 
 export default function ContactForm() {
-  const [formData, setFormData] = useState<FormType>({
-    name: "",
-    email: "",
-    phone: "",
-    message: "",
+  const { isVisible, message, showAlert, hideAlert } = useSuccessAlert();
+  const [hasSuceeded, setHasSuceeded] = useState<boolean>(false);
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      email: "",
+      phone: "",
+      message: "",
+    },
+    validationSchema,
+    onSubmit: async (values) => {
+      const submission = await submitForm(values);
+      if (!submission) {
+        formik.resetForm();
+        setHasSuceeded(false);
+        showAlert("Something has gone wrong with submitting the form"); //TODO use translations
+        return;
+      }
+      formik.resetForm();
+      setHasSuceeded(true);
+      showAlert("The form has been submitted successfully!"); //TODO Use translations
+    },
   });
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    e.preventDefault();
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = async () => {
-    //TODO add validation to form
-    const wao = await submitForm(formData);
-    //TODO add a smooth alert
-    if (wao) {
-      alert("submmited! ✅");
-      setFormData((prev) => ({
-        ...prev,
-        name: "",
-        message: "",
-        phone: "",
-        email: "",
-      }));
-    }
-  };
-
-  useEffect(() => {
-    return setFormData((prev) => ({
-      ...prev,
-      name: "",
-      message: "",
-      phone: "",
-      email: "",
-    }));
-  }, []);
-
   return (
-    <div className="w-full py-20 h-full max-h-[65em] bg-[#121212] flex  items-center justify-center p-4">
-      <div className=" w-full flex md:max-2xl:flex-row flex-col  max-w-4xl h-full bg-white rounded-lg shadow-lepiajeBrown/40 shadow-2xl drop-shadow-2xl overflow-hidden">
+    <div
+      id="lePiajeForm"
+      className="w-full py-20 h-full max-h-[65em] bg-[#121212] flex  items-center justify-center p-4"
+    >
+      <Alert
+        message={message}
+        isVisible={isVisible}
+        onClose={hideAlert}
+        success={hasSuceeded}
+      />
+
+      <div className="w-full flex md:max-2xl:flex-row flex-col  max-w-4xl h-full bg-white rounded-lg shadow-lepiajeBrown/40 shadow-2xl drop-shadow-2xl overflow-hidden">
         <div className="md:max-2xl:w-1/2 w-full relative ">
           <Image
             src={formImageBackground}
@@ -66,24 +75,13 @@ export default function ContactForm() {
           />
           <div
             className="absolute inset-0 bg-cover bg-center filter blur-sm"
-            style={{ backgroundColor: "rgba(0,0,0,0.6)" }}
+            style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
           ></div>
 
           <div className="absolute inset-0 bg-black bg-opacity-50"></div>
           <div className="relative z-10 p-8 gap-y-8 text-white h-full flex w-full flex-col justify-center">
             <div className="flex flex-col gap-y-2">
-              {true ? (
-                <div className="flex flex-col items-center justify-center gap-y-8">
-                  <div className="flex flex-col items-center justify-center">
-                    <GiMountainRoad color="#c39c41" size={55} />
-                    <p className="text-lepiajeWhite font-light text-2xl">
-                      Le Piaje
-                    </p>
-                  </div>
-                </div>
-              ) : (
-                <Logo />
-              )}
+              <Logo width="w-[8em]" height="h-[8em]" blur="blur-lg" />
               <p className="text-lepiajeBrown font-light text-2xl text-center">
                 We want to hear from you
               </p>
@@ -103,66 +101,88 @@ export default function ContactForm() {
         </div>
 
         {/* Right side - Form */}
-        {/* //TODO limit characters of message, add regular expression to make sure the email is valid */}
-        <div className="md:max-2xl:w-1/2 w-full p-8">
-          <form className="space-y-4 my-4">
+
+        <div className="md:max-2xl:w-1/2 bg-gradient-to-r from-[#121212] to-[#664906] w-full p-8">
+          <form onSubmit={formik.handleSubmit} className="space-y-4 my-4">
             <div>
               <Label className="text-lepiajeWhite" htmlFor="name">
                 Full Name
               </Label>
               <Input
-                onChange={handleInputChange}
-                value={formData.name}
-                id="fullName"
-                placeholder="Mario Rossi"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.name}
+                id="name"
                 name="name"
+                placeholder="Mario Rossi"
+                className="input"
               />
+              {formik.touched.name && formik.errors.name && (
+                <div className="text-red-500 text-sm">{formik.errors.name}</div>
+              )}
             </div>
+
             <div>
               <Label className="text-lepiajeWhite" htmlFor="email">
                 Email
               </Label>
               <Input
-                onChange={handleInputChange}
-                value={formData.email}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.email}
                 id="email"
-                type="email"
                 name="email"
+                type="email"
                 placeholder="mario@gmail.com"
               />
+              {formik.touched.email && formik.errors.email && (
+                <div className="text-red-500 text-sm">
+                  {formik.errors.email}
+                </div>
+              )}
             </div>
+
             <div>
               <Label className="text-lepiajeWhite" htmlFor="phone">
                 Phone
               </Label>
               <Input
-                onChange={handleInputChange}
-                value={formData.phone}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.phone}
                 id="phone"
+                name="phone"
                 type="tel"
                 placeholder="+393381234567"
-                name="phone"
               />
+              {formik.touched.phone && formik.errors.phone && (
+                <div className="text-red-500 text-sm">
+                  {formik.errors.phone}
+                </div>
+              )}
             </div>
+
             <div>
               <Label className="text-lepiajeWhite" htmlFor="message">
                 Message
               </Label>
               <Textarea
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.message}
                 id="message"
+                name="message"
                 placeholder="Your message here..."
                 className="h-32"
-                onChange={handleInputChange}
-                value={formData.message}
-                name="message"
               />
+              {formik.touched.message && formik.errors.message && (
+                <div className="text-red-500 text-sm">
+                  {formik.errors.message}
+                </div>
+              )}
             </div>
 
-            <Button
-              onClick={async () => await handleSubmit()}
-              type="button"
-              className="w-full bg-lepiajeBrown"
-            >
+            <Button type="submit" className="w-full bg-lepiajeBrown">
               Submit
             </Button>
           </form>
