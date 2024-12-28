@@ -79,9 +79,6 @@ export default function ContactForm() {
           <div className="relative z-10 p-8 gap-y-8 text-white h-full flex w-full flex-col justify-center">
             <div className="flex flex-col gap-y-2">
               <Logo width="w-[8em]" height="h-[8em]" blur="blur-lg" />
-              <p className="text-lepiajeBrown font-light text-2xl text-center">
-                We want to hear from you
-              </p>
             </div>
             <div>
               <h2 className="text-xl font-light mb-4 text-lepiajeBrown">
@@ -130,7 +127,7 @@ export default function ContactForm() {
                 id="email"
                 name="email"
                 type="email"
-                placeholder="mario@gmail.com"
+                placeholder="mario.rossi@gmail.com"
               />
               {formik.touched.email && formik.errors.email && (
                 <div className="text-red-500 text-sm">

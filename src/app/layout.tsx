@@ -6,6 +6,7 @@ import Footer from "@/components/footer/footer";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import LocaleSwitcher from "@/components/languageSwitcher/localeSwitcher";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],

@@ -66,7 +66,7 @@ export default function Carousel({ autoSlide = true }: CarouselProps) {
       <div className="max-w-4xl mx-auto relative z-10 p-4">
         <React.Fragment>
           <h1 className="text-lepiajeWhite font-thin text-4xl text-center pb-8">
-            Our moments
+          A peak into our world
           </h1>
           <div className="relative  h-[30em]  mb-4 overflow-hidden rounded-lg">
             <AnimatePresence initial={false} custom={direction}>
