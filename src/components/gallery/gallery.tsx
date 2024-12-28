@@ -14,7 +14,7 @@ export default function Gallery() {
 
   return (
     <div
-      className="relative z-40 bg-cover bg-center py-10 w-full h-auto bg-[#121212]"
+      className="relative z-40 bg-cover bg-center  w-full h-auto bg-[#121212]"
       style={{
         backgroundImage: `url(${galleryBackground})`,
       }}
