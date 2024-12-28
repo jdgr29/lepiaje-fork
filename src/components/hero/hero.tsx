@@ -21,14 +21,14 @@ export default function Hero({
         src={heroBackgroundImage}
         alt="Hero background"
         fill
-        style={{ objectFit: "cover" }}
+        style={{ objectFit: "fill" }}
         className="blur-sm"
       />
       <div
-        className="absolute inset-0"
+        className="absolute border-0 inset-0"
         style={{ backgroundColor: overlayColor }}
       ></div>
-      <div className="md:max-2xl:px-40 px-5 md:max-2xl:pb-0 pb-20 gap-y-8 relative z-10 flex h-full flex-col items-center justify-center text-center text-zinc-200 text-white">
+      <div className="md:max-2xl:px-40 px-5 md:max-2xl:pb-0 pb-20 gap-y-8 relative z-10 flex h-full flex-col items-center justify-center text-center text-zinc-200">
         <div>
           <h1 className="text-lepiajeBrown mb-4 text-4xl font-bold md:max-2xl:text-6xl">
             {title}

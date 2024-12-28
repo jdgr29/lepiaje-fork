@@ -3,6 +3,10 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/navbar/navbar";
 import Footer from "@/components/footer/footer";
+import { NextIntlClientProvider } from "next-intl";
+import { getLocale, getMessages } from "next-intl/server";
+import LocaleSwitcher from "@/components/languageSwitcher/localeSwitcher";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -18,19 +22,24 @@ export const metadata: Metadata = {
   description: "Azienda Agricola",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+  const messages = await getMessages();
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Navbar />
-        {children}
-        <Footer />
+        <NextIntlClientProvider messages={messages}>
+          <Navbar />
+          {children}
+          <LocaleSwitcher />
+          <Footer />
+        </NextIntlClientProvider>
       </body>
     </html>
   );

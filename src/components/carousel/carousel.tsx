@@ -66,7 +66,7 @@ export default function Carousel({ autoSlide = true }: CarouselProps) {
       <div className="max-w-4xl mx-auto relative z-10 p-4">
         <React.Fragment>
           <h1 className="text-lepiajeWhite font-thin text-4xl text-center pb-8">
-            Our moments
+          A peak into our world
           </h1>
           <div className="relative  h-[30em]  mb-4 overflow-hidden rounded-lg">
             <AnimatePresence initial={false} custom={direction}>
@@ -105,30 +105,29 @@ export default function Carousel({ autoSlide = true }: CarouselProps) {
             </button>
           </div>
         </React.Fragment>
-
-        <div className="scrollbar-thin scrollbar-track-[#121212] scrollbar-thumb-lepiajeBrown flex w-full justify-center space-x-2 px-4 overflow-x-scroll pb-2">
-          {images.map((image, index) => (
-            <motion.div
-              key={index}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              onClick={() => setCurrentIndex(index)}
-              className={`cursor-pointer flex-shrink-0 ${
-                index === currentIndex ? "ring-2 ring-blue-500" : ""
-              }`}
-            >
-              <div className="relative h-[7em] w-[6em]">
-                <Image
-                  src={image}
-                  alt={`Thumbnail ${index + 1}`}
-                  fill
-                  style={{ objectFit: "cover" }}
-                  className="object-cover rounded"
-                />
-              </div>
-            </motion.div>
-          ))}
-        </div>
+      </div>
+      <div className="relative z-40 scrollbar-thin scrollbar-track-[#121212] scrollbar-thumb-lepiajeBrown flex w-full justify-center space-x-2 px-4 overflow-x-scroll pb-2">
+        {images.map((image, index) => (
+          <motion.div
+            key={index}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={() => setCurrentIndex(index)}
+            className={`cursor-pointer flex-shrink-0 ${
+              index === currentIndex ? "ring-2 ring-blue-500" : ""
+            }`}
+          >
+            <div className="relative h-[7em] w-[6em]">
+              <Image
+                src={image}
+                alt={`Thumbnail ${index + 1}`}
+                fill
+                style={{ objectFit: "cover" }}
+                className="object-cover rounded"
+              />
+            </div>
+          </motion.div>
+        ))}
       </div>
     </div>
   );
