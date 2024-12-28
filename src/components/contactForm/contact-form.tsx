@@ -115,7 +115,7 @@ export default function ContactForm() {
                 id="email"
                 name="email"
                 type="email"
-                placeholder="mario@gmail.com"
+                placeholder="mario.rossi@gmail.com"
               />
               {formik.touched.email && formik.errors.email && (
                 <div className="text-red-500 text-sm">
