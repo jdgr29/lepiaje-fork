@@ -1,13 +1,5 @@
 "use client";
-<<<<<<< HEAD
-<<<<<<< HEAD
 import React, { useState } from "react";
-=======
-import React from "react";
->>>>>>> main
-=======
-import React, { useState } from "react";
->>>>>>> feature/alerts-and-loaders
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -18,16 +10,8 @@ import formImageBackground from "../../../public/assets/villa_perlata/interno3.j
 import { submitForm } from "@/services/submitForm.services";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-<<<<<<< HEAD
-<<<<<<< HEAD
 import { useSuccessAlert } from "@/hooks/use.alert";
 import { Alert } from "../alerts/alerst";
-=======
->>>>>>> main
-=======
-import { useSuccessAlert } from "@/hooks/use.alert";
-import { Alert } from "../alerts/alerst";
->>>>>>> feature/alerts-and-loaders
 
 const validationSchema = Yup.object({
   name: Yup.string().required("full name is required"),
@@ -44,16 +28,8 @@ const validationSchema = Yup.object({
 });
 
 export default function ContactForm() {
-<<<<<<< HEAD
-<<<<<<< HEAD
   const { isVisible, message, showAlert, hideAlert } = useSuccessAlert();
   const [hasSuceeded, setHasSuceeded] = useState<boolean>(false);
-=======
->>>>>>> main
-=======
-  const { isVisible, message, showAlert, hideAlert } = useSuccessAlert();
-  const [hasSuceeded, setHasSuceeded] = useState<boolean>(false);
->>>>>>> feature/alerts-and-loaders
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -63,8 +39,6 @@ export default function ContactForm() {
     },
     validationSchema,
     onSubmit: async (values) => {
-<<<<<<< HEAD
-<<<<<<< HEAD
       const submission = await submitForm(values);
       if (!submission) {
         formik.resetForm();
@@ -75,36 +49,14 @@ export default function ContactForm() {
       formik.resetForm();
       setHasSuceeded(true);
       showAlert("The form has been submitted successfully!"); //TODO Use translations
-=======
-      //TODO add smooth alert
-=======
->>>>>>> feature/alerts-and-loaders
-      const submission = await submitForm(values);
-      if (!submission) {
-        formik.resetForm();
-        setHasSuceeded(false);
-        showAlert("Something has gone wrong with submitting the form"); //TODO use translations
-        return;
-      }
-<<<<<<< HEAD
->>>>>>> main
-=======
-      formik.resetForm();
-      setHasSuceeded(true);
-      showAlert("The form has been submitted successfully!"); //TODO Use translations
->>>>>>> feature/alerts-and-loaders
     },
   });
 
   return (
-<<<<<<< HEAD
     <div
       id="lePiajeForm"
       className="w-full py-20 h-full max-h-[65em] bg-[#121212] flex  items-center justify-center p-4"
     >
-=======
-    <div className="w-full py-20 h-full max-h-[65em] bg-[#121212] flex  items-center justify-center p-4">
->>>>>>> feature/alerts-and-loaders
       <Alert
         message={message}
         isVisible={isVisible}
@@ -112,11 +64,7 @@ export default function ContactForm() {
         success={hasSuceeded}
       />
 
-<<<<<<< HEAD
       <div className="w-full flex md:max-2xl:flex-row flex-col  max-w-4xl h-full bg-white rounded-lg shadow-lepiajeBrown/40 shadow-2xl drop-shadow-2xl overflow-hidden">
-=======
-      <div className=" w-full flex md:max-2xl:flex-row flex-col  max-w-4xl h-full bg-white rounded-lg shadow-lepiajeBrown/40 shadow-2xl drop-shadow-2xl overflow-hidden">
->>>>>>> feature/alerts-and-loaders
         <div className="md:max-2xl:w-1/2 w-full relative ">
           <Image
             src={formImageBackground}
@@ -134,12 +82,6 @@ export default function ContactForm() {
           <div className="relative z-10 p-8 gap-y-8 text-white h-full flex w-full flex-col justify-center">
             <div className="flex flex-col gap-y-2">
               <Logo width="w-[8em]" height="h-[8em]" blur="blur-lg" />
-<<<<<<< HEAD
-              <p className="text-lepiajeBrown font-light text-2xl text-center">
-                We want to hear from you
-              </p>
-=======
->>>>>>> main
             </div>
             <div>
               <h2 className="text-xl font-light mb-4 text-lepiajeBrown">
@@ -188,11 +130,7 @@ export default function ContactForm() {
                 id="email"
                 name="email"
                 type="email"
-<<<<<<< HEAD
-                placeholder="mario@gmail.com"
-=======
                 placeholder="mario.rossi@gmail.com"
->>>>>>> main
               />
               {formik.touched.email && formik.errors.email && (
                 <div className="text-red-500 text-sm">
