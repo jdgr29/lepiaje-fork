@@ -1,5 +1,9 @@
 "use client";
+<<<<<<< HEAD
 import React, { useState } from "react";
+=======
+import React from "react";
+>>>>>>> main
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -10,8 +14,11 @@ import formImageBackground from "../../../public/assets/villa_perlata/interno3.j
 import { submitForm } from "@/services/submitForm.services";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+<<<<<<< HEAD
 import { useSuccessAlert } from "@/hooks/use.alert";
 import { Alert } from "../alerts/alerst";
+=======
+>>>>>>> main
 
 const validationSchema = Yup.object({
   name: Yup.string().required("full name is required"),
@@ -28,8 +35,11 @@ const validationSchema = Yup.object({
 });
 
 export default function ContactForm() {
+<<<<<<< HEAD
   const { isVisible, message, showAlert, hideAlert } = useSuccessAlert();
   const [hasSuceeded, setHasSuceeded] = useState<boolean>(false);
+=======
+>>>>>>> main
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -39,6 +49,7 @@ export default function ContactForm() {
     },
     validationSchema,
     onSubmit: async (values) => {
+<<<<<<< HEAD
       const submission = await submitForm(values);
       if (!submission) {
         formik.resetForm();
@@ -49,6 +60,14 @@ export default function ContactForm() {
       formik.resetForm();
       setHasSuceeded(true);
       showAlert("The form has been submitted successfully!"); //TODO Use translations
+=======
+      //TODO add smooth alert
+      const submission = await submitForm(values);
+      if (submission) {
+        alert("Submitted ✅");
+        formik.resetForm();
+      }
+>>>>>>> main
     },
   });
 
@@ -82,9 +101,12 @@ export default function ContactForm() {
           <div className="relative z-10 p-8 gap-y-8 text-white h-full flex w-full flex-col justify-center">
             <div className="flex flex-col gap-y-2">
               <Logo width="w-[8em]" height="h-[8em]" blur="blur-lg" />
+<<<<<<< HEAD
               <p className="text-lepiajeBrown font-light text-2xl text-center">
                 We want to hear from you
               </p>
+=======
+>>>>>>> main
             </div>
             <div>
               <h2 className="text-xl font-light mb-4 text-lepiajeBrown">
@@ -133,7 +155,11 @@ export default function ContactForm() {
                 id="email"
                 name="email"
                 type="email"
+<<<<<<< HEAD
                 placeholder="mario@gmail.com"
+=======
+                placeholder="mario.rossi@gmail.com"
+>>>>>>> main
               />
               {formik.touched.email && formik.errors.email && (
                 <div className="text-red-500 text-sm">
