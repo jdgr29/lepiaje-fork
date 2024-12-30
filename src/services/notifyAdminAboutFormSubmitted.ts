@@ -1,17 +1,17 @@
 import { FormType } from "@/types";
 
-export async function submitForm(formData: FormType): Promise<{ error: boolean, message: string }> {
+export async function notifyAdminAboutFormSubmitted(emailInfo: FormType): Promise<{ error: boolean, message: string }> {
     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}api/form`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}api/email`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(formData)
+            body: JSON.stringify(emailInfo)
         });
 
         const result = await response.json();
-        console.log('result! of submit', result)
+        console.log('result! of notify admin', result)
         if (!result) {
             return {
                 error: true,
@@ -29,4 +29,5 @@ export async function submitForm(formData: FormType): Promise<{ error: boolean, 
             message: 'something went wrong submitting the form',
         }
     }
+
 }

@@ -12,6 +12,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useSuccessAlert } from "@/hooks/use.alert";
 import { Alert } from "../alerts/alerst";
+import { notifyAdminAboutFormSubmitted } from "@/services/notifyAdminAboutFormSubmitted";
 
 const validationSchema = Yup.object({
   name: Yup.string().required("full name is required"),
@@ -46,6 +47,7 @@ export default function ContactForm() {
         showAlert("Something has gone wrong with submitting the form"); //TODO use translations
         return;
       }
+      await notifyAdminAboutFormSubmitted(values);
       formik.resetForm();
       setHasSuceeded(true);
       showAlert("The form has been submitted successfully!"); //TODO Use translations
