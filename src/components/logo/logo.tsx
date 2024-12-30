@@ -19,7 +19,7 @@ const Logo = ({
         src={logoPath}
         alt="Le Piaje Logo"
         fill
-        objectFit="contain"
+        style={{ objectFit: "cover" }}
         className="relative z-40"
       />
     </div>

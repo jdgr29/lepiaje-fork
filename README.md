@@ -23,7 +23,7 @@ the whatsapp number users will be taking to chat with once clicked the whatsapp 
 `RESEND_API_KEY`=
 The api key(free) from resend service to send emails, now at 1000 emails a month
 
-`MATTEO_EMAIL_RECEIVER`
+`ADMIN_EMAIL_RECEIVER`
 This email won't be used to send emails to clients, but instead, it will be used to notify the administrator of the page when a client has performed an operation such as a booking, cancellation or purchase
 
 `STRIPE_API_KEY`
