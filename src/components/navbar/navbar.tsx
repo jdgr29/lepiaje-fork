@@ -8,16 +8,15 @@ import { Button } from "@/components/ui/button";
 import Logo from "../logo/logo";
 import { Mail, Phone } from "lucide-react";
 import { FaFacebookF, FaInstagram } from "react-icons/fa6";
-
 import Link from "next/link";
 
 export function Navbar() {
   return (
-    <header className=" top-0 fixed z-50  bg-lepiajeBrown flex h-28 w-full bg-opacity-0 backdrop-filter backdrop-blur-md shrink-0 items-center px-4 md:px-6">
+    <header className=" top-0 fixed z-50   bg-lepiajeBrown flex h-24 w-full bg-opacity-0 backdrop-filter backdrop-blur-md shrink-0 items-center px-4 md:px-6">
       <Sheet>
         <SheetTitle>
           <Link href={"/"} prefetch={false}>
-            <Logo width="w-[6em]" height="h-[6em]" blur="blur-lg" />
+            <Logo width="w-[5em]" height="h-[5em]" blur="blur-lg" />
           </Link>
         </SheetTitle>
         <SheetTrigger asChild>
@@ -56,7 +55,7 @@ export function Navbar() {
             </Link>
             <Link
               href="#"
-              className="text-center text-[#ffff] justify-center flex w-full items-center py-2 text-lg font-semibold"
+              className=" text-center text-[#ffff] justify-center flex w-full items-center py-2 text-lg font-semibold"
               prefetch={false}
             >
               About Us
@@ -109,30 +108,31 @@ export function Navbar() {
 
       <nav className="ml-auto hidden lg:flex gap-6">
         {/* Desktop and tablets */}
+
         <Link
           href="#"
-          className="text-lepiajeWhite group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium  hover:bg-lepiajeBrown hover:scale-105 duration-150 transition-all hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
+          className="whitespace-nowrap text-lepiajeWhite group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium  hover:bg-lepiajeBrown hover:scale-105 duration-150 transition-all hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
           prefetch={false}
         >
           La Villa Perlata
         </Link>
         <Link
           href="#"
-          className="text-lepiajeWhite group inline-flex h-9 w-max items-center justify-center rounded-md  px-4 py-2 text-sm font-medium  hover:bg-lepiajeBrown hover:scale-105 duration-150 ease-linear hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
+          className="whitespace-nowrap text-lepiajeWhite group inline-flex h-9 w-max items-center justify-center rounded-md  px-4 py-2 text-sm font-medium  hover:bg-lepiajeBrown hover:scale-105 duration-150 ease-linear hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
           prefetch={false}
         >
           Al Centesimo Chilometro
         </Link>
         <Link
           href="#"
-          className="text-lepiajeWhite group inline-flex h-9 w-max items-center justify-center rounded-md  px-4 py-2 text-sm font-medium  hover:bg-lepiajeBrown hover:scale-105 duration-150 ease-linear hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
+          className="whitespace-nowrap text-lepiajeWhite group inline-flex h-9 w-max items-center justify-center rounded-md  px-4 py-2 text-sm font-medium  hover:bg-lepiajeBrown hover:scale-105 duration-150 ease-linear hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
           prefetch={false}
         >
           About Us
         </Link>
         <Link
           href="#"
-          className="text-lepiajeWhite group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium  hover:bg-lepiajeBrown hover:scale-105 duration-150 ease-linear hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
+          className="whitespace-nowrap text-lepiajeWhite group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium  hover:bg-lepiajeBrown hover:scale-105 duration-150 ease-linear hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
           prefetch={false}
         >
           How to reach Us
