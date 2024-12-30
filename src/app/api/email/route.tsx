@@ -32,7 +32,7 @@ export async function POST(request: Request) {
       });
     }
     const emailData: FormType = await request.json();
-
+    console.log("emailData", emailData);
     if (!emailData.message) {
       return responseHandler.respond({
         error: true,
@@ -60,25 +60,6 @@ export async function POST(request: Request) {
       });
     }
 
-    //TODO create a react component to pass necessary client information
-    const { data, error } = await resend.emails.send({
-      from: emailFrom || "someemailplaceholder@gmail.com",
-      to: ["juandaniel9619@gmail.com"],
-      subject: "Hello world",
-      html: "<div><p>hello from Le Piaje this is an email</p></div>", //TODO create nice looking templates maybe using react
-    });
-
-    console.log("data", data);
-    console.log("error", error);
-    if (error) {
-      return responseHandler.respond({
-        message: "something has failed while sending the email 1",
-        error: true,
-        errorDetails: JSON.stringify(error),
-        status: HttpStatusCode.INTERNAL_SERVER,
-      });
-    }
-
     const { data: adminData, error: adminError } = await resend.emails.send({
       from: emailFrom,
       to: [adminEmail, adminEmailTwo],
@@ -92,6 +73,8 @@ export async function POST(request: Request) {
         />
       ),
     }); //TODO better add a log to the database if case it fails
+    console.log("adminData", adminData);
+    console.log("adminError", adminError);
     if (!adminData) {
       return responseHandler.respond({
         message: "something has failed while sending the email 2",
@@ -105,17 +88,18 @@ export async function POST(request: Request) {
       return responseHandler.respond({
         message: "something has failed while sending the email 3",
         error: true,
-        errorDetails: JSON.stringify(error),
+        errorDetails: JSON.stringify(adminError),
         status: HttpStatusCode.INTERNAL_SERVER,
       });
     }
     return responseHandler.respond({
       error: false,
       errorDetails: "there were no errors",
-      message: data?.id ?? "no id",
+      message: adminData?.id ?? "no id",
       status: HttpStatusCode.OK,
     });
   } catch (err) {
+    console.log("general error on email route", JSON.stringify(err));
     return responseHandler.respond({
       error: true,
       message:

@@ -13,16 +13,18 @@ import * as Yup from "yup";
 import { useSuccessAlert } from "@/hooks/use.alert";
 import { Alert } from "../alerts/alerst";
 import { notifyAdminAboutFormSubmitted } from "@/services/notifyAdminAboutFormSubmitted";
-
+import { PulsingDotSpinner } from "../loader/loader";
 const validationSchema = Yup.object({
   name: Yup.string().required("full name is required"),
   email: Yup.string()
     .email("Invalid email format")
     .required("The email is required"),
-  phone: Yup.string().matches(
-    /^[+]?[0-9]{1,4}[ ]?[(]?[0-9]{1,4}[)]?[ ]?[0-9]{1,4}[ ]?[-]?[0-9]{1,4}$/,
-    "Phone number is not valid"
-  ),
+  phone: Yup.string()
+    .notRequired()
+    .matches(
+      /^[+]?[0-9]{1,4}[ ]?[(]?[0-9]{1,4}[)]?[ ]?[0-9]{1,4}[ ]?[-]?[0-9]{1,4}$/,
+      "Phone number is not valid"
+    ),
   message: Yup.string()
     .max(500, "The message cannot exceed 500 characters")
     .required("A message is required"), //Adjust the characters according to your liking
@@ -31,6 +33,7 @@ const validationSchema = Yup.object({
 export default function ContactForm() {
   const { isVisible, message, showAlert, hideAlert } = useSuccessAlert();
   const [hasSuceeded, setHasSuceeded] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -40,15 +43,18 @@ export default function ContactForm() {
     },
     validationSchema,
     onSubmit: async (values) => {
+      setIsLoading(true);
       const submission = await submitForm(values);
       if (!submission) {
         formik.resetForm();
         setHasSuceeded(false);
         showAlert("Something has gone wrong with submitting the form"); //TODO use translations
+        setIsLoading(false);
         return;
       }
       await notifyAdminAboutFormSubmitted(values);
       formik.resetForm();
+      setIsLoading(false);
       setHasSuceeded(true);
       showAlert("The form has been submitted successfully!"); //TODO Use translations
     },
@@ -115,6 +121,7 @@ export default function ContactForm() {
                 name="name"
                 placeholder="Mario Rossi"
                 className="input"
+                disabled={isLoading}
               />
               {formik.touched.name && formik.errors.name && (
                 <div className="text-red-500 text-sm">{formik.errors.name}</div>
@@ -133,6 +140,7 @@ export default function ContactForm() {
                 name="email"
                 type="email"
                 placeholder="mario.rossi@gmail.com"
+                disabled={isLoading}
               />
               {formik.touched.email && formik.errors.email && (
                 <div className="text-red-500 text-sm">
@@ -153,6 +161,7 @@ export default function ContactForm() {
                 name="phone"
                 type="tel"
                 placeholder="+393381234567"
+                disabled={isLoading}
               />
               {formik.touched.phone && formik.errors.phone && (
                 <div className="text-red-500 text-sm">
@@ -173,6 +182,7 @@ export default function ContactForm() {
                 name="message"
                 placeholder="Your message here..."
                 className="h-32"
+                disabled={isLoading}
               />
               {formik.touched.message && formik.errors.message && (
                 <div className="text-red-500 text-sm">
@@ -182,7 +192,11 @@ export default function ContactForm() {
             </div>
 
             <Button type="submit" className="w-full bg-lepiajeBrown">
-              Submit
+              {isLoading ? (
+                <PulsingDotSpinner color="bg-green-400" />
+              ) : (
+                "Submit"
+              )}
             </Button>
           </form>
         </div>
