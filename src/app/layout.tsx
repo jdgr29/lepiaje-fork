@@ -6,7 +6,7 @@ import Footer from "@/components/footer/footer";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import LocaleSwitcher from "@/components/languageSwitcher/localeSwitcher";
-
+import WhatsAppAndEmail from "@/components/whatsappEmailButtons/whatsappEmailButtons";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -39,6 +39,7 @@ export default async function RootLayout({
           {children}
           <LocaleSwitcher />
           <Footer />
+          <WhatsAppAndEmail />
         </NextIntlClientProvider>
       </body>
     </html>

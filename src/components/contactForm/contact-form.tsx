@@ -53,7 +53,10 @@ export default function ContactForm() {
   });
 
   return (
-    <div className="w-full py-20 h-full max-h-[65em] bg-[#121212] flex  items-center justify-center p-4">
+    <div
+      id="lePiajeForm"
+      className="w-full py-20 h-full max-h-[65em] bg-[#121212] flex  items-center justify-center p-4"
+    >
       <Alert
         message={message}
         isVisible={isVisible}
@@ -61,7 +64,7 @@ export default function ContactForm() {
         success={hasSuceeded}
       />
 
-      <div className=" w-full flex md:max-2xl:flex-row flex-col  max-w-4xl h-full bg-white rounded-lg shadow-lepiajeBrown/40 shadow-2xl drop-shadow-2xl overflow-hidden">
+      <div className="w-full flex md:max-2xl:flex-row flex-col  max-w-4xl h-full bg-white rounded-lg shadow-lepiajeBrown/40 shadow-2xl drop-shadow-2xl overflow-hidden">
         <div className="md:max-2xl:w-1/2 w-full relative ">
           <Image
             src={formImageBackground}
