@@ -6,7 +6,7 @@ import AdminNotificationEmail from "@/components/emailTemplates/submitted.form.e
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const adminEmail = process.env.ADMIN_EMAIL_ONE_RECEIVER || "";
-const adminEmailTwo = process.env.ADMIN_EMAIL_TWO_RECEIVER || "";
+// const adminEmailTwo = process.env.ADMIN_EMAIL_TWO_RECEIVER || "";
 // const emailFrom = process.env.DOMAIN_EMAIL_SENDER //TODO replace with real email in env variable when available from a domain
 const responseHandler = new ResponseHandler();
 const emailFrom = "delivered@resend.dev";
@@ -32,7 +32,7 @@ export async function POST(request: Request) {
       });
     }
     const emailData: FormType = await request.json();
-
+    console.log("emailData", emailData);
     if (!emailData.message) {
       return responseHandler.respond({
         error: true,
@@ -60,28 +60,9 @@ export async function POST(request: Request) {
       });
     }
 
-    //TODO create a react component to pass necessary client information
-    const { data, error } = await resend.emails.send({
-      from: emailFrom || "someemailplaceholder@gmail.com",
-      to: ["juandaniel9619@gmail.com"],
-      subject: "Hello world",
-      html: "<div><p>hello from Le Piaje this is an email</p></div>", //TODO create nice looking templates maybe using react
-    });
-
-    console.log("data", data);
-    console.log("error", error);
-    if (error) {
-      return responseHandler.respond({
-        message: "something has failed while sending the email 1",
-        error: true,
-        errorDetails: JSON.stringify(error),
-        status: HttpStatusCode.INTERNAL_SERVER,
-      });
-    }
-
     const { data: adminData, error: adminError } = await resend.emails.send({
       from: emailFrom,
-      to: [adminEmail, adminEmailTwo],
+      to: [adminEmail], //Only supports sending to one email until domain email is provided
       subject: "An user has submitted a form!",
       react: (
         <AdminNotificationEmail
@@ -92,6 +73,8 @@ export async function POST(request: Request) {
         />
       ),
     }); //TODO better add a log to the database if case it fails
+    console.log("adminData", adminData);
+    console.log("adminError", adminError);
     if (!adminData) {
       return responseHandler.respond({
         message: "something has failed while sending the email 2",
@@ -105,17 +88,18 @@ export async function POST(request: Request) {
       return responseHandler.respond({
         message: "something has failed while sending the email 3",
         error: true,
-        errorDetails: JSON.stringify(error),
+        errorDetails: JSON.stringify(adminError),
         status: HttpStatusCode.INTERNAL_SERVER,
       });
     }
     return responseHandler.respond({
       error: false,
       errorDetails: "there were no errors",
-      message: data?.id ?? "no id",
+      message: adminData?.id ?? "no id",
       status: HttpStatusCode.OK,
     });
   } catch (err) {
+    console.log("general error on email route", JSON.stringify(err));
     return responseHandler.respond({
       error: true,
       message:
