@@ -6,7 +6,7 @@ import AdminNotificationEmail from "@/components/emailTemplates/submitted.form.e
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const adminEmail = process.env.ADMIN_EMAIL_ONE_RECEIVER || "";
-const adminEmailTwo = process.env.ADMIN_EMAIL_TWO_RECEIVER || "";
+// const adminEmailTwo = process.env.ADMIN_EMAIL_TWO_RECEIVER || "";
 // const emailFrom = process.env.DOMAIN_EMAIL_SENDER //TODO replace with real email in env variable when available from a domain
 const responseHandler = new ResponseHandler();
 const emailFrom = "delivered@resend.dev";
@@ -62,7 +62,7 @@ export async function POST(request: Request) {
 
     const { data: adminData, error: adminError } = await resend.emails.send({
       from: emailFrom,
-      to: [adminEmail, adminEmailTwo],
+      to: [adminEmail], //Only supports sending to one email until domain email is provided
       subject: "An user has submitted a form!",
       react: (
         <AdminNotificationEmail
