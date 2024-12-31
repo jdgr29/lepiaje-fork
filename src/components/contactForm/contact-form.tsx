@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -10,22 +10,30 @@ import formImageBackground from "../../../public/assets/villa_perlata/interno3.j
 import { submitForm } from "@/services/submitForm.services";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-
+import { useSuccessAlert } from "@/hooks/use.alert";
+import { Alert } from "../alerts/alerst";
+import { notifyAdminAboutFormSubmitted } from "@/services/notifyAdminAboutFormSubmitted";
+import { PulsingDotSpinner } from "../loader/loader";
 const validationSchema = Yup.object({
   name: Yup.string().required("full name is required"),
   email: Yup.string()
     .email("Invalid email format")
     .required("The email is required"),
-  phone: Yup.string().matches(
-    /^[+]?[0-9]{1,4}[ ]?[(]?[0-9]{1,4}[)]?[ ]?[0-9]{1,4}[ ]?[-]?[0-9]{1,4}$/,
-    "Phone number is not valid"
-  ),
+  phone: Yup.string()
+    .notRequired()
+    .matches(
+      /^[+]?[0-9]{1,4}[ ]?[(]?[0-9]{1,4}[)]?[ ]?[0-9]{1,4}[ ]?[-]?[0-9]{1,4}$/,
+      "Phone number is not valid"
+    ),
   message: Yup.string()
     .max(500, "The message cannot exceed 500 characters")
     .required("A message is required"), //Adjust the characters according to your liking
 });
 
 export default function ContactForm() {
+  const { isVisible, message, showAlert, hideAlert } = useSuccessAlert();
+  const [hasSuceeded, setHasSuceeded] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -35,18 +43,36 @@ export default function ContactForm() {
     },
     validationSchema,
     onSubmit: async (values) => {
-      //TODO add smooth alert
+      setIsLoading(true);
       const submission = await submitForm(values);
-      if (submission) {
-        alert("Submitted ✅");
+      if (!submission) {
         formik.resetForm();
+        setHasSuceeded(false);
+        showAlert("Something has gone wrong with submitting the form"); //TODO use translations
+        setIsLoading(false);
+        return;
       }
+      await notifyAdminAboutFormSubmitted(values);
+      formik.resetForm();
+      setIsLoading(false);
+      setHasSuceeded(true);
+      showAlert("The form has been submitted successfully!"); //TODO Use translations
     },
   });
 
   return (
-    <div className="w-full py-20 h-full max-h-[65em] bg-[#121212] flex  items-center justify-center p-4">
-      <div className=" w-full flex md:max-2xl:flex-row flex-col  max-w-4xl h-full bg-white rounded-lg shadow-lepiajeBrown/40 shadow-2xl drop-shadow-2xl overflow-hidden">
+    <div
+      id="lePiajeForm"
+      className="w-full py-20 h-full max-h-[65em] bg-[#121212] flex  items-center justify-center p-4"
+    >
+      <Alert
+        message={message}
+        isVisible={isVisible}
+        onClose={hideAlert}
+        success={hasSuceeded}
+      />
+
+      <div className="w-full flex md:max-2xl:flex-row flex-col  max-w-4xl h-full bg-white rounded-lg shadow-lepiajeBrown/40 shadow-2xl drop-shadow-2xl overflow-hidden">
         <div className="md:max-2xl:w-1/2 w-full relative ">
           <Image
             src={formImageBackground}
@@ -64,9 +90,6 @@ export default function ContactForm() {
           <div className="relative z-10 p-8 gap-y-8 text-white h-full flex w-full flex-col justify-center">
             <div className="flex flex-col gap-y-2">
               <Logo width="w-[8em]" height="h-[8em]" blur="blur-lg" />
-              <p className="text-lepiajeBrown font-light text-2xl text-center">
-                We want to hear from you
-              </p>
             </div>
             <div>
               <h2 className="text-xl font-light mb-4 text-lepiajeBrown">
@@ -98,6 +121,7 @@ export default function ContactForm() {
                 name="name"
                 placeholder="Mario Rossi"
                 className="input"
+                disabled={isLoading}
               />
               {formik.touched.name && formik.errors.name && (
                 <div className="text-red-500 text-sm">{formik.errors.name}</div>
@@ -115,7 +139,8 @@ export default function ContactForm() {
                 id="email"
                 name="email"
                 type="email"
-                placeholder="mario@gmail.com"
+                placeholder="mario.rossi@gmail.com"
+                disabled={isLoading}
               />
               {formik.touched.email && formik.errors.email && (
                 <div className="text-red-500 text-sm">
@@ -136,6 +161,7 @@ export default function ContactForm() {
                 name="phone"
                 type="tel"
                 placeholder="+393381234567"
+                disabled={isLoading}
               />
               {formik.touched.phone && formik.errors.phone && (
                 <div className="text-red-500 text-sm">
@@ -156,6 +182,7 @@ export default function ContactForm() {
                 name="message"
                 placeholder="Your message here..."
                 className="h-32"
+                disabled={isLoading}
               />
               {formik.touched.message && formik.errors.message && (
                 <div className="text-red-500 text-sm">
@@ -165,7 +192,11 @@ export default function ContactForm() {
             </div>
 
             <Button type="submit" className="w-full bg-lepiajeBrown">
-              Submit
+              {isLoading ? (
+                <PulsingDotSpinner color="bg-green-400" />
+              ) : (
+                "Submit"
+              )}
             </Button>
           </form>
         </div>

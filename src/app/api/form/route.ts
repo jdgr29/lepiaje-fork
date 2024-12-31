@@ -4,7 +4,7 @@ import { HttpStatusCode } from "@/enums";
 import Form from "../../../models/Form";
 import { FormType } from "@/types";
 
-export async function POST(req: Request) {
+export async function POST(request: Request) {
     try {
         const db = await connection();
         if (!db) {
@@ -15,7 +15,7 @@ export async function POST(req: Request) {
             }, { status: HttpStatusCode.INTERNAL_SERVER });
         }
 
-        const formData: FormType = await req.json();
+        const formData: FormType = await request.json();
 
         if (!formData) {
             return NextResponse.json({
