@@ -4,7 +4,7 @@ import usFlag from "../../../public/assets/us_flag.jpg";
 import italyFlag from "../../../public/assets/italy_flag.png";
 
 export default function LocaleSwitcher() {
-  const t = useTranslations("LocaleSwitcher");
+  const t = useTranslations("locale_switcher");
   const locale = useLocale();
 
   return (

@@ -5,7 +5,7 @@ import { FaFacebookF, FaInstagram } from "react-icons/fa6";
 import Logo from "../logo/logo";
 export default function Footer() {
   return (
-    <footer className="bg-[#121212] text-gray-600 py-8">
+    <footer className="bg-slate-950 text-gray-600 py-8">
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
           <div

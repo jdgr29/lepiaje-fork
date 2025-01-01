@@ -54,7 +54,7 @@ export default function Carousel({ autoSlide = true }: CarouselProps) {
   return (
     <div className="relative">
       <div className="w-full">
-        <div className="absolute z-10 h-full w-full inset-0 bg-[rgba(0,0,0,0.5)]"></div>
+        <div className="absolute z-10 h-full w-full inset-0 bg-[rgba(0,0,0,0.3)]"></div>
         <Image
           src={images[2]}
           alt="Carousel background Image"
@@ -66,7 +66,7 @@ export default function Carousel({ autoSlide = true }: CarouselProps) {
       <div className="max-w-4xl mx-auto relative z-10 p-4">
         <React.Fragment>
           <h1 className="text-lepiajeWhite font-thin text-4xl text-center pb-8">
-          A peak into our world
+            A peak into our world
           </h1>
           <div className="relative  h-[30em]  mb-4 overflow-hidden rounded-lg">
             <AnimatePresence initial={false} custom={direction}>
@@ -93,13 +93,13 @@ export default function Carousel({ autoSlide = true }: CarouselProps) {
             </AnimatePresence>
             <button
               onClick={prevSlide}
-              className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 transition-all z-10"
+              className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-slate-950 bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 transition-all z-10"
             >
               <ChevronLeft size={24} />
             </button>
             <button
               onClick={nextSlide}
-              className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 transition-all z-10"
+              className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-slate-950 bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 transition-all z-10"
             >
               <ChevronRight size={24} />
             </button>

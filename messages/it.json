@@ -1,12 +1,21 @@
 {
-    "LocaleSwitcher": {
+    "locale_switcher": {
         "it": "Italiano",
         "en": "Inglese",
         "label": "Lingua"
     },
-    "hero": {
-        "title": "Le Piaje",
-        "sub_title": "Ospitalità Genuina, come i Sapori della Terra",
-        "main_text": "Siamo una famiglia di imprenditori agricoli con un profondo impegno verso l'ospitalità e la valorizzazione del patrimonio naturale e culturale della nostra terra. Che siate viaggiatori curiosi, famiglie in cerca di relax, buongustai o amanti della natura incontaminata, Le Piaje vi aprirà le sue porte per farvi vivere un'esperienza unica. Scoprirete un mondo fatto di sapori autentici, percorsi e panorami che raccontano la storia della Tuscia."
+    "landing_page": {
+        "hero": {
+            "title": "Le Piaje",
+            "sub_title": "Ospitalità Genuina, come i Sapori della Terra",
+            "main_text": "Siamo una famiglia di imprenditori agricoli con un profondo impegno verso l'ospitalità e la valorizzazione del patrimonio naturale e culturale della nostra terra. Che siate viaggiatori curiosi, famiglie in cerca di relax, buongustai o amanti della natura incontaminata, Le Piaje vi aprirà le sue porte per farvi vivere un'esperienza unica. Scoprirete un mondo fatto di sapori autentici, percorsi e panorami che raccontano la storia della Tuscia."
+        }
+    },
+    "about_us_page":{
+        "hero": {
+            "title":"some nice catchy title in Italian",
+            "sub_title":"some nice subtitle or phrase, slogan in Italian"
+            
+        }
     }
 }
