@@ -1,7 +1,7 @@
 import { AnimateOnScroll } from "../animateViewOnScroll/animateViewOnScroll";
 import { Card, CardContent } from "@/components/ui/card";
 
-//TODO add real data
+// TODO: add real data
 const testimonials = [
   {
     name: "Some name here",
@@ -22,7 +22,7 @@ const testimonials = [
 
 export function Testimonials() {
   return (
-    <AnimateOnScroll index={5} className="py-16  bg-gray-950">
+    <AnimateOnScroll index={5} className="py-16 bg-gray-950">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl text-white font-bold mb-8 text-center">
           What Our Clients Say
@@ -31,7 +31,9 @@ export function Testimonials() {
           {testimonials.map((testimonial, index) => (
             <Card key={index}>
               <CardContent className="p-6">
-                <p className="text-gray-600 mb-4">"{testimonial.quote}"</p>
+                <p className="text-gray-600 mb-4">
+                  &quot;{testimonial.quote}&quot;
+                </p>
                 <div className="font-bold">{testimonial.name}</div>
                 <div className="text-sm text-gray-500">{testimonial.role}</div>
               </CardContent>
