@@ -1,5 +1,5 @@
 import { useLocale, useTranslations } from "next-intl";
-import LocaleSwitcherSelect from "./languageSwitcherSelect";
+import LocaleSwitcherSelect from "./language_switcher_select";
 import usFlag from "../../../public/assets/us_flag.jpg";
 import italyFlag from "../../../public/assets/italy_flag.png";
 

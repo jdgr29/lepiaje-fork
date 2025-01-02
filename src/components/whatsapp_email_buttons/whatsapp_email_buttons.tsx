@@ -3,7 +3,7 @@ import React from "react";
 import Link from "next/link";
 import { Mail } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa6";
-import { useScrollToForm } from "@/hooks/use.scroll.to.section";
+import { useScrollToForm } from "@/hooks/use_scroll_to_section";
 
 // import { useTranslations } from "next-intl";
 export default function WhatsAppAndEmail() {

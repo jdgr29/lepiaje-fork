@@ -1,4 +1,4 @@
-import { AnimateOnScroll } from "../animateViewOnScroll/animateViewOnScroll";
+import { AnimateOnScroll } from "../animate_view_on_scroll/animate_view_on_scroll";
 
 //TODO add real data
 const milestones = [

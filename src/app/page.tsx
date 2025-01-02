@@ -2,7 +2,7 @@ import React from "react";
 import Hero from "@/components/hero/hero";
 import Gallery from "@/components/gallery/gallery";
 import Carousel from "@/components/carousel/carousel";
-import ContactForm from "@/components/contactForm/contact-form";
+import ContactForm from "@/components/contact_form/contact_form";
 import { useTranslations } from "next-intl";
 
 export default function Home() {

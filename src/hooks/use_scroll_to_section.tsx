@@ -9,7 +9,6 @@ export function useScrollToForm() {
     if (pathname !== "/") {
       router.push("/");
     }
-    // Use setTimeout to ensure the scroll happens after navigation and render
     setTimeout(() => {
       const form = document.getElementById("lePiajeForm");
       if (form) {

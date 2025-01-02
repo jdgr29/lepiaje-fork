@@ -1,8 +1,8 @@
 import { Resend } from "resend";
-import { ResponseHandler } from "@/helpers/response.handler";
+import { ResponseHandler } from "@/helpers/response_handler";
 import { HttpStatusCode } from "@/enums";
 import { FormType } from "@/types";
-import AdminNotificationEmail from "@/components/emailTemplates/submitted.form.email";
+import AdminNotificationEmail from "@/components/email_templates/submitted_form_email";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const adminEmail = process.env.ADMIN_EMAIL_ONE_RECEIVER || "";

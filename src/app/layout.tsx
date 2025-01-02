@@ -5,8 +5,8 @@ import { Navbar } from "@/components/navbar/navbar";
 import Footer from "@/components/footer/footer";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
-import LocaleSwitcher from "@/components/languageSwitcher/localeSwitcher";
-import WhatsAppAndEmail from "@/components/whatsappEmailButtons/whatsappEmailButtons";
+import LocaleSwitcher from "@/components/language_switcher/locale_switcher";
+import WhatsAppAndEmail from "@/components/whatsapp_email_buttons/whatsapp_email_buttons";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],

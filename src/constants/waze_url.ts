@@ -1,0 +1,1 @@
+export const waze_url: string = "https://www.waze.com/ul";

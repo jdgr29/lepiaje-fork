@@ -1,4 +1,4 @@
-import { AnimateOnScroll } from "../animateViewOnScroll/animateViewOnScroll";
+import { AnimateOnScroll } from "../animate_view_on_scroll/animate_view_on_scroll";
 import Image from "next/image";
 import verna from "../../../public/assets/who_we_are/verna.jpg";
 

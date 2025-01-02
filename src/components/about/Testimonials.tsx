@@ -1,7 +1,7 @@
-import { AnimateOnScroll } from "../animateViewOnScroll/animateViewOnScroll";
+import { AnimateOnScroll } from "../animate_view_on_scroll/animate_view_on_scroll";
 import { Card, CardContent } from "@/components/ui/card";
 
-//TODO add real data
+// TODO: Add real data
 const testimonials = [
   {
     name: "Some name here",
@@ -31,7 +31,9 @@ export function Testimonials() {
           {testimonials.map((testimonial, index) => (
             <Card key={index}>
               <CardContent className="p-6">
-                <p className="text-gray-600 mb-4">"{testimonial.quote}"</p>
+                <p className="text-gray-600 mb-4">
+                  &quot;{testimonial.quote}&quot;
+                </p>
                 <div className="font-bold">{testimonial.name}</div>
                 <div className="text-sm text-gray-500">{testimonial.role}</div>
               </CardContent>
