@@ -2,6 +2,7 @@ import { AnimateOnScroll } from "../animate_view_on_scroll/animate_view_on_scrol
 import { Card, CardContent } from "@/components/ui/card";
 
 // TODO: Add real data
+
 const testimonials = [
   {
     name: "Some name here",
@@ -22,7 +23,7 @@ const testimonials = [
 
 export function Testimonials() {
   return (
-    <AnimateOnScroll index={5} className="py-16  bg-gray-950">
+    <AnimateOnScroll index={5} className="py-16 bg-gray-950">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl text-white font-bold mb-8 text-center">
           What Our Clients Say
