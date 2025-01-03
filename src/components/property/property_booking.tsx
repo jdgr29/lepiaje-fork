@@ -12,6 +12,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import GuestList from "./property_guest_list";
 
 export function PropertyBooking({
   price,
@@ -63,7 +64,7 @@ export function PropertyBooking({
             align="start"
           >
             <Calendar
-              autoFocus
+              initialFocus
               mode="range"
               defaultMonth={date?.from}
               selected={date}
@@ -72,6 +73,7 @@ export function PropertyBooking({
             />
           </PopoverContent>
         </Popover>
+        <GuestList />
         <Button className="w-full text-white transition-all ease-linear hover:text-slate-950 bg-green-600 hover:bg-green-300">
           Book now
         </Button>

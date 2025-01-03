@@ -23,6 +23,7 @@ export default function PriceDisplay({
 }: PriceDisplayProps) {
   const [nights, setNights] = useState(initialNights);
   const [total, setTotal] = useState(0);
+  setNights(1);
 
   useEffect(() => {
     const subtotal = pricePerNight * nights;

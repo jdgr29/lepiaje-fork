@@ -1,9 +1,9 @@
-import { Hero } from "@/components/about/hero";
+import { Hero } from "@/components/about/Hero";
 import { OurMission } from "@/components/about/our_mission";
 import { OurTeam } from "@/components/about/our_team";
 import { OurValues } from "@/components/about/our_values";
 import { OurHistory } from "@/components/about/our_history";
-import { Testimonials } from "@/components/about/testimonials";
+import { Testimonials } from "@/components/about/Testimonials";
 
 export default function AboutPage() {
   return (

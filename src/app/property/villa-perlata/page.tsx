@@ -29,7 +29,7 @@ export default async function VillaPerlata() {
     Other things to note
 
 The rooms are on the first floor. You will find both bed linen and bath linen. Consumption is included in the price.
-`,
+`, //TODO add reviews full page or as wide as description text
     rooms: [
       "6 guests",
       "2 bedrooms",

@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { Mail, Phone } from "lucide-react";
-import { FaFacebookF, FaInstagram } from "react-icons/fa6";
+// import { FaFacebookF, FaInstagram } from "react-icons/fa6";
 import Logo from "../logo/logo";
 export default function Footer() {
   return (
@@ -30,7 +30,7 @@ export default function Footer() {
               <Phone color="#f1f1f1" size={20} />
               <span className="sr-only">Phone</span>
             </Link>
-            <Link
+            {/* <Link
               href="#" // TODO: add link when page existing.
               target="_blank"
               rel="noopener noreferrer"
@@ -47,7 +47,7 @@ export default function Footer() {
             >
               <FaFacebookF color="#1877F2" size={20} />
               <span className="sr-only">Facebook</span>
-            </Link>
+            </Link> */}
           </div>
         </div>
       </div>

@@ -39,6 +39,7 @@ export default function PropertyPage({ property }: { property: Property }) {
             </h2>
             <p className="text-gray-200">{property.description}</p>
           </div>
+          {/* TODO<> add reviews here</> */}
         </div>
         <div className="md:max-2xl:order-2 order-1">
           <PropertyBooking
@@ -51,6 +52,24 @@ export default function PropertyPage({ property }: { property: Property }) {
       <div className="mt-12">
         <p className=" font-bold mb-4 text-2xl text-gray-200">Get Directions</p>
         <div>
+          <div>
+            <div className="inline-block">
+              <Link
+                className="flex items-center justify-start gap-x-2"
+                href={google}
+                target="_blank"
+              >
+                <SiGooglemaps
+                  color="	#bbdaa4"
+                  className="hover:scale-105 transition-all ease-linear"
+                  size={25}
+                />
+                <p className="hover:cursor-pointer hover:scale-105 text-lg hover:text-[#bbdaa4] ease-linear transition-all text-gray-200">
+                  On Google Maps
+                </p>
+              </Link>
+            </div>
+          </div>
           <div className="inline-block">
             <Link
               className="flex items-center justify-start gap-x-2"
@@ -64,24 +83,6 @@ export default function PropertyPage({ property }: { property: Property }) {
               />
               <p className="hover:cursor-pointer hover:scale-105 text-lg hover:text-[#05c8f7] ease-linear transition-all text-gray-200">
                 On Waze
-              </p>
-            </Link>
-          </div>
-        </div>
-        <div>
-          <div className="inline-block">
-            <Link
-              className="flex items-center justify-start gap-x-2"
-              href={google}
-              target="_blank"
-            >
-              <SiGooglemaps
-                color="	#bbdaa4"
-                className="hover:scale-105 transition-all ease-linear"
-                size={25}
-              />
-              <p className="hover:cursor-pointer hover:scale-105 text-lg hover:text-[#bbdaa4] ease-linear transition-all text-gray-200">
-                On Google Maps
               </p>
             </Link>
           </div>
