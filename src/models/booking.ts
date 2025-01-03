@@ -23,8 +23,8 @@ const bookingSchema = new Schema<BookingType>(
             type: Number,
             required: true,
         },
-        guestName: {
-            type: String,
+        guestsName: {
+            type: [String],
             required: true,
         },
         guestEmail: {

@@ -4,7 +4,7 @@ export interface BookingType {
     checkOut: Date;
     numberOfGuests: number;
     totalPaid: number;
-    guestName: string;
+    guestsName: string[];
     guestEmail: string;
     guestPhone?: string;
     dateOfBooking: Date;

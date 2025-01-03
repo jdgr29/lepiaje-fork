@@ -13,6 +13,10 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import GuestList from "./property_guest_list";
+<<<<<<< Updated upstream
+=======
+import PriceDisplay from "./property_price_display";
+>>>>>>> Stashed changes
 
 export function PropertyBooking({
   price,
@@ -27,10 +31,14 @@ export function PropertyBooking({
     from: new Date(Date.now()),
   });
 
+<<<<<<< Updated upstream
   console.log("dates selected", date);
 
+=======
+  console.log("dates", date);
+>>>>>>> Stashed changes
   return (
-    <div className="border rounded-lg p-6">
+    <div className="border transition-all ease-linear rounded-lg p-6">
       <h2 className="text-2xl text-gray-200 font-bold mb-4">
         ${price} / night
       </h2>
@@ -64,6 +72,7 @@ export function PropertyBooking({
             align="start"
           >
             <Calendar
+              // locale={}
               initialFocus
               mode="range"
               defaultMonth={date?.from}
@@ -74,9 +83,14 @@ export function PropertyBooking({
           </PopoverContent>
         </Popover>
         <GuestList />
+<<<<<<< Updated upstream
+=======
+        <PriceDisplay pricePerNight={30} />
+>>>>>>> Stashed changes
         <Button className="w-full text-white transition-all ease-linear hover:text-slate-950 bg-green-600 hover:bg-green-300">
           Book now
         </Button>
+
         <div>
           {airbnb && (
             <Link target={"_blank"} href={airbnb}>

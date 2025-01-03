@@ -33,6 +33,10 @@
     "next": "15.1.2",
     "next-intl": "^3.26.3",
     "react": "^19.0.0",
+<<<<<<< Updated upstream
+=======
+    "react-date-picker": "^11.0.0",
+>>>>>>> Stashed changes
     "react-day-picker": "^8.10.1",
     "react-dom": "^19.0.0",
     "react-icons": "^5.4.0",

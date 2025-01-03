@@ -1,10 +1,16 @@
 "use client";
+<<<<<<< Updated upstream
 
 import * as React from "react";
+=======
+import React, { useState, useEffect } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+>>>>>>> Stashed changes
 import { DayPicker } from "react-day-picker";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
-
+import { get_calendar_availability } from "@/services/get_calendar_availability";
+import { availableMemory } from "process";
 export type CalendarProps = React.ComponentProps<typeof DayPicker>;
 
 function Calendar({
@@ -13,8 +19,23 @@ function Calendar({
   showOutsideDays = true,
   ...props
 }: CalendarProps) {
+  const today = new Date(Date.now());
+  console.log("today", today);
+  const [blockedDates, setBlockedDates] = useState<
+    { from: string; to: string }[]
+  >([]);
+
+  useEffect(() => {
+    const availability = async () => {
+      const availableDates = await get_calendar_availability();
+      setBlockedDates(availableDates);
+    };
+    availability();
+  }, []);
+
   return (
     <DayPicker
+      // disabled={blockedDates}
       showOutsideDays={showOutsideDays}
       className={cn("p-3", className)}
       classNames={{
