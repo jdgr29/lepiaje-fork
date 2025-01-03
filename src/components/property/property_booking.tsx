@@ -26,6 +26,8 @@ export function PropertyBooking({
     from: new Date(Date.now()),
   });
 
+  console.log("dates selected", date);
+
   return (
     <div className="border rounded-lg p-6">
       <h2 className="text-2xl text-gray-200 font-bold mb-4">
@@ -56,9 +58,12 @@ export function PropertyBooking({
               )}
             </Button>
           </PopoverTrigger>
-          <PopoverContent className="w-auto p-0" align="start">
+          <PopoverContent
+            className="w-auto flex items-center justify-center p-0"
+            align="start"
+          >
             <Calendar
-              initialFocus
+              autoFocus
               mode="range"
               defaultMonth={date?.from}
               selected={date}
