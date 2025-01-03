@@ -1,19 +1,20 @@
 "use client";
-import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import Logo from "../logo/logo";
+import * as Yup from "yup";
 import Image from "next/image";
+import Logo from "../logo/logo";
+import { useFormik } from "formik";
+import { Alert } from "../alerts/alerst";
+import React, { useState } from "react";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { useSuccessAlert } from "@/hooks/use.alert";
 import formImageBackground from "../../../public/assets/villa_perlata/interno3.jpeg";
 import { submitForm } from "@/services/submitForm.services";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { useSuccessAlert } from "@/hooks/use.alert";
-import { Alert } from "../alerts/alerst";
 import { notifyAdminAboutFormSubmitted } from "@/services/notifyAdminAboutFormSubmitted";
 import { PulsingDotSpinner } from "../loader/loader";
+
 const validationSchema = Yup.object({
   name: Yup.string().required("full name is required"),
   email: Yup.string()
@@ -63,7 +64,7 @@ export default function ContactForm() {
   return (
     <div
       id="lePiajeForm"
-      className="w-full py-20 h-full max-h-[65em] bg-[#121212] flex  items-center justify-center p-4"
+      className="w-full py-20 h-full max-h-[65em] bg-slate-950 flex  items-center justify-center p-4"
     >
       <Alert
         message={message}
@@ -72,7 +73,7 @@ export default function ContactForm() {
         success={hasSuceeded}
       />
 
-      <div className="w-full flex md:max-2xl:flex-row flex-col  max-w-4xl h-full bg-white rounded-lg shadow-lepiajeBrown/40 shadow-2xl drop-shadow-2xl overflow-hidden">
+      <div className="w-full flex md:max-2xl:flex-row flex-col  max-w-4xl h-full bg-slate-950 rounded-xl shadow-lepiajeBrown/40 shadow-2xl drop-shadow-2xl overflow-hidden">
         <div className="md:max-2xl:w-1/2 w-full relative ">
           <Image
             src={formImageBackground}
@@ -83,7 +84,7 @@ export default function ContactForm() {
           />
           <div
             className="absolute inset-0 bg-cover bg-center filter blur-sm"
-            style={{ backgroundColor: "rgba(0,0,0,0.5)" }}
+            style={{ backgroundColor: "rgba(0,0,0,0.6)" }}
           ></div>
 
           <div className="absolute inset-0 bg-black bg-opacity-50"></div>

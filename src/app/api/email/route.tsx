@@ -32,7 +32,7 @@ export async function POST(request: Request) {
       });
     }
     const emailData: FormType = await request.json();
-    console.log("emailData", emailData);
+
     if (!emailData.message) {
       return responseHandler.respond({
         error: true,

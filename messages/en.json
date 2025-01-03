@@ -1,12 +1,20 @@
 {
-    "LocaleSwitcher": {
+    "locale_switcher": {
         "it": "Italian",
         "en": "English",
         "label": "Language"
     },
-    "hero": {
-        "title": "Le Piaje",
-        "sub_title": "A Welcome as Genuine as the Tastes of the Land",
-        "main_text": "We are a family of agricultural entrepreneurs with a deep commitment to hospitality and the enhancement of the natural and cultural heritage of our land. Whether you are curious travelers, families looking for relaxing times, gourmets or lovers of uncontaminated nature, Le Piaje will open its doors to you to make you live a unique experience. You will discover a world made of authentic flavors, routes and views telling the story of Tuscia."
+    "landing_page": {
+        "hero": {
+            "title": "Le Piaje",
+            "sub_title": "A Welcome as Genuine as the Tastes of the Land",
+            "main_text": "We are a family of agricultural entrepreneurs with a deep commitment to hospitality and the enhancement of the natural and cultural heritage of our land. Whether you are curious travelers, families looking for relaxing times, gourmets or lovers of uncontaminated nature, Le Piaje will open its doors to you to make you live a unique experience. You will discover a world made of authentic flavors, routes and views telling the story of Tuscia."
+        }
+    },
+    "about_us_page":{
+        "hero": {
+            "title":"some nice catchy title in English",
+            "sub_title":"some nice subtitle or phrase, slogan in English"
+        }
     }
 }

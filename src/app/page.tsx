@@ -6,9 +6,9 @@ import ContactForm from "@/components/contactForm/contact-form";
 import { useTranslations } from "next-intl";
 
 export default function Home() {
-  const t = useTranslations("hero");
+  const t = useTranslations("landing_page.hero");
   return (
-    <div>
+    <div className="bg-slate-950 w-full h-full">
       <React.Fragment>
         <Hero
           title={t("title")}
