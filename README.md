@@ -1,6 +1,6 @@
 # Le Piaje
 
-Add a description about Le Paije which is meaningful to describe the project
+Add a description about Le Piaje which is meaningful to describe the project
 
 ## Tech Stack
 
