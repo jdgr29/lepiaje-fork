@@ -65,6 +65,8 @@
   }
   body {
     @apply bg-background text-foreground;
-    background-color: #121212;
+    --tw-bg-opacity: 1;
+    background-color: rgb(2 6 23 / var(--tw-bg-opacity, 1)) /* #020617 */;
+
   }
 }

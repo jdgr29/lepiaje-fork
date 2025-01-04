@@ -9,10 +9,10 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { useSuccessAlert } from "@/hooks/use.alert";
+import { useSuccessAlert } from "@/hooks/use_alert";
 import formImageBackground from "../../../public/assets/villa_perlata/interno3.jpeg";
-import { submitForm } from "@/services/submitForm.services";
-import { notifyAdminAboutFormSubmitted } from "@/services/notifyAdminAboutFormSubmitted";
+import { submitForm } from "@/services/submit_form.services";
+import { notifyAdminAboutFormSubmitted } from "@/services/notify_admin_about_form_submitted";
 import { PulsingDotSpinner } from "../loader/loader";
 
 const validationSchema = Yup.object({

@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Shield, Users, Lightbulb, Heart, LucideIcon } from "lucide-react";
-import { AnimateOnScroll } from "../animateViewOnScroll/animateViewOnScroll";
+import { AnimateOnScroll } from "../animate_view_on_scroll/animate_view_on_scroll";
 
 const values = [
   {

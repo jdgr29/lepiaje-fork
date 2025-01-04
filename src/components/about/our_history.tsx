@@ -1,4 +1,4 @@
-import { AnimateOnScroll } from "../animateViewOnScroll/animateViewOnScroll";
+import { AnimateOnScroll } from "../animate_view_on_scroll/animate_view_on_scroll";
 
 //TODO add real data
 const milestones = [
@@ -41,6 +41,8 @@ export function OurHistory() {
               <div className=" bg-slate-20 w-5/12"></div>
             </div>
           ))}
+          {/* //TODO add a button for each milestone //TODO add button for the link */}
+          to another page
         </div>
       </div>
     </AnimateOnScroll>

@@ -1,8 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { AnimateOnScroll } from "../animateViewOnScroll/animateViewOnScroll";
-import { getImages } from "@/utils/getImagesOnFolder";
+import { AnimateOnScroll } from "../animate_view_on_scroll/animate_view_on_scroll";
+import { getImages } from "@/utils/get_images_on_folder";
 import { motion } from "framer-motion";
 
 interface OurTeamImagesProps {
@@ -61,7 +61,7 @@ export function OurTeam({ folderName }: OurTeamImagesProps) {
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-12 text-center text-gray-100">
-          Meet Our Exceptional Team
+          Meet Us
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12">
           {teamMembers.map((member, index) => (

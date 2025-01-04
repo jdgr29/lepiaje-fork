@@ -1,7 +1,8 @@
-import { AnimateOnScroll } from "../animateViewOnScroll/animateViewOnScroll";
+import { AnimateOnScroll } from "../animate_view_on_scroll/animate_view_on_scroll";
 import { Card, CardContent } from "@/components/ui/card";
 
-// TODO: add real data
+// TODO: Add real data
+
 const testimonials = [
   {
     name: "Some name here",

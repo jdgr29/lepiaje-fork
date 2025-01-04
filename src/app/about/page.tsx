@@ -1,8 +1,8 @@
 import { Hero } from "@/components/about/Hero";
-import { OurMission } from "@/components/about/OurMission";
-import { OurTeam } from "@/components/about/OurTeam";
-import { OurValues } from "@/components/about/OurValues";
-import { OurHistory } from "@/components/about/OurHistory";
+import { OurMission } from "@/components/about/our_mission";
+import { OurTeam } from "@/components/about/our_team";
+import { OurValues } from "@/components/about/our_values";
+import { OurHistory } from "@/components/about/our_history";
 import { Testimonials } from "@/components/about/Testimonials";
 
 export default function AboutPage() {

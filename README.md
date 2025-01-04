@@ -1,6 +1,6 @@
 # Le Piaje
 
-Add a description about Le Paije which is meaningful to describe the project
+Add a description about Le Piaje which is meaningful to describe the project
 
 ## Tech Stack
 
@@ -33,3 +33,6 @@ This email won't be used to send emails to clients, but instead, it will be used
 stripe api key that will handle the payments of the app 
 
 square brackets [] are only to make it more readable and they are not necessary when writing the actual string
+
+`NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN`
+the access token provided with a mapbox free account to access map features and styles
