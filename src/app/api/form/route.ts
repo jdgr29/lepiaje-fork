@@ -1,10 +1,11 @@
 import { NextResponse } from "next/server";
 import { connection } from "@/config/db";
 import { HttpStatusCode } from "@/enums";
-import Form from "@/models/form";
+import form from "@/models/form";
 import { FormType } from "@/types";
 
 export async function POST(request: Request) {
+    const Form = form;
     try {
         const db = await connection();
         if (!db) {
