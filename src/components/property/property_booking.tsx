@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
-import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { DateRange } from "react-day-picker";
 import { cn } from "@/lib/utils";
@@ -13,10 +12,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import GuestList from "./property_guest_list";
-<<<<<<< Updated upstream
-=======
-import PriceDisplay from "./property_price_display";
->>>>>>> Stashed changes
+import { format } from "date-fns";
 
 export function PropertyBooking({
   price,
@@ -27,18 +23,12 @@ export function PropertyBooking({
   airbnb?: string;
   booking?: string;
 }) {
-  const [date, setDate] = useState<DateRange | undefined>({
+  const [dates, setDates] = useState<DateRange | undefined>({
     from: new Date(Date.now()),
   });
 
-<<<<<<< Updated upstream
-  console.log("dates selected", date);
-
-=======
-  console.log("dates", date);
->>>>>>> Stashed changes
   return (
-    <div className="border transition-all ease-linear rounded-lg p-6">
+    <div className="border rounded-lg p-6">
       <h2 className="text-2xl text-gray-200 font-bold mb-4">
         ${price} / night
       </h2>
@@ -49,21 +39,21 @@ export function PropertyBooking({
               variant={"outline"}
               className={cn(
                 "w-full justify-start text-left font-normal",
-                !date && "text-muted-foreground"
+                !dates && "text-muted-foreground"
               )}
             >
               <CalendarIcon className="mr-2 h-4 w-4" />
-              {date?.from ? (
-                date.to ? (
+              {dates?.from ? (
+                dates.to ? (
                   <>
-                    {format(date.from, "LLL dd, y")} -{" "}
-                    {format(date.to, "LLL dd, y")}
+                    {format(dates.from, "LLL dd, y")} -{" "}
+                    {format(dates.to, "LLL dd, y")}
                   </>
                 ) : (
-                  format(date.from, "LLL dd, y")
+                  format(dates.from, "LLL dd, y")
                 )
               ) : (
-                <span>Pick a date</span>
+                <span>Pick a dates</span>
               )}
             </Button>
           </PopoverTrigger>
@@ -72,25 +62,20 @@ export function PropertyBooking({
             align="start"
           >
             <Calendar
-              // locale={}
               initialFocus
               mode="range"
-              defaultMonth={date?.from}
-              selected={date}
-              onSelect={setDate}
+              defaultMonth={dates?.from}
+              selected={dates}
+              onSelect={setDates}
               numberOfMonths={2}
+              range_of_dates_selected={dates}
             />
           </PopoverContent>
         </Popover>
         <GuestList />
-<<<<<<< Updated upstream
-=======
-        <PriceDisplay pricePerNight={30} />
->>>>>>> Stashed changes
         <Button className="w-full text-white transition-all ease-linear hover:text-slate-950 bg-green-600 hover:bg-green-300">
           Book now
         </Button>
-
         <div>
           {airbnb && (
             <Link target={"_blank"} href={airbnb}>

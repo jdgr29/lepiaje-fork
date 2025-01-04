@@ -1,22 +1,12 @@
 "use client";
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-
-=======
->>>>>>> feature/rentals
-import * as React from "react";
-=======
 import React, { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
->>>>>>> Stashed changes
 import { DayPicker } from "react-day-picker";
 import { cn } from "@/lib/utils";
-<<<<<<< HEAD
 import { buttonVariants } from "@/components/ui/button";
 import { get_calendar_availability } from "@/services/get_calendar_availability";
-import { availableMemory } from "process";
-=======
->>>>>>> feature/rentals
+
+
 export type CalendarProps = React.ComponentProps<typeof DayPicker>;
 
 function Calendar({
