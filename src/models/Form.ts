@@ -21,11 +21,11 @@ const formSchema = new Schema<FormType>({
         type: String,
         required: [true, "Message is required"],
         trim: true,
-        maxlength: [500, "message cannot exceed 500 characters"] //TODO this can be adjustable
+        maxlength: [500, "message cannot exceed 500 characters"]
     },
     submittedAt: {
         type: Date,
-        default: Date.now()
+        default: Date.now
     }
 }, { timestamps: true });
 
