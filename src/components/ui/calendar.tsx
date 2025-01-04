@@ -6,7 +6,6 @@ import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import { get_calendar_availability } from "@/services/get_calendar_availability";
 
-
 export type CalendarProps = React.ComponentProps<typeof DayPicker>;
 
 function Calendar({
@@ -31,7 +30,7 @@ function Calendar({
 
   return (
     <DayPicker
-      // disabled={blockedDates}
+      disabled={blockedDates}
       showOutsideDays={showOutsideDays}
       className={cn("p-3", className)}
       classNames={{
