@@ -14,6 +14,7 @@ import formImageBackground from "../../../public/assets/villa_perlata/interno3.j
 import { submitForm } from "@/services/submit_form.services";
 import { notifyAdminAboutFormSubmitted } from "@/services/notify_admin_about_form_submitted";
 import { PulsingDotSpinner } from "../loader/loader";
+import { useTranslations } from "next-intl";
 
 const validationSchema = Yup.object({
   name: Yup.string().required("full name is required"),
@@ -32,6 +33,7 @@ const validationSchema = Yup.object({
 });
 
 export default function ContactForm() {
+  const t = useTranslations("landing_page.contact_form");
   const { isVisible, message, showAlert, hideAlert } = useSuccessAlert();
   const [hasSuceeded, setHasSuceeded] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -94,14 +96,9 @@ export default function ContactForm() {
             </div>
             <div>
               <h2 className="text-xl font-light mb-4 text-lepiajeBrown">
-                Contact Us
+                {t("title")}
               </h2>
-              <p className="text-sm text-lepiajeWhite">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-                in dui mauris. Vivamus hendrerit arcu sed erat molestie
-                vehicula. Sed auctor neque eu tellus rhoncus ut eleifend nibh
-                porttitor.
-              </p>
+              <p className="text-sm text-lepiajeWhite">{t("main_text")}</p>
             </div>
           </div>
         </div>
@@ -112,7 +109,7 @@ export default function ContactForm() {
           <form onSubmit={formik.handleSubmit} className="space-y-4 my-4">
             <div>
               <Label className="text-lepiajeWhite" htmlFor="name">
-                Full Name
+                {t("form_inputs.full_name")}
               </Label>
               <Input
                 onChange={formik.handleChange}
@@ -196,7 +193,7 @@ export default function ContactForm() {
               {isLoading ? (
                 <PulsingDotSpinner color="bg-green-400" />
               ) : (
-                "Submit"
+                t("submit_button")
               )}
             </Button>
           </form>
