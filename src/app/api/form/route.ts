@@ -50,7 +50,6 @@ export async function POST(request: Request) {
         }
 
         const newForm = new Form(formData);
-
         const savedForm = await newForm.save();
 
         if (!savedForm) {

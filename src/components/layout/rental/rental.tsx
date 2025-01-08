@@ -16,12 +16,14 @@ import ReusableMap from "@/components/map/map";
 export default function PropertyPage({ property }: { property: Property }) {
   const waze = open_directions_on_waze(property.location!);
   const google = open_directions_on_google_maps(property.location!);
+
   return (
     <div className="container bg-slate-950 mx-auto px-4 py-32">
       <PropertyHeader
         name={property.name}
         location_name={property.location_name}
       />
+
       <div className="mt-6">
         <PropertyGallery images={property.images} />
       </div>
@@ -46,6 +48,7 @@ export default function PropertyPage({ property }: { property: Property }) {
             airbnb={property.airbnb}
             booking={property.booking_dot_com}
             price={property.price}
+            propertyName={property.name}
           />
         </div>
       </div>

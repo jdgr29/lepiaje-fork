@@ -9,9 +9,11 @@ export async function submitForm(formData: FormType): Promise<{ error: boolean, 
             },
             body: JSON.stringify(formData)
         });
-
         const result = await response.json();
-        console.log('result! of submit', result)
+        if (response.status !== 201) {
+            throw new Error(`Something wrong happened while submitting the form ${JSON.stringify(response)} ${JSON.stringify(result)}`)
+        }
+
         if (!result) {
             return {
                 error: true,
