@@ -30,9 +30,12 @@ This email won't be used to send emails to clients, but instead, it will be used
 This email won't be used to send emails to clients, but instead, it will be used to notify the administrator of the page when a client has performed an operation such as a booking, cancellation or purchase
 
 `STRIPE_API_KEY`
-stripe api key that will handle the payments of the app 
+stripe api key that will handle the payments of the app
 
 square brackets [] are only to make it more readable and they are not necessary when writing the actual string
 
 `NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN`
 the access token provided with a mapbox free account to access map features and styles
+
+`NEXT_PUBLIC_WEB_SOCKET_SERVER`
+the websocket deployed url from the project that helps controlling and managing syncing the calendars

@@ -8,7 +8,7 @@ import { Dispatch, SetStateAction } from "react";
 type CalendarPropsCustomized = CalendarProps & {
   range_of_dates_selected: DateRange | undefined;
   setHasOverlap: Dispatch<SetStateAction<boolean>>;
-  blockedDates: { from: string; to: string }[];
+  setSocket: Dispatch<SetStateAction<WebSocket | null>>;
 };
 
 function Calendar({
@@ -17,13 +17,34 @@ function Calendar({
   range_of_dates_selected,
   showOutsideDays = true,
   setHasOverlap,
+  setSocket,
   ...props
 }: CalendarPropsCustomized) {
+  const [error, setError] = useState<string | null>(null);
   const [blockedDates, setBlockedDates] = useState<
     { from: string; to: string }[]
   >([]);
-  const [error, setError] = useState<string | null>(null);
-  console.log("set blocked date", setBlockedDates);
+  useEffect(() => {
+    // const ws = new WebSocket("ws:localhost:8000");
+    const ws = new WebSocket(process.env.NEXT_PUBLIC_WEB_SOCKET_SERVER!);
+
+    ws.onopen = (event) => {
+      console.log("the webscoket is connected", "event", event);
+    };
+    ws.onmessage = (event) => {
+      console.log("event.data", event.data);
+      setBlockedDates(JSON.parse(event.data));
+    };
+    ws.onclose = () => {
+      console.log("Websocket connection closed");
+    };
+
+    ws.onerror = (error) => {
+      console.error("Websocket error:", error);
+    };
+
+    setSocket(ws);
+  }, []);
   useEffect(() => {
     if (range_of_dates_selected) {
       const isOverLapping = checkOverlap(range_of_dates_selected, blockedDates);
@@ -56,8 +77,6 @@ function Calendar({
       );
     });
   };
-
-  console.log("the blocked dates are", blockedDates);
 
   return (
     <div>
