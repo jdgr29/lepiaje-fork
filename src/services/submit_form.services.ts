@@ -9,6 +9,7 @@ export async function submitForm(formData: FormType): Promise<{ error: boolean, 
             },
             body: JSON.stringify(formData)
         });
+
         const result = await response.json();
         if (response.status !== 201) {
             throw new Error(`Something wrong happened while submitting the form ${JSON.stringify(response)} ${JSON.stringify(result)}`)
@@ -25,7 +26,7 @@ export async function submitForm(formData: FormType): Promise<{ error: boolean, 
             message: 'Form was submitted!'
         }
     } catch (err) {
-        console.log("error submitting the form", err)
+        console.log("error submitting the form at submit_form.services", JSON.stringify(err))
         return {
             error: true,
             message: 'something went wrong submitting the form',

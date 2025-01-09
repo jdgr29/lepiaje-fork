@@ -8,7 +8,6 @@ import { Dispatch, SetStateAction } from "react";
 type CalendarPropsCustomized = CalendarProps & {
   range_of_dates_selected: DateRange | undefined;
   setHasOverlap: Dispatch<SetStateAction<boolean>>;
-  setSocket: Dispatch<SetStateAction<WebSocket | null>>;
 };
 
 function Calendar({
@@ -17,40 +16,44 @@ function Calendar({
   range_of_dates_selected,
   showOutsideDays = true,
   setHasOverlap,
-  setSocket,
   ...props
 }: CalendarPropsCustomized) {
   const [error, setError] = useState<string | null>(null);
   const [blockedDates, setBlockedDates] = useState<
     { from: string; to: string }[]
   >([]);
+  const [loading, setLoading] = useState<boolean>(true);
   useEffect(() => {
     // const ws = new WebSocket("ws:localhost:8000");
     const ws = new WebSocket(process.env.NEXT_PUBLIC_WEB_SOCKET_SERVER!);
 
     ws.onopen = (event) => {
-      console.log("the webscoket is connected", "event", event);
+      console.log("the webscoket is connected", event);
     };
     ws.onmessage = (event) => {
-      console.log("event.data", event.data);
       setBlockedDates(JSON.parse(event.data));
+      setLoading(false);
     };
     ws.onclose = () => {
       console.log("Websocket connection closed");
     };
 
     ws.onerror = (error) => {
-      console.error("Websocket error:", error);
+      console.log("Websocket error:", error);
     };
 
-    setSocket(ws);
+    return () => {
+      ws?.close();
+    };
   }, []);
+
+  //TODO decide when to close websocket connection
   useEffect(() => {
     if (range_of_dates_selected) {
       const isOverLapping = checkOverlap(range_of_dates_selected, blockedDates);
       setHasOverlap(isOverLapping); // Update overlap state
       if (isOverLapping) {
-        setError("Selected dates overlap with blocked dates!");
+        setError("Selected dates are not available!");
       } else {
         setError(null);
       }
@@ -86,19 +89,24 @@ function Calendar({
         </div>
       )}
       <DayPicker
-        disabled={[
-          { before: new Date(Date.now()) },
-          ...blockedDates.map((value) => ({
-            from: new Date(value.from),
-            to: new Date(value.to),
-          })),
-        ]}
+        disabled={
+          loading
+            ? true
+            : [
+                { before: new Date(Date.now()) },
+                ...blockedDates.map((value) => ({
+                  from: new Date(value.from),
+                  to: new Date(value.to),
+                })),
+              ]
+        }
         showOutsideDays={showOutsideDays}
         className={cn("p-3", className)}
         classNames={{
           months:
             "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
           ...classNames,
+          today: "font-bold text-lg text-lepiajeBrown",
         }}
         {...props}
       />

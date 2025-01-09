@@ -1,3 +1,4 @@
+
 export interface BookingType {
     propertyName: string;
     checkIn: Date | undefined;

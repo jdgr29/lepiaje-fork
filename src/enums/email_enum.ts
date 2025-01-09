@@ -1,6 +1,5 @@
 export enum Email {
-    FORM_SUBMITTED = "form_submitted",
-    BOOKING = "booking",
-    PURCHASE = "purchase",
-    NOTIFY_ADMIN = "notify_admin"
+    FORM_SUBMITTED = "api/email/form",
+    BOOKING = "api/email/booking",
+    PURCHASE = "api/email/purchase"
 }

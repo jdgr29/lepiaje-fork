@@ -3,7 +3,7 @@ import * as Yup from "yup";
 import Image from "next/image";
 import Logo from "../logo/logo";
 import { useFormik } from "formik";
-import { Alert } from "../alerts/alerst";
+import { Alert } from "../alerts/alerts";
 import React, { useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -12,9 +12,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { useSuccessAlert } from "@/hooks/use_alert";
 import formImageBackground from "../../../public/assets/villa_perlata/interno3.jpeg";
 import { submitForm } from "@/services/submit_form.services";
-import { notifyAdminAboutFormSubmitted } from "@/services/notify_admin_about_form_submitted";
+import { notifyAdmin } from "@/services/notify_admin";
 import { PulsingDotSpinner } from "../loader/loader";
 import { useTranslations } from "next-intl";
+import { Email } from "@/enums";
 
 const validationSchema = Yup.object({
   name: Yup.string().required("full name is required"),
@@ -55,7 +56,7 @@ export default function ContactForm() {
         setIsLoading(false);
         return;
       }
-      await notifyAdminAboutFormSubmitted(values);
+      await notifyAdmin(values, Email.FORM_SUBMITTED);
       formik.resetForm();
       setIsLoading(false);
       setHasSuceeded(true);

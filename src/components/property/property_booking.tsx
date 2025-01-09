@@ -40,8 +40,6 @@ export function PropertyBooking({
   const locale = useLocale();
   const [showSummary, setShowSummary] = useState<boolean>(false);
   const [priceDetails, setPriceDetails] = useState<null | PriceDetails>(null);
-  const [socket, setSocket] = useState<WebSocket | null>(null);
-
   const bookingData: BookingType = {
     propertyName,
     checkIn: dates?.from,
@@ -62,12 +60,6 @@ export function PropertyBooking({
     );
     setPriceDetails(pricing);
   }, [dates, guestList]);
-
-  useEffect(() => {
-    return () => {
-      socket?.close();
-    };
-  }, []);
 
   return (
     <div className="border rounded-lg p-6">
@@ -112,7 +104,6 @@ export function PropertyBooking({
               onSelect={setDates}
               numberOfMonths={2}
               range_of_dates_selected={dates}
-              setSocket={setSocket}
               setHasOverlap={setHasOverlap}
             />
           </PopoverContent>
@@ -125,15 +116,20 @@ export function PropertyBooking({
         />
         <Button
           onClick={() => setShowSummary(true)}
-          disabled={hasOverlap || !dates?.to || guestList.length === 0}
+          disabled={
+            hasOverlap ||
+            !dates?.to ||
+            guestList.length === 0 ||
+            guestList[0] === ""
+          }
           className={`w-full ${hasOverlap ? "text-white bg-red-500" : " hover:text-slate-950 bg-green-600 hover:bg-green-300"}`}
         >
           {hasOverlap ? "You can't book these dates" : "Book now"}
         </Button>
 
         {hasOverlap && (
-          <p className="text-red-600 font-bold">
-            There is an overlap with dates that are not available
+          <p className="text-red-600 ">
+            Selected dates are not available or overlap with non available dates
           </p>
         )}
         <div>
