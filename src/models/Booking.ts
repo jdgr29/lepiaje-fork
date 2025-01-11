@@ -36,6 +36,7 @@ const bookingSchema = new Schema<BookingType>(
             required: false,
         },
         dateOfBooking: {
+
             type: Date,
             default: Date.now(),
         },

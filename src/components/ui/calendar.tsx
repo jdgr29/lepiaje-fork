@@ -29,12 +29,11 @@ function Calendar({
     const ws = new WebSocket(process.env.NEXT_PUBLIC_WEB_SOCKET_SERVER!);
 
     ws.onopen = (event) => {
-      console.log("the webscoket is connected", event);
+      console.log("websocket running");
     };
     ws.onmessage = (event) => {
       setBlockedDates(JSON.parse(event.data));
       setLoading(false);
-      console.log("did I even run?");
     };
     ws.onclose = () => {
       console.log("Websocket connection closed");
