@@ -1,11 +1,12 @@
+import Reservation from "@/models/Reservation";
 import { ResponseHandler } from "@/helpers/response_handler";
 import { HttpStatusCode } from "@/enums";
 import { connection } from "@/config/db";
-import Booking from "../../../models/Booking";
 import { BookingType } from "@/types";
 
 
 export async function POST(request: Request) {
+    const Booking = Reservation
     const responseHandler = new ResponseHandler();
     try {
         const db = await connection();
