@@ -1,7 +1,7 @@
 import { ResponseHandler } from "@/helpers/response_handler";
 import { HttpStatusCode } from "@/enums";
 import { connection } from "@/config/db";
-import Booking from "@/models/booking";
+import Booking from "../../../models/Booking"
 import { BookingType } from "@/types";
 
 
