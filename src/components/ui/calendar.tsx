@@ -28,7 +28,7 @@ function Calendar({
     // const ws = new WebSocket("ws://0.0.0.0:8000/");
     const ws = new WebSocket(process.env.NEXT_PUBLIC_WEB_SOCKET_SERVER!);
 
-    ws.onopen = (event) => {
+    ws.onopen = () => {
       console.log("the webscoket is connected");
     };
     ws.onmessage = (event) => {
