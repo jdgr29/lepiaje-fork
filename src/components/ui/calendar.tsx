@@ -29,7 +29,7 @@ function Calendar({
     const ws = new WebSocket(process.env.NEXT_PUBLIC_WEB_SOCKET_SERVER!);
 
     ws.onopen = (event) => {
-      console.log("websocket running");
+      console.log("the webscoket is connected");
     };
     ws.onmessage = (event) => {
       setBlockedDates(JSON.parse(event.data));
