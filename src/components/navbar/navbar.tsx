@@ -12,7 +12,7 @@ import Link from "next/link";
 
 export function Navbar() {
   return (
-    <header className=" top-0 fixed z-50   bg-lepiajeBrown flex h-24 w-full bg-opacity-0 backdrop-filter backdrop-blur-md shrink-0 items-center px-4 md:px-6">
+    <header className=" top-0 fixed z-50 bg-lepiajeBrown flex h-24 w-full bg-opacity-0 backdrop-filter backdrop-blur-md shrink-0 items-center px-4 md:px-6">
       <Sheet>
         <SheetTitle>
           <Link href={"/"} prefetch={false}>

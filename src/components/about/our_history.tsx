@@ -34,6 +34,9 @@ export function OurHistory() {
                   {milestone.year}
                 </h3>
                 <p className="text-gray-400">{milestone.event}</p>
+                <button className="mt-4 px-6 py-3 bg-amber-600 text-white font-semibold rounded-full hover:bg-amber-700 transition-colors duration-300">
+                  Learn More
+                </button>
               </div>
               <div className="w-2/12 flex justify-center">
                 <div className="w-4 h-4 bg-slate-200 rounded-full"></div>
@@ -41,8 +44,6 @@ export function OurHistory() {
               <div className=" bg-slate-20 w-5/12"></div>
             </div>
           ))}
-          {/* //TODO add a button for each milestone //TODO add button for the link */}
-          to another page
         </div>
       </div>
     </AnimateOnScroll>

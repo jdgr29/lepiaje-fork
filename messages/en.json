@@ -9,12 +9,31 @@
             "title": "Le Piaje",
             "sub_title": "A Welcome as Genuine as the Tastes of the Land",
             "main_text": "We are a family of agricultural entrepreneurs with a deep commitment to hospitality and the enhancement of the natural and cultural heritage of our land. Whether you are curious travelers, families looking for relaxing times, gourmets or lovers of uncontaminated nature, Le Piaje will open its doors to you to make you live a unique experience. You will discover a world made of authentic flavors, routes and views telling the story of Tuscia."
+        },
+        "contact_form":{
+            "title": "Contact Us",
+            "main_text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor.",
+            "form_inputs": {
+                "full_name": "name",
+                "email": "email",
+                "phone": "phone",
+                "message": "message"
+            },
+             "submit_button": "submit"
         }
     },
     "about_us_page":{
         "hero": {
             "title":"some nice catchy title in English",
             "sub_title":"some nice subtitle or phrase, slogan in English"
+        },
+        "our_mission": {
+            "title":"Our Mission",
+            "main_text": "At Le Piaje, we are dedicated to providing unparalleled luxury experiences in our exquisite villa retreats. Our mission is to create unforgettable moments of relaxation, indulgence, and connection with nature for our esteemed guests.",
+              "bullet_point_one":"",
+              "bullet_point_two":"",
+              "bullet_point_three":"",
+              "bullet_point_four":""
         }
     }
 }

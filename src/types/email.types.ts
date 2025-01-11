@@ -1,5 +1,4 @@
-export interface EmailType {
-    name: string,
-    message: string,
-    email: string
-}
+import { BookingType } from "./booking.types";
+import { FormType } from "./form.types";
+
+export type EmailType = BookingType | FormType;

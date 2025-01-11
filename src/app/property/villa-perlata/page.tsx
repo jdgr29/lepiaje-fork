@@ -124,7 +124,6 @@ The rooms are on the first floor. You will find both bed linen and bath linen. C
     airbnb: la_villa_perlata_airbnb_url,
     google_maps_url: la_villa_perlata_google_maps_url,
   };
-  // await new Promise((resolve) => setTimeout(resolve, 5000)); //For testing the skeleton!
 
   return <PropertyPage property={property} />;
 }

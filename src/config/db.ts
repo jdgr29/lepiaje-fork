@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-
 let isConnected = false;
 
 export async function connection() {
