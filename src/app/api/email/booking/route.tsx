@@ -79,6 +79,7 @@ export async function POST(request: Request) {
       to: [adminEmail], //Only supports sending to one email until domain email is provided
       subject: "An user has submitted a form!",
       react: (
+        //TODO add check-in and check-out dates in non form email AND refactor this component
         <AdminNotificationEmail
           phone={emailData.guestPhone}
           name={emailData.guests[0]}

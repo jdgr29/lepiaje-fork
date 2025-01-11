@@ -5,4 +5,3 @@ export async function POST(req: Request) {
     console.log("req", req)
     return NextResponse.json({ data: "everything good" }, { status: 200 })
 }
-

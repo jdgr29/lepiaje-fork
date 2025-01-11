@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { HttpResponseType } from "@/types";
+
 export class ResponseHandler {
     constructor() { }
     respond = (response: HttpResponseType) => {
@@ -11,3 +12,6 @@ export class ResponseHandler {
 
     }
 }
+
+
+

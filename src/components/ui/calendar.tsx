@@ -23,8 +23,9 @@ function Calendar({
     { from: string; to: string }[]
   >([]);
   const [loading, setLoading] = useState<boolean>(true);
+
   useEffect(() => {
-    // const ws = new WebSocket("ws:localhost:8000");
+    // const ws = new WebSocket("ws://0.0.0.0:8000/");
     const ws = new WebSocket(process.env.NEXT_PUBLIC_WEB_SOCKET_SERVER!);
 
     ws.onopen = (event) => {
@@ -33,9 +34,11 @@ function Calendar({
     ws.onmessage = (event) => {
       setBlockedDates(JSON.parse(event.data));
       setLoading(false);
+      console.log("did I even run?");
     };
     ws.onclose = () => {
       console.log("Websocket connection closed");
+      setLoading(true);
     };
 
     ws.onerror = (error) => {
@@ -43,7 +46,8 @@ function Calendar({
     };
 
     return () => {
-      ws?.close();
+      setLoading(true);
+      // ws?.close();
     };
   }, []);
 

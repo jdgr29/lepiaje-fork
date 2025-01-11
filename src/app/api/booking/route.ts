@@ -1,12 +1,11 @@
 import { ResponseHandler } from "@/helpers/response_handler";
 import { HttpStatusCode } from "@/enums";
 import { connection } from "@/config/db";
-import Booking from "@/models/Booking";
+import booking from "@/models/Booking";
 import { BookingType } from "@/types";
 
-
-
 export async function POST(request: Request) {
+    const Booking = booking
     const responseHandler = new ResponseHandler();
     try {
         const db = await connection();
@@ -106,9 +105,10 @@ export async function POST(request: Request) {
     } catch (err) {
         responseHandler.respond({
             error: true,
-            errorDetails: `please check the lgos ${JSON.stringify(err)}`,
+            errorDetails: `please check the logs ${JSON.stringify(err)}`,
             status: HttpStatusCode.INTERNAL_SERVER,
             message: "something has gone wrong, please check the object error details for more information"
         })
     }
 }
+

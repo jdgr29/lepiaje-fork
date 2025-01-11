@@ -40,6 +40,7 @@ export function PropertyBooking({
   const locale = useLocale();
   const [showSummary, setShowSummary] = useState<boolean>(false);
   const [priceDetails, setPriceDetails] = useState<null | PriceDetails>(null);
+
   const bookingData: BookingType = {
     propertyName,
     checkIn: dates?.from,
@@ -48,6 +49,7 @@ export function PropertyBooking({
     numberOfGuests: guestList.length,
     totalPaid: priceDetails?.totalPrice,
   };
+
   const pricePerNight: number = 30;
   const pricePerAdditionalGuest: number = 30;
 
