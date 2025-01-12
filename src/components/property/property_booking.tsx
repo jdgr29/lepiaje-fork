@@ -12,7 +12,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import GuestList from "./property_guest_list";
-import { format } from "date-fns";
+import { format, addDays } from "date-fns"; // Import addDays
 import { useLocale } from "next-intl";
 import { it, enUS } from "react-day-picker/locale";
 import { BookingType } from "@/types";
@@ -33,7 +33,7 @@ export function PropertyBooking({
   propertyName: string;
 }) {
   const [dates, setDates] = useState<DateRange | undefined>({
-    from: new Date(Date.now()),
+    from: new Date(),
   });
   const [hasOverlap, setHasOverlap] = useState<boolean>(false);
   const [guestList, setGuestList] = useState<string[]>([]);
@@ -41,18 +41,23 @@ export function PropertyBooking({
   const [showSummary, setShowSummary] = useState<boolean>(false);
   const [priceDetails, setPriceDetails] = useState<null | PriceDetails>(null);
 
-  const bookingData: BookingType = {
-    propertyName,
-    checkIn: dates?.from,
-    checkOut: dates?.to,
-    guests: guestList,
-    numberOfGuests: guestList.length,
-    totalPaid: priceDetails?.totalPrice,
-  };
-
   const pricePerNight: number = 30;
   const pricePerAdditionalGuest: number = 30;
 
+  // Enforce 1-day check-out logic if necessary maybe?
+  useEffect(() => {
+    if (dates?.from && (!dates.to || dates.to <= dates.from)) {
+      setDates((prev) => {
+        const from = prev?.from ?? new Date();
+        return {
+          from,
+          to: addDays(from, 1),
+        };
+      });
+    }
+  }, [dates]);
+
+  // Recalculate price details whenever dates or guests change
   useEffect(() => {
     const pricing = calculate_price(
       dates,
@@ -62,6 +67,15 @@ export function PropertyBooking({
     );
     setPriceDetails(pricing);
   }, [dates, guestList]);
+
+  const bookingData: BookingType = {
+    propertyName,
+    checkIn: dates?.from,
+    checkOut: dates?.to,
+    guests: guestList,
+    numberOfGuests: guestList.length,
+    totalPaid: priceDetails?.totalPrice,
+  };
 
   return (
     <div className="border rounded-lg p-6">

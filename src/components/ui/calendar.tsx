@@ -53,8 +53,16 @@ function Calendar({
   //TODO decide when to close websocket connection
   useEffect(() => {
     if (range_of_dates_selected) {
-      const isOverLapping = checkOverlap(range_of_dates_selected, blockedDates);
-      setHasOverlap(isOverLapping); // Update overlap state
+      // Adjust the "to" date to the next day if "from" and "to" are the same
+      const { from, to } = range_of_dates_selected;
+      const adjustedRange =
+        from && to && from.getTime() === to.getTime()
+          ? { from, to: new Date(to.getTime() + 24 * 60 * 60 * 1000) } // Add 1 day to "to"
+          : range_of_dates_selected;
+
+      const isOverLapping = checkOverlap(adjustedRange, blockedDates);
+      setHasOverlap(isOverLapping);
+
       if (isOverLapping) {
         setError("Selected dates are not available!");
       } else {
@@ -76,13 +84,20 @@ function Calendar({
       const blockedStart = new Date(from);
       const blockedEnd = new Date(to);
 
+      // Add one day to the blockedEnd to represent checkout
+      const adjustedBlockedEnd = new Date(blockedEnd);
+      adjustedBlockedEnd.setDate(blockedEnd.getDate() + 1);
+
       return (
-        (selectedStart >= blockedStart && selectedStart <= blockedEnd) || // Overlaps at the start
-        (selectedEnd >= blockedStart && selectedEnd <= blockedEnd) || // Overlaps at the end
-        (selectedStart <= blockedStart && selectedEnd >= blockedEnd) // Fully encompasses the blocked range
+        (selectedStart >= blockedStart && selectedStart < adjustedBlockedEnd) || // Overlaps at the start
+        (selectedEnd > blockedStart && selectedEnd <= adjustedBlockedEnd) || // Overlaps at the end
+        (selectedStart <= blockedStart && selectedEnd >= adjustedBlockedEnd) || // Fully encompasses the blocked range
+        (selectedStart.getTime() === blockedStart.getTime() && // Single night check (start equals blocked)
+          selectedEnd.getTime() === adjustedBlockedEnd.getTime()) // Single night check (end equals adjusted blocked end)
       );
     });
   };
+  //TODO when to consider a day blocked? when is it time to check-in or check-out
 
   return (
     <div>
@@ -99,7 +114,9 @@ function Calendar({
                 { before: new Date(Date.now()) },
                 ...blockedDates.map((value) => ({
                   from: new Date(value.from),
-                  to: new Date(value.to),
+                  to: new Date(
+                    new Date(value.to).setDate(new Date(value.to).getDate() + 1)
+                  ), // Adjust checkout date
                 })),
               ]
         }
