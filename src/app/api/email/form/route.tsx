@@ -2,7 +2,7 @@ import { Resend } from "resend";
 import { ResponseHandler } from "@/helpers/response_handler";
 import { HttpStatusCode } from "@/enums";
 import { FormType } from "@/types";
-import AdminNotificationEmail from "@/components/email_templates/submitted_form_email";
+import FormNotificationTemplate from "@/components/email_templates/submitted_form_email";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const adminEmail = process.env.ADMIN_EMAIL_ONE_RECEIVER || "";
@@ -65,15 +65,14 @@ export async function POST(request: Request) {
       to: [adminEmail], //Only supports sending to one email until domain email is provided
       subject: "An user has submitted a form!",
       react: (
-        <AdminNotificationEmail
+        <FormNotificationTemplate
           phone={emailData.phone}
           name={emailData.name}
           email={emailData.email}
           message={emailData.message}
-          isForm={true}
         />
       ),
-    }); //TODO better add a log to the database if case it fails
+    });
 
     if (!adminData) {
       return responseHandler.respond({

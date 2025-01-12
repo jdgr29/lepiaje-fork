@@ -13,6 +13,7 @@ export function PropertyGallery({ images }: { images: string[] }) {
           src={images[currentImage]}
           alt={`Property image ${currentImage + 1}`}
           fill
+          sizes="100%"
           style={{ objectFit: "cover" }}
           className="rounded-lg"
         />
@@ -31,6 +32,7 @@ export function PropertyGallery({ images }: { images: string[] }) {
                 src={image}
                 alt={`Property thumbnail ${index + 1}`}
                 fill
+                sizes="100%"
                 style={{ objectFit: "cover" }}
               />
             </div>

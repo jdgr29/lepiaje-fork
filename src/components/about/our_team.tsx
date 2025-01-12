@@ -78,6 +78,7 @@ export function OurTeam({ folderName }: OurTeamImagesProps) {
                   alt={member.name}
                   className="transition-opacity duration-300"
                   fill
+                  sizes="100%"
                   style={{
                     opacity: hoveredIndex === index ? 0.7 : 1,
                     objectFit: "cover",

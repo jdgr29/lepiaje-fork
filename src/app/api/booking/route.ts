@@ -97,7 +97,7 @@ export async function POST(request: Request) {
         return responseHandler.respond({
             error: false,
             errorDetails: "N/A",
-            message: "booked!",
+            message: savedBooking,
             status: HttpStatusCode.CREATED
         })
 

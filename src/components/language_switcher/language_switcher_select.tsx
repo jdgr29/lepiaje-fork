@@ -67,7 +67,7 @@ export default function LocaleSwitcherSelect({
                 alt={item.label}
                 width={24}
                 height={16}
-                className="mr-2"
+                className="mr-2 h-auto w-auto"
               />
               <span className="text-slate-900 text-sm">{item.label}</span>
               {item.value === selectedValue && (

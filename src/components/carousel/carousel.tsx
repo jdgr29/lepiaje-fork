@@ -59,6 +59,7 @@ export default function Carousel({ autoSlide = true }: CarouselProps) {
           src={images[2]}
           alt="Carousel background Image"
           fill
+          sizes="100%"
           style={{ objectFit: "cover" }}
           className="blur-sm"
         />
@@ -87,6 +88,7 @@ export default function Carousel({ autoSlide = true }: CarouselProps) {
                   src={images[currentIndex]}
                   alt={`Selected image`}
                   fill
+                  sizes="100%"
                   className="object-cover"
                 />
               </motion.div>
@@ -122,6 +124,7 @@ export default function Carousel({ autoSlide = true }: CarouselProps) {
                 src={image}
                 alt={`Thumbnail ${index + 1}`}
                 fill
+                sizes="100%"
                 style={{ objectFit: "cover" }}
                 className="object-cover rounded"
               />

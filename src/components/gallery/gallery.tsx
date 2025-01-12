@@ -23,6 +23,7 @@ export default function Gallery() {
         src={galleryBackground}
         alt="Hero background"
         fill
+        sizes="100%"
         style={{ objectFit: "cover" }}
         className="blur-sm"
       />

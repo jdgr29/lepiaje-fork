@@ -3,15 +3,20 @@ import React, { useState } from "react";
 import { format } from "date-fns";
 import { Badge } from "lucide-react";
 import Logo from "@/components/logo/logo";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "../ui/dialog";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "../ui/button";
 import { submit_new_booking } from "@/services/submit_new_booking";
 import { useSuccessAlert } from "@/hooks/use_alert";
 import { Alert } from "../alerts/alerts";
 import { PulsingDotSpinner } from "../loader/loader";
-import { notifyAdmin } from "@/services/notify_admin";
-import { Email } from "@/enums";
+
 interface BookingSummaryProps {
   isOpen: boolean;
   onClose: () => void;
@@ -43,7 +48,6 @@ export default function BookingSummaryModal({
         setSuccess(true);
         showAlert("You booking has been successful! ");
         setLoading(false);
-        await notifyAdmin(bookingData, Email.BOOKING);
       }
     } catch (err) {
       setSuccess(false);
@@ -56,6 +60,9 @@ export default function BookingSummaryModal({
   return (
     <>
       <Dialog open={isOpen} onOpenChange={onClose}>
+        <DialogDescription hidden>
+          Overlay for booking summary
+        </DialogDescription>
         <DialogContent className="my-4 bg-slate-950 py-8 h-screen overflow-scroll">
           <div className="w-full flex items-center justify-center">
             <Alert

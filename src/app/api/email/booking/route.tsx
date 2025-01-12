@@ -2,7 +2,7 @@ import { HttpStatusCode } from "@/enums";
 import { ResponseHandler } from "@/helpers/response_handler";
 import { BookingType } from "@/types";
 import { Resend } from "resend";
-import AdminNotificationEmail from "@/components/email_templates/submitted_form_email";
+import BookingNotificationTemplate from "@/components/email_templates/new_booking";
 
 const responseHandler = new ResponseHandler();
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -77,18 +77,8 @@ export async function POST(request: Request) {
     const { data: adminData, error: adminError } = await resend.emails.send({
       from: emailFrom,
       to: [adminEmail], //Only supports sending to one email until domain email is provided
-      subject: "An user has submitted a form!",
-      react: (
-        //TODO add check-in and check-out dates in non form email AND refactor this component
-        <AdminNotificationEmail
-          phone={emailData.guestPhone}
-          name={emailData.guests[0]}
-          email={"juandaniel9619@gmail.com"} //TODO change this when have access to email
-          guests={emailData.guests}
-          propertyName={emailData.propertyName}
-          isForm={false}
-        />
-      ),
+      subject: "There is a new booking!",
+      react: <BookingNotificationTemplate bookingData={emailData} />,
     }); //TODO better add a log to the database if case it fails
 
     if (!adminData) {
@@ -108,6 +98,7 @@ export async function POST(request: Request) {
         status: HttpStatusCode.INTERNAL_SERVER,
       });
     }
+
     return responseHandler.respond({
       error: false,
       errorDetails: "there were no errors",
@@ -117,7 +108,8 @@ export async function POST(request: Request) {
   } catch (err) {
     console.log(
       "Something went wrong in sending booking email",
-      JSON.stringify(err)
+      JSON.stringify(err),
+      err
     );
     responseHandler.respond({
       error: true,

@@ -25,6 +25,7 @@ export function Hero() {
           src={villaPerlata6}
           alt="Le Piaje About Us Hero Background Image"
           fill
+          sizes="100%"
           style={{ objectFit: "cover" }}
           quality={100}
           priority
