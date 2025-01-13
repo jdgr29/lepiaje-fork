@@ -1,15 +1,13 @@
-import { Resend } from "resend";
-import { ResponseHandler } from "@/helpers/response_handler";
 import { HttpStatusCode } from "@/enums";
-import { FormType } from "@/types";
+import { ResponseHandler } from "@/helpers/response_handler";
+import { BookingType } from "@/types";
+import { Resend } from "resend";
 import AdminNotificationEmail from "@/components/email_templates/submitted_form_email";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-const adminEmail = process.env.ADMIN_EMAIL_ONE_RECEIVER || "";
-// const adminEmailTwo = process.env.ADMIN_EMAIL_TWO_RECEIVER || "";
-// const emailFrom = process.env.DOMAIN_EMAIL_SENDER //TODO replace with real email in env variable when available from a domain
 const responseHandler = new ResponseHandler();
+const resend = new Resend(process.env.RESEND_API_KEY);
 const emailFrom = "delivered@resend.dev";
+const adminEmail = process.env.ADMIN_EMAIL_ONE_RECEIVER || "";
 
 export async function POST(request: Request) {
   try {
@@ -31,50 +29,68 @@ export async function POST(request: Request) {
         error: true,
       });
     }
-    const emailData: FormType = await request.json();
+    const emailData: BookingType = await request.json();
 
-    if (!emailData.message) {
+    if (!emailData.checkIn) {
       return responseHandler.respond({
         error: true,
-        message: "a message is necessary for this email",
+        errorDetails: "N/A",
+        message: "check in data was not provided",
         status: HttpStatusCode.BAD_REQUEST,
-        errorDetails: "no error details",
+      });
+    }
+    if (!emailData.checkOut) {
+      return responseHandler.respond({
+        error: true,
+        errorDetails: "N/A",
+        message: "check out data was not provided",
+        status: HttpStatusCode.BAD_REQUEST,
       });
     }
 
-    if (!emailData.name) {
+    if (emailData.guests.length === 0) {
       return responseHandler.respond({
         error: true,
-        message: "a name is necessary for this email",
+        errorDetails: "N/A",
+        message: "There are no guests on the list",
         status: HttpStatusCode.BAD_REQUEST,
-        errorDetails: "no error details",
       });
     }
-
-    if (!emailData.email) {
+    if (!emailData.numberOfGuests) {
       return responseHandler.respond({
         error: true,
-        message: "an email is necessary for sending an email",
+        errorDetails: "N/A",
+        message: "There are no numbers of guest included",
         status: HttpStatusCode.BAD_REQUEST,
-        errorDetails: "no error details",
       });
     }
+    if (!emailData.propertyName) {
+      return responseHandler.respond({
+        error: true,
+        errorDetails: "N/A",
+        message: "There is not a name of any property included",
+        status: HttpStatusCode.BAD_REQUEST,
+      });
+    }
+    //TODO account for totalPaid via stripe
 
     const { data: adminData, error: adminError } = await resend.emails.send({
       from: emailFrom,
       to: [adminEmail], //Only supports sending to one email until domain email is provided
       subject: "An user has submitted a form!",
       react: (
+        //TODO add check-in and check-out dates in non form email AND refactor this component
         <AdminNotificationEmail
-          phone={emailData.phone}
-          name={emailData.name}
-          email={emailData.email}
-          message={emailData.message}
+          phone={emailData.guestPhone}
+          name={emailData.guests[0]}
+          email={"juandaniel9619@gmail.com"} //TODO change this when have access to email
+          guests={emailData.guests}
+          propertyName={emailData.propertyName}
+          isForm={false}
         />
       ),
     }); //TODO better add a log to the database if case it fails
-    console.log("adminData", adminData);
-    console.log("adminError", adminError);
+
     if (!adminData) {
       return responseHandler.respond({
         message: "something has failed while sending the email 2",
@@ -99,12 +115,14 @@ export async function POST(request: Request) {
       status: HttpStatusCode.OK,
     });
   } catch (err) {
-    console.log("general error on email route", JSON.stringify(err));
-    return responseHandler.respond({
+    console.log(
+      "Something went wrong in sending booking email",
+      JSON.stringify(err)
+    );
+    responseHandler.respond({
       error: true,
-      message:
-        "Something has gone wrong, please check logs and more information at 'errorDetails' object",
-      errorDetails: JSON.stringify(err),
+      message: "something went wrong while sending booking email",
+      errorDetails: `please check the logs ${JSON.stringify(err)}`,
       status: HttpStatusCode.INTERNAL_SERVER,
     });
   }

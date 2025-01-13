@@ -7,6 +7,7 @@ import { useTranslations } from "next-intl";
 
 export default function Home() {
   const t = useTranslations("landing_page.hero");
+
   return (
     <div className="bg-slate-950 w-full h-full">
       <React.Fragment>

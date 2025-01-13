@@ -50,7 +50,6 @@ export async function POST(request: Request) {
         }
 
         const newForm = new Form(formData);
-
         const savedForm = await newForm.save();
 
         if (!savedForm) {
@@ -61,7 +60,7 @@ export async function POST(request: Request) {
             }, { status: HttpStatusCode.BAD_REQUEST });
         }
 
-        return NextResponse.json({ error: false, errorDetails: false, message: 'form was submitted succesfully!' }, { status: HttpStatusCode.OK })
+        return NextResponse.json({ error: false, errorDetails: false, message: 'form was submitted succesfully!' }, { status: HttpStatusCode.CREATED })
 
     } catch (err) {
         console.log("global error in form route", err)

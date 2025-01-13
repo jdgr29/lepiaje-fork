@@ -23,19 +23,20 @@ const bookingSchema = new Schema<BookingType>(
             type: Number,
             required: true,
         },
-        guestName: {
-            type: String,
+        guests: {
+            type: [String],
             required: true,
         },
         guestEmail: {
             type: String,
-            required: true,
+            required: false,
         },
         guestPhone: {
             type: String,
             required: false,
         },
         dateOfBooking: {
+
             type: Date,
             default: Date.now(),
         },

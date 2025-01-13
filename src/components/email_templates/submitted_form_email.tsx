@@ -16,7 +16,10 @@ interface AdminNotificationProps {
   name: string;
   email: string;
   phone?: string;
-  message: string;
+  message?: string;
+  propertyName?: string;
+  isForm: boolean;
+  guests?: string[];
 }
 
 function AdminNotificationEmail({
@@ -24,11 +27,18 @@ function AdminNotificationEmail({
   email,
   phone,
   message,
+  propertyName,
+  isForm = false,
+  guests,
 }: AdminNotificationProps): React.ReactNode {
   return (
     <Html>
       <Head />
-      <Preview>New form submission from {name}</Preview>
+      <Preview>
+        {isForm
+          ? `New form submission from ${name}`
+          : `New booking! from ${name}`}
+      </Preview>
       <Tailwind>
         <Body className="bg-gray-100 font-sans">
           <Container className="bg-white border border-gray-200 rounded-lg p-8 mx-auto my-8 max-w-xl">
@@ -36,7 +46,9 @@ function AdminNotificationEmail({
               Hello Matteo!
             </Heading>
             <Text className="text-gray-700 mb-4">
-              A new form submission has been received. Here are the details:
+              {isForm
+                ? `A new form submission has been received. Here are the details:`
+                : `A new booking has been received at ${propertyName}. Here are the details:`}
             </Text>
             <Section className="bg-gray-50 rounded-lg p-4 mb-4">
               <Text className="text-gray-700 mb-2">
@@ -52,12 +64,22 @@ function AdminNotificationEmail({
                 </Text>
               )}
               <Hr className="border-gray-300 my-4" />
-              <Text className="text-gray-700 mb-2">
-                <strong className="font-semibold">Message:</strong>
-              </Text>
-              <Text className="text-gray-700 whitespace-pre-wrap">
-                {message}
-              </Text>
+              {message && (
+                <>
+                  <Text className="text-gray-700 mb-2">
+                    <strong className="font-semibold">Message:</strong>
+                  </Text>
+                  <Text className="text-gray-700 whitespace-pre-wrap">
+                    {message}
+                  </Text>
+                </>
+              )}
+              {guests?.length !== 0 &&
+                guests?.map((name: string, index: number) => (
+                  <Text key={index}>
+                    <li className="">{name}</li>
+                  </Text>
+                ))}
             </Section>
             <Text className="text-sm text-gray-500 text-center">
               This is an automated notification. Please do not reply to this

@@ -35,9 +35,6 @@ export function OurMission() {
               <li>Promote sustainable and responsible luxury tourism</li>
               <li>Create lasting memories through unique experiences</li>
             </ul>
-            <button className="mt-4 px-6 py-3 bg-amber-600 text-white font-semibold rounded-full hover:bg-amber-700 transition-colors duration-300">
-              Learn More
-            </button>
           </div>
         </div>
       </div>
