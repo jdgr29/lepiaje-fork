@@ -55,4 +55,4 @@ const purchaseSchema = new Schema<PurchaseType>(
     { timestamps: true }
 )
 
-export default mongoose.models.Purchases || model("Purchases", purchaseSchema);
+export default mongoose.models.purchases || model("purchases", purchaseSchema);

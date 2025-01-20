@@ -16,20 +16,12 @@ import { submit_new_booking } from "@/services/submit_new_booking";
 import { useSuccessAlert } from "@/hooks/use_alert";
 import { Alert } from "../alerts/alerts";
 import { PulsingDotSpinner } from "../loader/loader";
+import { BookingType } from "@/types";
 
 interface BookingSummaryProps {
   isOpen: boolean;
   onClose: () => void;
-  bookingData: {
-    propertyName: string;
-    checkIn: Date | undefined;
-    checkOut: Date | undefined;
-    numberOfGuests: number;
-    totalPaid?: number;
-    guests: string[];
-    guestEmail?: string;
-    guestPhone?: string;
-  };
+  bookingData: BookingType;
 }
 
 export default function BookingSummaryModal({
@@ -41,19 +33,27 @@ export default function BookingSummaryModal({
   const [success, setSuccess] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [showBooking, setShowBooking] = useState<boolean>(false);
+  const [errorDetails, setErrorDetails] = useState<string>("");
 
   const handleCheckout = async () => {
     setLoading(true);
     try {
       const w = await submit_new_booking(bookingData);
-      if (w) {
+
+      if (!w.error) {
         setSuccess(true);
         showAlert("Your booking has been successful!");
         setShowBooking(true);
+        return;
       }
+      setSuccess(false);
+      setErrorDetails(w.errorDetails);
+      showAlert("there was an issue with your booking");
+      setShowBooking(true);
     } catch (err) {
       setSuccess(false);
-      showAlert("Uh oh, something has gone wrong with the booking");
+      showAlert("Uh oh, something has gone wrong");
+      setErrorDetails(JSON.stringify(err));
       setShowBooking(true);
       console.log("error submitting booking in bookingSummaryModel", err);
     } finally {
@@ -72,6 +72,7 @@ export default function BookingSummaryModal({
     if (!isOpen) {
       resetComponentState();
     }
+    // eslint-disable-next-line
   }, [isOpen]);
 
   return (
@@ -106,6 +107,14 @@ export default function BookingSummaryModal({
                         {bookingData.propertyName}
                       </h3>
                     </div>
+                    <div className="">
+                      <label className="text-gray-200 font-bold text-xl">
+                        Booker:
+                      </label>
+                      <h3 className="text-gray-200 font-semibold text-lg mb-2">
+                        {bookingData.bookerName}
+                      </h3>
+                    </div>
                     <div>
                       <h3 className="text-gray-200 font-semibold text-lg mb-2">
                         Dates
@@ -137,13 +146,13 @@ export default function BookingSummaryModal({
                         {bookingData.numberOfGuests} Guests
                       </p>
                       <div className="mt-2">
-                        {bookingData.guests.map((name, index) => (
+                        {bookingData.guests.map((guest, index) => (
                           <div
                             key={index}
                             className="flex items-center justify-start"
                           >
                             <Badge className="mr-2 text-green-600"></Badge>
-                            <p className="text-gray-200">{name}</p>
+                            <p className="text-gray-200">{guest.name}</p>
                           </div>
                         ))}
                       </div>
@@ -153,11 +162,11 @@ export default function BookingSummaryModal({
                         Contact Information
                       </h3>
                       <p className="text-gray-200">
-                        Email: {bookingData.guestEmail}
+                        Email: {bookingData.bookerEmail}
                       </p>
-                      {bookingData.guestPhone && (
+                      {bookingData.bookerPhone && (
                         <p className="text-gray-200">
-                          Phone: {bookingData.guestPhone}
+                          Phone: {bookingData.bookerPhone}
                         </p>
                       )}
                     </div>
@@ -196,13 +205,13 @@ export default function BookingSummaryModal({
                       />
                     </div>
                     <p
-                      className={`text-center whitespace-nowrap text-lg font-semibold ${
+                      className={`text-center text-md font-semibold ${
                         success ? "text-green-600" : "text-red-600"
                       }`}
                     >
                       {success
                         ? "Your booking has been successful!"
-                        : "Something has failed with the booking. Please try again later"}
+                        : errorDetails || "Something went wrong"}
                     </p>
                     {success && (
                       <p className="text-center font-medium text-gray-500">

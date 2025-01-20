@@ -12,6 +12,7 @@ const adminEmail = process.env.ADMIN_EMAIL_ONE_RECEIVER || "";
 export async function POST(request: Request) {
   try {
     if (!resend) {
+      console.log("problem with resend");
       return responseHandler.respond({
         status: HttpStatusCode.BAD_REQUEST,
         message: "There is no Resend api key",
@@ -21,6 +22,7 @@ export async function POST(request: Request) {
       });
     }
     if (!emailFrom) {
+      console.log("problem with email from");
       return responseHandler.respond({
         status: HttpStatusCode.BAD_REQUEST,
         message: "There is no email present in the environment to send emails",
@@ -32,6 +34,7 @@ export async function POST(request: Request) {
     const emailData: BookingType = await request.json();
 
     if (!emailData.checkIn) {
+      console.log("problem with checkin");
       return responseHandler.respond({
         error: true,
         errorDetails: "N/A",
@@ -40,6 +43,7 @@ export async function POST(request: Request) {
       });
     }
     if (!emailData.checkOut) {
+      console.log("checkout problem");
       return responseHandler.respond({
         error: true,
         errorDetails: "N/A",
@@ -49,6 +53,7 @@ export async function POST(request: Request) {
     }
 
     if (emailData.guests.length === 0) {
+      console.log("checkout guest list length problem ");
       return responseHandler.respond({
         error: true,
         errorDetails: "N/A",
@@ -57,6 +62,7 @@ export async function POST(request: Request) {
       });
     }
     if (!emailData.numberOfGuests) {
+      console.log("number of guests");
       return responseHandler.respond({
         error: true,
         errorDetails: "N/A",
@@ -65,6 +71,7 @@ export async function POST(request: Request) {
       });
     }
     if (!emailData.propertyName) {
+      console.log("number of guests?");
       return responseHandler.respond({
         error: true,
         errorDetails: "N/A",

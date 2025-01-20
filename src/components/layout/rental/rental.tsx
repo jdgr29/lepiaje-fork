@@ -1,7 +1,4 @@
-"use client";
-import React from "react";
 import Link from "next/link";
-import { Property } from "@/types";
 import { FaWaze } from "react-icons/fa6";
 import { SiGooglemaps } from "react-icons/si";
 import { PropertyHeader } from "@/components/property/property_header";
@@ -12,10 +9,33 @@ import { PropertyFeatures } from "@/components/property/property_features";
 import { PropertyRooms } from "@/components/property/property_rooms";
 import { open_directions_on_google_maps } from "@/utils/open_directions_on_google_maps";
 import ReusableMap from "@/components/map/map";
+import { fetch_property } from "@/services/fetch_property";
+import { Property as PropertyEnum } from "@/enums";
 
-export default function PropertyPage({ property }: { property: Property }) {
-  const waze = open_directions_on_waze(property.location!);
-  const google = open_directions_on_google_maps(property.location!);
+export default async function PropertyPage({
+  isLaVillaPerlata,
+  images,
+  propertyId = 1,
+}: {
+  isLaVillaPerlata: boolean;
+  images: string[];
+  propertyId?: number;
+}) {
+  const property = await fetch_property(
+    propertyId === PropertyEnum.LA_VILLA_PERLATA
+      ? PropertyEnum.LA_VILLA_PERLATA
+      : PropertyEnum.AL_CENTESIMO_CHILOMETRO
+  );
+  if (!property) {
+    return (
+      <div className="w-full h-full bg-[#121212] flex items-center justify-center">
+        <div className="text-2xl text-red-500 font-bold">No property found</div>
+        );
+      </div>
+    );
+  }
+  const waze = open_directions_on_waze(property.location);
+  const google = open_directions_on_google_maps(property.location);
 
   return (
     <div className="container bg-slate-950 mx-auto px-4 py-32">
@@ -25,11 +45,14 @@ export default function PropertyPage({ property }: { property: Property }) {
       />
 
       <div className="mt-6">
-        <PropertyGallery images={property.images} />
+        <PropertyGallery images={images} />
       </div>
       <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-3">
         <div className="lg:col-span-2 md:max-2xl:order-1 order-2">
-          <PropertyRooms title="Property Rooms" features={property.rooms} />
+          <PropertyRooms
+            title="Property Rooms"
+            features={property?.room_features}
+          />
           <PropertyFeatures
             title="Property Features"
             features={property.features}
@@ -45,10 +68,12 @@ export default function PropertyPage({ property }: { property: Property }) {
         </div>
         <div className="md:max-2xl:order-2 order-1">
           <PropertyBooking
-            airbnb={property.airbnb}
-            booking={property.booking_dot_com}
-            price={property.price}
+            propertyId={property.id}
+            airbnb={property.airbnb_url_address}
+            booking={property.booking_dot_com_url_address}
+            price={property.price_per_night}
             propertyName={property.name}
+            isLaVillaPerlata={isLaVillaPerlata}
           />
         </div>
       </div>
@@ -94,7 +119,7 @@ export default function PropertyPage({ property }: { property: Property }) {
       <div className="mt-12">
         <Link
           className="flex items-center justify-center"
-          href={property.google_maps_url}
+          href={property.google_maps_url_address}
           target={"_blank"}
         >
           <div className="inline-block">

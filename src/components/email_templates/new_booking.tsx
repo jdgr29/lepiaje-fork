@@ -55,11 +55,13 @@ function BookingNotificationTemplate({
                     Guest/s Name/s:
                   </Text>
                   <ul className="list-disc pl-5">
-                    {bookingData.guests.map((guest: string, index: number) => (
-                      <li key={index} className="text-gray-900">
-                        {guest}
-                      </li>
-                    ))}
+                    {bookingData.guests.map(
+                      (guest: { name: string | undefined }, index: number) => (
+                        <li key={index} className="text-gray-900">
+                          {guest?.name || ""}
+                        </li>
+                      )
+                    )}
                   </ul>
                 </div>
                 <div>
@@ -81,14 +83,14 @@ function BookingNotificationTemplate({
                 <div>
                   <Text className="text-gray-700 font-semibold">Email:</Text>
                   <Text className="text-gray-900">
-                    {bookingData.guestEmail || "N/A"}
+                    {bookingData.bookerEmail || "N/A"}
                   </Text>
                 </div>
-                {bookingData.guestPhone && (
+                {bookingData.bookerPhone && (
                   <div>
                     <Text className="text-gray-700 font-semibold">Phone:</Text>
                     <Text className="text-gray-900">
-                      {bookingData.guestPhone}
+                      {bookingData.bookerPhone}
                     </Text>
                   </div>
                 )}
@@ -99,7 +101,7 @@ function BookingNotificationTemplate({
                 <Text className="text-2xl font-bold text-green-600">
                   {new Intl.NumberFormat("de-DE", {
                     style: "currency",
-                    currency: "USD",
+                    currency: "EUR",
                   }).format(Number(bookingData.totalPaid)) || "N/A"}
                 </Text>
               </div>

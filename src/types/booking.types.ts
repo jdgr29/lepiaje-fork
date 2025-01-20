@@ -1,14 +1,26 @@
+export interface Guests {
+    name: string,
+    gender: string
+    check_in?: Date,
+    check_out?: Date,
+}
 
 export interface BookingType {
+    bookerName?: string;
+    bookerEmail?: string;
+    bookerPhone?: string;
+    bookerGender: string;
     propertyName: string;
     checkIn: Date | undefined;
     checkOut: Date | undefined;
     numberOfGuests: number;
     totalPaid?: number;
-    guests: string[];
-    guestEmail?: string;
-    guestPhone?: string;
+    guests: Guests[];
     dateOfBooking?: Date;
+    propertyId: number;
+    checkInTime: string;
+    checkOutTime: string;
+    roomId?: string
 }
 
 
