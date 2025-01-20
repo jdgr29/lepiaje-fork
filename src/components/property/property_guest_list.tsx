@@ -6,17 +6,18 @@ import { Input } from "@/components/ui/input";
 import { Plus, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Guests } from "@/types";
-const MAX_GUESTS = 5; // Maximum number of guests allowed
 
 export default function GuestList({
   setGuestList,
   guestList,
+  maxGuests,
 }: {
   guestList: Guests[];
   setGuestList: Dispatch<SetStateAction<{ name: string; gender: string }[]>>;
+  maxGuests: number;
 }) {
   const addGuest = () => {
-    if (guestList.length < MAX_GUESTS) {
+    if (guestList.length + 1 < maxGuests) {
       setGuestList([...guestList, { name: "", gender: "" }]);
     }
   };
@@ -41,7 +42,7 @@ export default function GuestList({
   return (
     <div className="w-full max-w-md mx-auto py-6 space-y-4">
       <h2 className="md:max-2xl:text-start text-center text-2xl font-bold text-gray-200 mb-6">
-        Do you have any guests?
+        Would like to add any guests?
       </h2>
       <AnimatePresence>
         {guestList.map((guest, index) => (
@@ -88,7 +89,7 @@ export default function GuestList({
       <div className="flex justify-center">
         <Button
           onClick={addGuest}
-          disabled={guestList.length >= MAX_GUESTS}
+          disabled={guestList.length >= maxGuests}
           className="mt-4"
         >
           <Plus className="h-4 w-4 mr-2" />
@@ -96,7 +97,7 @@ export default function GuestList({
         </Button>
       </div>
       <p className="text-sm text-center text-gray-500">
-        {guestList.length} / {MAX_GUESTS} guestList added
+        {guestList.length + 1} / {maxGuests} guestList added
       </p>
     </div>
   );
