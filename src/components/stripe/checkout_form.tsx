@@ -31,7 +31,7 @@ export function PaymentWrapper({
       const response = await fetch("/api/payment", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ amount: bookingData.totalPaid! }),
+        body: JSON.stringify({ amount: bookingData.totalPaid!, bookingData }),
       });
       if (!response) {
         throw new Error(
@@ -101,12 +101,14 @@ function PaymentForm({
         showAlert("Booking successful!");
         return true;
       } else {
+        setIsProcessing(false);
         setErrorDetails(response.errorDetails || "Booking failed.");
         showAlert("There was an issue with your booking.");
         return false;
       }
     } catch (error) {
       console.error("Error during booking submission:", error);
+      setIsProcessing(false);
       setErrorDetails("An unexpected error occurred.");
       showAlert("Booking failed.");
       return false;

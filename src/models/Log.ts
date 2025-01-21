@@ -33,4 +33,4 @@ const errorLogSchema = new Schema<ErrorLog>(
     { timestamps: true }
 );
 
-export default mongoose.models.errorLogs || model("errorLogs", errorLogSchema);
+export default mongoose.models?.errorLogs || model("errorLogs", errorLogSchema);

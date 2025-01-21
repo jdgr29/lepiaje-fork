@@ -529,9 +529,12 @@ export function PropertyBooking({
                   </div>
 
                   <div>
-                    <label className="block text-gray-400 text-sm font-medium">
-                      Your Email:
-                    </label>
+                    <div className="my-2 flex items-center justify-between gap-x-2">
+                      <label className="block text-gray-400 text-sm font-medium">
+                        Your Email:
+                      </label>
+                      <label className="text-sm text-red-500">*required</label>
+                    </div>
                     <Field
                       type="email"
                       name="bookerEmail"

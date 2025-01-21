@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { format } from "date-fns";
 import { Badge } from "lucide-react";
 import Logo from "@/components/logo/logo";
@@ -29,7 +29,11 @@ export default function BookingSummaryModal({
 }: BookingSummaryProps) {
   const { isVisible, message, showAlert, hideAlert } = useSuccessAlert();
   const [errorDetails, setErrorDetails] = useState("");
-
+  useEffect(() => {
+    return () => {
+      setErrorDetails("");
+    };
+  }, []);
   return (
     <Dialog
       open={isOpen}
@@ -87,7 +91,7 @@ export default function BookingSummaryModal({
                     Guests
                   </h3>
                   <p className="text-gray-200 font-thin text-md">
-                    {bookingData.numberOfGuests} Guests
+                    {bookingData.guests.length} Guests
                   </p>
                   {bookingData.guests.map((guest, index) => (
                     <div
