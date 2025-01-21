@@ -6,6 +6,7 @@ export interface Guests {
 }
 
 export interface BookingType {
+    uuid?: string;
     bookerName?: string;
     bookerEmail?: string;
     bookerPhone?: string;

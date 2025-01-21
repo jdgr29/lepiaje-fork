@@ -73,8 +73,8 @@ export default function ReachUsMap() {
     mapRef.current?.flyTo({
       center: [place.longitude, place.latitude],
       zoom: 15,
-      duration: 2000, // Animation duration in milliseconds
-      essential: true, // This makes the animation interruptible by user actions
+      duration: 2000,
+      essential: true,
     });
   };
 
@@ -83,7 +83,7 @@ export default function ReachUsMap() {
       <div className="w-full h-[calc(100vh-4rem)] flex flex-col lg:flex-row">
         <div className="w-full lg:w-2/3 h-1/2 lg:h-full">
           <Map
-            ref={mapRef} // Attach the ref to the Map component
+            ref={mapRef} 
             mapboxAccessToken={mapboxToken}
             mapStyle="mapbox://styles/jdaniel96/cm0zjgcjt00g301nq6bxx1ffk"
             initialViewState={{
@@ -102,7 +102,7 @@ export default function ReachUsMap() {
                 longitude={place.longitude}
                 latitude={place.latitude}
                 isProminent={place.isProminent}
-                onClick={() => handleMarkerClick(place)} // Call the flyTo function on marker click
+                onClick={() => handleMarkerClick(place)} 
               />
             ))}
           </Map>

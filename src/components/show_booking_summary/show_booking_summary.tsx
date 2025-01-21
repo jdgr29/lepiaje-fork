@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { format } from "date-fns";
 import { Badge } from "lucide-react";
 import Logo from "@/components/logo/logo";
@@ -11,12 +11,10 @@ import {
   DialogTitle,
 } from "../ui/dialog";
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "../ui/button";
-import { submit_new_booking } from "@/services/submit_new_booking";
 import { useSuccessAlert } from "@/hooks/use_alert";
 import { Alert } from "../alerts/alerts";
-import { PulsingDotSpinner } from "../loader/loader";
 import { BookingType } from "@/types";
+import { PaymentWrapper } from "../stripe/checkout_form";
 
 interface BookingSummaryProps {
   isOpen: boolean;
@@ -30,202 +28,105 @@ export default function BookingSummaryModal({
   bookingData,
 }: BookingSummaryProps) {
   const { isVisible, message, showAlert, hideAlert } = useSuccessAlert();
-  const [success, setSuccess] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [showBooking, setShowBooking] = useState<boolean>(false);
-  const [errorDetails, setErrorDetails] = useState<string>("");
-
-  const handleCheckout = async () => {
-    setLoading(true);
-    try {
-      const w = await submit_new_booking(bookingData);
-
-      if (!w.error) {
-        setSuccess(true);
-        showAlert("Your booking has been successful!");
-        setShowBooking(true);
-        return;
-      }
-      setSuccess(false);
-      setErrorDetails(w.errorDetails);
-      showAlert("there was an issue with your booking");
-      setShowBooking(true);
-    } catch (err) {
-      setSuccess(false);
-      showAlert("Uh oh, something has gone wrong");
-      setErrorDetails(JSON.stringify(err));
-      setShowBooking(true);
-      console.log("error submitting booking in bookingSummaryModel", err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const resetComponentState = () => {
-    setLoading(false);
-    setShowBooking(false);
-    setSuccess(false);
-    hideAlert();
-  };
-
-  useEffect(() => {
-    if (!isOpen) {
-      resetComponentState();
-    }
-    // eslint-disable-next-line
-  }, [isOpen]);
+  const [errorDetails, setErrorDetails] = useState("");
 
   return (
-    <>
-      <Dialog
-        open={isOpen}
-        onOpenChange={(open) => {
-          if (!open) {
-            resetComponentState();
-            onClose();
-          }
-        }}
-      >
-        <DialogDescription hidden>
-          Overlay for booking summary
-        </DialogDescription>
-        <DialogContent className="my-4 bg-slate-950 py-8 h-screen overflow-scroll">
-          <DialogHeader>
-            <DialogTitle className="text-gray-400 text-center">
-              Booking Confirmation
-            </DialogTitle>
-          </DialogHeader>
+    <Dialog
+      open={isOpen}
+      onOpenChange={(open) => {
+        if (!open) {
+          hideAlert();
+          onClose();
+        }
+      }}
+    >
+      <DialogDescription hidden>
+        Booking summary and payment form
+      </DialogDescription>
+      <DialogContent className="my-4 bg-slate-950 py-8  w-[90%] h-screen overflow-scroll">
+        <DialogHeader>
+          <DialogTitle className="text-gray-400 text-center">
+            Booking Confirmation
+          </DialogTitle>
+        </DialogHeader>
 
-          <Card className="w-full bg-slate-950">
-            <CardContent className="pt-6">
-              <div className="grid grid-cols-1 gap-4">
-                <Logo width="w-[8em]" height="h-[8em]" blur="blur-lg" />
-                {!showBooking ? (
-                  <>
-                    <div>
-                      <h3 className="text-gray-200 text-center font-semibold text-lg mb-2">
-                        {bookingData.propertyName}
-                      </h3>
-                    </div>
-                    <div className="">
-                      <label className="text-gray-200 font-bold text-xl">
-                        Booker:
-                      </label>
-                      <h3 className="text-gray-200 font-semibold text-lg mb-2">
-                        {bookingData.bookerName}
-                      </h3>
-                    </div>
-                    <div>
-                      <h3 className="text-gray-200 font-semibold text-lg mb-2">
-                        Dates
-                      </h3>
-                      <p className="text-gray-200">
-                        Check-in:{" "}
-                        {bookingData.checkIn &&
-                          format(
-                            new Date(bookingData?.checkIn),
-                            "MMMM d, yyyy"
-                          )}
-                      </p>
-                      {bookingData.checkOut && (
-                        <p className="text-gray-200">
-                          Check-out:{" "}
-                          {bookingData.checkOut &&
-                            format(
-                              new Date(bookingData?.checkOut) || "",
-                              "MMMM d, yyyy"
-                            )}
-                        </p>
-                      )}
-                    </div>
-                    <div>
-                      <h3 className="text-gray-200 font-semibold text-lg mb-2">
-                        Guests
-                      </h3>
-                      <p className="text-gray-200 font-thin text-md">
-                        {bookingData.numberOfGuests} Guests
-                      </p>
-                      <div className="mt-2">
-                        {bookingData.guests.map((guest, index) => (
-                          <div
-                            key={index}
-                            className="flex items-center justify-start"
-                          >
-                            <Badge className="mr-2 text-green-600"></Badge>
-                            <p className="text-gray-200">{guest.name}</p>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                    <div>
-                      <h3 className="text-gray-200 font-semibold text-lg mb-2">
-                        Contact Information
-                      </h3>
-                      <p className="text-gray-200">
-                        Email: {bookingData.bookerEmail}
-                      </p>
-                      {bookingData.bookerPhone && (
-                        <p className="text-gray-200">
-                          Phone: {bookingData.bookerPhone}
-                        </p>
-                      )}
-                    </div>
-                    <div className="border-t pt-4">
-                      <h3 className="text-gray-200 font-semibold text-lg mb-2">
-                        Payment
-                      </h3>
-                      <div className="flex items-center justify-start gap-x-4">
-                        <p className=" text-gray-200 text-2xl font-bold">
-                          Total:{" "}
-                        </p>
-                        <p className="text-green-600">
-                          ${bookingData?.totalPaid?.toFixed(2)}
-                        </p>
-                      </div>
-                    </div>
-                    <Button
-                      onClick={handleCheckout}
-                      className="w-full bg-green-600"
+        <Card className="w-full bg-slate-950">
+          <CardContent className="pt-6">
+            <div className="grid grid-cols-1 gap-4">
+              <Logo width="w-[8em]" height="h-[8em]" blur="blur-lg" />
+
+              <div>
+                <h3 className="text-gray-200 text-center font-semibold text-lg mb-2">
+                  {bookingData.propertyName}
+                </h3>
+                <div>
+                  <label className="text-gray-200 font-bold text-xl">
+                    Booker:
+                  </label>
+                  <h3 className="text-gray-200 font-semibold text-lg mb-2">
+                    {bookingData.bookerName}
+                  </h3>
+                </div>
+                <div>
+                  <h3 className="text-gray-200 font-semibold text-lg mb-2">
+                    Dates
+                  </h3>
+                  <p className="text-gray-200">
+                    Check-in:{" "}
+                    {bookingData.checkIn &&
+                      format(new Date(bookingData.checkIn), "MMMM d, yyyy")}
+                  </p>
+                  <p className="text-gray-200">
+                    Check-out:{" "}
+                    {bookingData.checkOut &&
+                      format(new Date(bookingData.checkOut), "MMMM d, yyyy")}
+                  </p>
+                </div>
+                <div>
+                  <h3 className="text-gray-200 font-semibold text-lg mb-2">
+                    Guests
+                  </h3>
+                  <p className="text-gray-200 font-thin text-md">
+                    {bookingData.numberOfGuests} Guests
+                  </p>
+                  {bookingData.guests.map((guest, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center justify-start"
                     >
-                      {loading ? (
-                        <PulsingDotSpinner color="bg-green-400" />
-                      ) : (
-                        "Check Out"
-                      )}
-                    </Button>
-                  </>
-                ) : (
-                  <div className="transition-all ease-linear duration-200">
-                    <div className="w-full flex items-center justify-center">
-                      <Alert
-                        message={message}
-                        isVisible={isVisible}
-                        onClose={hideAlert}
-                        success={success}
-                      />
+                      <Badge className="mr-2 text-green-600"></Badge>
+                      <p className="text-gray-200">{guest.name}</p>
                     </div>
-                    <p
-                      className={`text-center text-md font-semibold ${
-                        success ? "text-green-600" : "text-red-600"
-                      }`}
-                    >
-                      {success
-                        ? "Your booking has been successful!"
-                        : errorDetails || "Something went wrong"}
-                    </p>
-                    {success && (
-                      <p className="text-center font-medium text-gray-500">
-                        You will receive confirmation and more information in
-                        your email
-                      </p>
-                    )}
-                  </div>
-                )}
+                  ))}
+                </div>
               </div>
-            </CardContent>
-          </Card>
-        </DialogContent>
-      </Dialog>
-    </>
+
+              <div>
+                <h3 className="text-gray-200 text-center font-semibold text-lg mb-4">
+                  Complete Your Payment
+                </h3>
+                <PaymentWrapper
+                  setErrorDetails={setErrorDetails}
+                  showAlert={showAlert}
+                  bookingData={bookingData}
+                />
+              </div>
+
+              {isVisible && (
+                <Alert
+                  message={message}
+                  isVisible={isVisible}
+                  onClose={hideAlert}
+                  success={message.includes("successful")}
+                />
+              )}
+              {errorDetails && (
+                <p className="text-red-500 mt-2">{errorDetails}</p>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+      </DialogContent>
+    </Dialog>
   );
 }

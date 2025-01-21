@@ -1,8 +1,14 @@
 import mongoose, { Schema, model } from "mongoose";
 import { BookingType } from "@/types";
-
+import { v4 as uuidv4 } from "uuid";
 const bookingSchema = new Schema<BookingType>(
     {
+        uuid: {
+            type: String,
+            required: false,
+            trim: true,
+            default: String(uuidv4)
+        },
         bookerName: {
             type: String,
             required: true, // The booker's name is required

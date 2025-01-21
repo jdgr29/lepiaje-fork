@@ -39,3 +39,9 @@ the access token provided with a mapbox free account to access map features and 
 
 `NEXT_PUBLIC_WEB_SOCKET_SERVER`
 the websocket deployed url from the project that helps controlling and managing syncing the calendars
+
+`NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=`
+your stripe publishable key which you can get at the stripe page login in to your account
+
+`STRIPE_SECRET_KEY=sk_test_your_secret_key`
+your stripe secret key which you can get at the stripe page login in to your account
