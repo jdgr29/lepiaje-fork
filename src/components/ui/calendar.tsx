@@ -1,106 +1,49 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import { DateRange, DayPicker } from "react-day-picker";
+import React from "react";
+import { DayPicker } from "react-day-picker";
 import { cn } from "@/lib/utils";
-export type CalendarProps = React.ComponentProps<typeof DayPicker>;
-import { Dispatch, SetStateAction } from "react";
 
-type CalendarPropsCustomized = CalendarProps & {
-  range_of_dates_selected: DateRange | undefined;
-  setHasOverlap: Dispatch<SetStateAction<boolean>>;
+type DisabledDate = {
+  from: string | null | Date;
+  to: string | null | Date;
+};
+
+type CalendarPropsCustomized = React.ComponentProps<typeof DayPicker> & {
+  loading: boolean;
+
+  datesBlocked: DisabledDate[] | [];
 };
 
 function Calendar({
   className,
   classNames,
-  range_of_dates_selected,
   showOutsideDays = true,
-  setHasOverlap,
+  datesBlocked,
+  loading,
+
   ...props
 }: CalendarPropsCustomized) {
-  const [error, setError] = useState<string | null>(null);
-  const [blockedDates, setBlockedDates] = useState<
-    { from: string; to: string }[]
-  >([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  //TODO add 11:00 AM / 3:00 PM to reservations to account for days blocked
+  //TODO always display pricing in EUROS  (Jueves)
 
-  useEffect(() => {
-    // const ws = new WebSocket("ws://0.0.0.0:8000/");
-    const ws = new WebSocket(process.env.NEXT_PUBLIC_WEB_SOCKET_SERVER!);
+  //TODO stripe -> () (viernes)
 
-    ws.onopen = () => {
-      console.log("the webscoket is connected");
-    };
-    ws.onmessage = (event) => {
-      setBlockedDates(JSON.parse(event.data));
-      setLoading(false);
-    };
-    ws.onclose = () => {
-      console.log("Websocket connection closed");
-      setLoading(true);
-    };
-
-    ws.onerror = (error) => {
-      console.log("Websocket error:", error);
-    };
-
-    return () => {
-      setLoading(true);
-      // ws?.close();
-    };
-  }, []);
-
-  //TODO decide when to close websocket connection
-  useEffect(() => {
-    if (range_of_dates_selected) {
-      const isOverLapping = checkOverlap(range_of_dates_selected, blockedDates);
-      setHasOverlap(isOverLapping); // Update overlap state
-      if (isOverLapping) {
-        setError("Selected dates are not available!");
-      } else {
-        setError(null);
-      }
-    } else {
-      setHasOverlap(false); // Reset overlap state if no range is selected
-    }
-  }, [range_of_dates_selected, blockedDates, setHasOverlap]);
-
-  const checkOverlap = (
-    selectedRange: DateRange,
-    blocked: { from: string; to: string }[]
-  ) => {
-    const selectedStart = new Date(selectedRange.from!);
-    const selectedEnd = new Date(selectedRange.to!);
-
-    return blocked.some(({ from, to }) => {
-      const blockedStart = new Date(from);
-      const blockedEnd = new Date(to);
-
-      return (
-        (selectedStart >= blockedStart && selectedStart <= blockedEnd) || // Overlaps at the start
-        (selectedEnd >= blockedStart && selectedEnd <= blockedEnd) || // Overlaps at the end
-        (selectedStart <= blockedStart && selectedEnd >= blockedEnd) // Fully encompasses the blocked range
-      );
-    });
-  };
+  //TODO small webApp to manually block dates (domingo)
+  //TODO how to reach us map with at least two additional places (domingo)
 
   return (
     <div>
-      {error && (
-        <div className="text-red-500 text-center py-2 px-1 text-sm">
-          {error}
-        </div>
-      )}
       <DayPicker
         disabled={
           loading
             ? true
             : [
                 { before: new Date(Date.now()) },
-                ...blockedDates.map((value) => ({
-                  from: new Date(value.from),
-                  to: new Date(value.to),
-                })),
+                ...datesBlocked.map((date) => {
+                  return {
+                    from: new Date(date.from!),
+                    to: new Date(date.to!),
+                  };
+                }),
               ]
         }
         showOutsideDays={showOutsideDays}

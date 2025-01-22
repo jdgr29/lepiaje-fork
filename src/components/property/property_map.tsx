@@ -9,6 +9,7 @@ export function PropertyMap() {
           src="/placeholder.svg?height=400&width=800&text=Map"
           alt="Property location map"
           fill
+          sizes="100%"
           className="object-cover rounded-lg"
         />
       </div>

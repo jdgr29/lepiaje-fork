@@ -3,22 +3,23 @@
 import { useState } from "react";
 import Image from "next/image";
 
-export function PropertyGallery({ images }: { images: string[] }) {
+export function PropertyGallery({ images }: { images: string[] | undefined }) {
   const [currentImage, setCurrentImage] = useState(0);
 
   return (
     <div>
       <div className="relative h-[400px] md:h-[500px] lg:h-[600px]">
         <Image
-          src={images[currentImage]}
+          src={images ? images[currentImage] : ""}
           alt={`Property image ${currentImage + 1}`}
           fill
+          sizes="100%"
           style={{ objectFit: "cover" }}
           className="rounded-lg"
         />
       </div>
       <div className="mt-4 flex space-x-4 scrollbar-thin scrollbar-track-slate-800 scrollbar-thumb-lepiajeBrown overflow-x-auto pb-2">
-        {images.map((image, index) => (
+        {images?.map((image, index) => (
           <button
             key={index}
             onClick={() => setCurrentImage(index)}
@@ -31,6 +32,7 @@ export function PropertyGallery({ images }: { images: string[] }) {
                 src={image}
                 alt={`Property thumbnail ${index + 1}`}
                 fill
+                sizes="100%"
                 style={{ objectFit: "cover" }}
               />
             </div>

@@ -2,7 +2,7 @@ import { HttpStatusCode } from "@/enums";
 import { ResponseHandler } from "@/helpers/response_handler";
 import { BookingType } from "@/types";
 import { Resend } from "resend";
-import AdminNotificationEmail from "@/components/email_templates/submitted_form_email";
+import BookingNotificationTemplate from "@/components/email_templates/new_booking";
 
 const responseHandler = new ResponseHandler();
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -12,6 +12,7 @@ const adminEmail = process.env.ADMIN_EMAIL_ONE_RECEIVER || "";
 export async function POST(request: Request) {
   try {
     if (!resend) {
+      console.log("problem with resend");
       return responseHandler.respond({
         status: HttpStatusCode.BAD_REQUEST,
         message: "There is no Resend api key",
@@ -21,6 +22,7 @@ export async function POST(request: Request) {
       });
     }
     if (!emailFrom) {
+      console.log("problem with email from");
       return responseHandler.respond({
         status: HttpStatusCode.BAD_REQUEST,
         message: "There is no email present in the environment to send emails",
@@ -32,6 +34,7 @@ export async function POST(request: Request) {
     const emailData: BookingType = await request.json();
 
     if (!emailData.checkIn) {
+      console.log("problem with checkin");
       return responseHandler.respond({
         error: true,
         errorDetails: "N/A",
@@ -40,6 +43,7 @@ export async function POST(request: Request) {
       });
     }
     if (!emailData.checkOut) {
+      console.log("checkout problem");
       return responseHandler.respond({
         error: true,
         errorDetails: "N/A",
@@ -49,6 +53,7 @@ export async function POST(request: Request) {
     }
 
     if (emailData.guests.length === 0) {
+      console.log("checkout guest list length problem ");
       return responseHandler.respond({
         error: true,
         errorDetails: "N/A",
@@ -57,6 +62,7 @@ export async function POST(request: Request) {
       });
     }
     if (!emailData.numberOfGuests) {
+      console.log("number of guests");
       return responseHandler.respond({
         error: true,
         errorDetails: "N/A",
@@ -65,6 +71,7 @@ export async function POST(request: Request) {
       });
     }
     if (!emailData.propertyName) {
+      console.log("number of guests?");
       return responseHandler.respond({
         error: true,
         errorDetails: "N/A",
@@ -77,18 +84,8 @@ export async function POST(request: Request) {
     const { data: adminData, error: adminError } = await resend.emails.send({
       from: emailFrom,
       to: [adminEmail], //Only supports sending to one email until domain email is provided
-      subject: "An user has submitted a form!",
-      react: (
-        //TODO add check-in and check-out dates in non form email AND refactor this component
-        <AdminNotificationEmail
-          phone={emailData.guestPhone}
-          name={emailData.guests[0]}
-          email={"juandaniel9619@gmail.com"} //TODO change this when have access to email
-          guests={emailData.guests}
-          propertyName={emailData.propertyName}
-          isForm={false}
-        />
-      ),
+      subject: "There is a new booking!",
+      react: <BookingNotificationTemplate bookingData={emailData} />,
     }); //TODO better add a log to the database if case it fails
 
     if (!adminData) {
@@ -108,6 +105,7 @@ export async function POST(request: Request) {
         status: HttpStatusCode.INTERNAL_SERVER,
       });
     }
+
     return responseHandler.respond({
       error: false,
       errorDetails: "there were no errors",
@@ -117,7 +115,8 @@ export async function POST(request: Request) {
   } catch (err) {
     console.log(
       "Something went wrong in sending booking email",
-      JSON.stringify(err)
+      JSON.stringify(err),
+      err
     );
     responseHandler.respond({
       error: true,

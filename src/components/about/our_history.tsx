@@ -1,12 +1,13 @@
 import { AnimateOnScroll } from "../animate_view_on_scroll/animate_view_on_scroll";
+import Link from "next/link";
 
 //TODO add real data
 const milestones = [
-  { year: 2010, event: "A start" },
-  { year: 2013, event: "A milestone reached here" },
-  { year: 2016, event: "Another accomplishment here" },
-  { year: 2019, event: "Accomplishment here" },
-  { year: 2022, event: "Nowadays" },
+  { year: 2010, event: "A start", link: "https://www.wikipedia.org/" }, //TODO use link to navigate to another page
+  { year: 2013, event: "A milestone reached here", link: "" },
+  { year: 2016, event: "Another accomplishment here", link: "" },
+  { year: 2019, event: "Accomplishment here", link: "" },
+  { year: 2022, event: "Nowadays", link: "" },
 ];
 
 export function OurHistory() {
@@ -34,9 +35,12 @@ export function OurHistory() {
                   {milestone.year}
                 </h3>
                 <p className="text-gray-400">{milestone.event}</p>
-                <button className="mt-4 px-6 py-3 bg-amber-600 text-white font-semibold rounded-full hover:bg-amber-700 transition-colors duration-300">
-                  Learn More
-                </button>
+
+                <Link href={milestone.link} target="_blank">
+                  <button className="mt-4 px-6 py-3 bg-amber-600 text-white font-semibold rounded-full hover:bg-amber-700 transition-colors duration-300">
+                    Learn More
+                  </button>
+                </Link>
               </div>
               <div className="w-2/12 flex justify-center">
                 <div className="w-4 h-4 bg-slate-200 rounded-full"></div>

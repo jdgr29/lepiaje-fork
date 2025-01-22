@@ -5,7 +5,6 @@ import { AnimateOnScroll } from "../animate_view_on_scroll/animate_view_on_scrol
 import villaPerlata6 from "../../../public/assets/villa_perlata/6.jpg"; // TODO: Replace with actual image desired
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
-//TODO add real data;
 
 export function Hero() {
   const [isVisible, setIsVisible] = useState(false);
@@ -25,6 +24,7 @@ export function Hero() {
           src={villaPerlata6}
           alt="Le Piaje About Us Hero Background Image"
           fill
+          sizes="100%"
           style={{ objectFit: "cover" }}
           quality={100}
           priority

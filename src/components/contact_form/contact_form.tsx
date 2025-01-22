@@ -82,6 +82,7 @@ export default function ContactForm() {
             src={formImageBackground}
             alt="Hero background"
             fill
+            sizes="100%"
             style={{ objectFit: "cover" }}
             className="blur-md"
           />

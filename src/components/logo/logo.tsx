@@ -19,6 +19,7 @@ const Logo = ({
         src={logoPath}
         alt="Le Piaje Logo"
         fill
+        sizes="100%"
         style={{ objectFit: "contain" }}
         className="relative z-40"
       />

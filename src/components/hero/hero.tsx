@@ -21,7 +21,7 @@ export default function Hero({
         src={heroBackgroundImage}
         alt="Hero background"
         fill
-        style={{ objectFit: "fill" }}
+        sizes="100%"
         className="blur-sm"
       />
       <div

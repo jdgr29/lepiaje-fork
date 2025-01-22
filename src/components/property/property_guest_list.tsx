@@ -5,19 +5,19 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Plus, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-
-const MAX_GUESTS = 5; // Maximum number of guestList allowed
+import { Guests } from "@/types";
+const MAX_GUESTS = 5; // Maximum number of guests allowed
 
 export default function GuestList({
   setGuestList,
   guestList,
 }: {
-  guestList: string[];
-  setGuestList: Dispatch<SetStateAction<string[]>>;
+  guestList: Guests[];
+  setGuestList: Dispatch<SetStateAction<{ name: string; gender: string }[]>>;
 }) {
   const addGuest = () => {
     if (guestList.length < MAX_GUESTS) {
-      setGuestList([...guestList, ""]);
+      setGuestList([...guestList, { name: "", gender: "" }]);
     }
   };
 
@@ -26,16 +26,22 @@ export default function GuestList({
     setGuestList(newGuests);
   };
 
-  const updateGuest = (index: number, value: string) => {
+  const updateGuestName = (index: number, value: string) => {
     const newGuests = [...guestList];
-    newGuests[index] = value;
+    newGuests[index].name = value;
+    setGuestList(newGuests);
+  };
+
+  const updateGuestGender = (index: number, value: string) => {
+    const newGuests = [...guestList];
+    newGuests[index].gender = value;
     setGuestList(newGuests);
   };
 
   return (
     <div className="w-full max-w-md mx-auto py-6 space-y-4">
-      <h2 className="text-2xl font-bold text-start text-gray-200 mb-6">
-        Who is checking in?
+      <h2 className="md:max-2xl:text-start text-center text-2xl font-bold text-gray-200 mb-6">
+        Do you have any guests?
       </h2>
       <AnimatePresence>
         {guestList.map((guest, index) => (
@@ -49,21 +55,33 @@ export default function GuestList({
           >
             <Input
               type="text"
-              value={guest}
-              onChange={(e) => updateGuest(index, e.target.value)}
-              placeholder={`Guest ${index + 1}`}
+              value={guest.name}
+              onChange={(e) => updateGuestName(index, e.target.value)}
+              placeholder={`⁠ Guest ${index + 1}`}
               className="flex-grow"
             />
-            {index > 0 && (
-              <Button
-                variant="outline"
-                size="icon"
-                onClick={() => removeGuest(index)}
-                className="flex-shrink-0"
-              >
-                <X className="h-4 w-4" />
-              </Button>
-            )}
+            <select
+              value={guest.gender}
+              onChange={(e) => updateGuestGender(index, e.target.value)}
+              className={` border-[0.15em] w-[6em] rounded p-2 text-gray-700 ${!guest.gender ? "border-red-300" : "border-gray-400"}`}
+              required
+            >
+              <option value="" disabled>
+                Gender
+              </option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+            {/* {index > 0 && ( */}
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={() => removeGuest(index)}
+              className="flex-shrink-0"
+            >
+              <X className="h-4 w-4" />
+            </Button>
+            {/* )} */}
           </motion.div>
         ))}
       </AnimatePresence>

@@ -1,6 +1,8 @@
-import { BookingType } from "@/types";
+import { BookingType, HttpResponseType } from "@/types";
+import { notifyAdmin } from "./notify_admin";
+import { Email } from "@/enums";
 
-export const submit_new_booking = async (bookingData: BookingType): Promise<{ error: boolean, message: string }> => {
+export const submit_new_booking = async (bookingData: BookingType): Promise<{ error: boolean, message: string, errorDetails: string }> => {
     try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}api/booking`, {
             method: 'POST',
@@ -10,26 +12,32 @@ export const submit_new_booking = async (bookingData: BookingType): Promise<{ er
             body: JSON.stringify(bookingData)
         });
 
-        const result = await response.json();
-        if (response.status !== 201) {
-            throw new Error(`Something wrong happened while booking the property ${JSON.stringify(response)} ${JSON.stringify(result)}`)
-        }
+        const { message, error, errorDetails }: HttpResponseType = await response.json();
 
-        if (!result) {
+        if (response.status !== 201 || error) {
             return {
                 error: true,
-                message: `something went wrong while booking the property ${JSON.stringify(result)} ${JSON.stringify(response)}`,
+                message: `something went wrong while booking the property ${JSON.stringify(errorDetails)} ${JSON.stringify(message)}`,
+                errorDetails: errorDetails || "N>A",
             }
         }
 
+
+
+        const emailSent = await notifyAdmin(message, Email.BOOKING)
+        if (emailSent.error) {
+            console.log("something went wrong sending the email", emailSent)
+        }
         return {
             error: false,
-            message: 'booking was saved!'
+            message: 'booking was saved!',
+            errorDetails: emailSent.message
         }
     } catch (err) {
         return {
             error: true,
-            message: `Something went wrong saving the new booking ${JSON.stringify(err)}`
+            message: `Something went wrong saving the new booking ${JSON.stringify(err)}`,
+            errorDetails: JSON.stringify(err),
         }
     }
 }

@@ -38,7 +38,7 @@ export function Alert({ message, isVisible, onClose, success }: AlertProps) {
             } text-white px-6 py-4 rounded-lg shadow-lg flex items-center space-x-2`}
           >
             <CheckCircle className="w-6 h-6" />
-            <span className="font-medium">{message}</span>
+            <span className="text-sm text-center">{message}</span>
           </div>
         </motion.div>
       )}

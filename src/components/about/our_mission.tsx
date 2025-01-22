@@ -15,6 +15,7 @@ export function OurMission() {
               src={verna}
               alt="Our mission visualization"
               fill
+              sizes="100%"
               style={{ objectFit: "cover" }}
               className="transition-transform duration-300 hover:scale-105"
             />
