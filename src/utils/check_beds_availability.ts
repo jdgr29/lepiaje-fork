@@ -26,9 +26,9 @@ export function checkBedsAvailability(beds: Bed[], booking: BookingType, amountO
         }
     });
 
-    console.log(`Total available beds: ${availableBeds}`);
-    console.log(`Guests requested: ${amountOfGuests}`);
-    console.log("is it truly false?", availableBeds >= amountOfGuests)
+    // console.log(`Total available beds: ${availableBeds}`); // leaving this comment in case we need it quickly in the future to debug
+    // console.log(`Guests requested: ${amountOfGuests}`);
+    // console.log("is it truly false?", availableBeds >= amountOfGuests)
 
     return { passed: availableBeds >= amountOfGuests, availableBeds }
 }

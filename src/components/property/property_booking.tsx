@@ -152,6 +152,7 @@ export function PropertyBooking({
 
       ws.onmessage = (event) => {
         try {
+          console.log("changed detected");
           const data = JSON.parse(event.data);
 
           if (!data || typeof data !== "object") {
@@ -161,8 +162,6 @@ export function PropertyBooking({
             );
             return;
           }
-
-          // Update beds data based on propertyId
           if (propertyId === 1) {
             setBeds({
               mixed_rooms: data.mixed_rooms || [],
@@ -223,14 +222,9 @@ export function PropertyBooking({
     };
   };
 
-  //TODO account for la villa perlata
-  // DONE!
-  console.log("beds", beds);
   function findCommonDateRanges(data: Room[]): Range[] {
-    // Normalize a date to `YYYY-MM-DD` format
     const normalizeDate = (date: string) => date.split("T")[0];
 
-    // Step 1: Extract all unique normalized date ranges
     const uniqueDateRanges = new Set<string>();
     data.forEach((room) =>
       room.occupants.forEach((occupant) => {
@@ -239,13 +233,11 @@ export function PropertyBooking({
       })
     );
 
-    // Step 2: Convert unique normalized date ranges back to objects
     const dateRanges = Array.from(uniqueDateRanges).map((range) => {
       const [from, to] = range.split("|");
       return { from, to };
     });
 
-    // Step 3: Filter date ranges shared universally across all rooms
     const commonDateRanges = dateRanges.filter(({ from, to }) =>
       data.every((room) =>
         room.occupants.some(
@@ -487,7 +479,7 @@ export function PropertyBooking({
                         <div>
                           <p className="text-gray-300 text-md">
                             {" "}
-                            Beds available: {availableMixedBeds ?? "N/A"}
+                            max occupancy: {availableMixedBeds ?? "N/A"}
                           </p>
                         </div>
                       )}
@@ -579,7 +571,13 @@ export function PropertyBooking({
           </Formik>
         </div>
 
-        <GuestList guestList={guestList} setGuestList={setGuestList} />
+        <GuestList
+          maxGuests={
+            isLaVillaPerlata ? 3 : availableFemaleBeds + availableMaleBeds
+          }
+          guestList={guestList}
+          setGuestList={setGuestList}
+        />
 
         <PriceBreakdown
           priceDetails={priceDetails}

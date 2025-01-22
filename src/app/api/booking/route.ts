@@ -183,11 +183,11 @@ export async function POST(request: Request) {
                         female: allGuests.filter(guest => guest.gender === "female"),
                     };
 
-                    // Define a helper function to assign each guest to a separate bed
+
                     // eslint-disable-next-line
                     const assignGuestsToRoom = async (targetRoom: any[], guests: Guests[]) => {
-                        console.log("target room", targetRoom);
-                        console.log("guests", guests);
+
+
 
                         let remainingGuests = [...guests]; // Track unassigned guests
 
@@ -195,13 +195,13 @@ export async function POST(request: Request) {
                         const maleBeds = targetRoom.filter((bed) => bed.room_gender === 'male');
                         const femaleBeds = targetRoom.filter((bed) => bed.room_gender === 'female');
 
-                        // Function to check if a bed is occupied on the given dates
+
 
                         // eslint-disable-next-line
                         const isBedOccupied = (bed: any, check_in: string | Date, check_out: string | Date) => {
                             // eslint-disable-next-line
                             return bed.occupants.some((o: any) => {
-                                // Check if the new check-in or check-out dates overlap with any existing booking
+
                                 const existingCheckIn = new Date(o.check_in);
                                 const existingCheckOut = new Date(o.check_out);
                                 const newCheckIn = new Date(check_in);
@@ -218,7 +218,6 @@ export async function POST(request: Request) {
                             // eslint-disable-next-line
                             for (let bed of maleBeds) {
                                 if (remainingGuests.length === 0) break;
-                                console.log("remaining Guests jaja --->", remainingGuests)
                                 const guest = remainingGuests.find((g) => g.gender === 'male');
                                 if (guest && !isBedOccupied(bed, guest.check_in!, guest.check_out!)) {
                                     // Add guest to the bed's occupants array if the dates match
@@ -231,7 +230,7 @@ export async function POST(request: Request) {
 
                                     remainingGuests = remainingGuests.filter((g) => g !== guest); // Remove assigned guest from remainingGuests
 
-                                    // Save the bed if updated
+
                                     await bed.save();
                                     console.log(`Assigned ${guest.name} to male bed ${bed.uuid}`);
                                 } else {
@@ -273,9 +272,8 @@ export async function POST(request: Request) {
                             console.log(`Some guests could not be assigned to beds. Remaining guests: ${remainingGuests.length}`);
                         }
 
-                        console.log("Final state of beds:", targetRoom);
                     };
-                    // Assign guests to male and female rooms separately
+
                     await Promise.all([
                         assignGuestsToRoom(beds_for_male_room, groupedGuests.male),
                         assignGuestsToRoom(beds_for_female_room, groupedGuests.female),

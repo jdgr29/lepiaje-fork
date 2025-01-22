@@ -22,13 +22,8 @@ function Calendar({
 
   ...props
 }: CalendarPropsCustomized) {
-  //TODO add 11:00 AM / 3:00 PM to reservations to account for days blocked
-  //TODO always display pricing in EUROS  (Jueves)
-
-  //TODO stripe -> () (viernes)
-
+  //TODO stripe -> ()
   //TODO small webApp to manually block dates (domingo)
-  //TODO how to reach us map with at least two additional places (domingo)
 
   return (
     <div>
