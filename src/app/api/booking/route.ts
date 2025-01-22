@@ -7,8 +7,7 @@ import { HttpStatusCode } from "@/enums";
 import { connection } from "@/config/db";
 import { BookingType, Guests, Occupant, Property as PropertyType } from "@/types";
 import { checkBedsAvailability } from "@/utils/check_beds_availability";
-
-
+import Log from "@/models/Log";
 export async function POST(request: Request) {
     const responseHandler = new ResponseHandler();
     try {
@@ -83,12 +82,12 @@ export async function POST(request: Request) {
                     const existingCheckIn = new Date(occupant.check_in);
                     const existingCheckOut = new Date(occupant.check_out);
 
-                    // Check if the bed is already occupied for the given dates
+
                     return checkInDate < existingCheckOut && checkOutDate > existingCheckIn;
                 });
 
                 if (!isOccupied) {
-                    // Add a placeholder occupant to mark the bed as occupied
+
                     bed.occupants.push({
                         name: "Occupied",
                         gender: "mixed",
@@ -96,18 +95,18 @@ export async function POST(request: Request) {
                         check_out: booking.checkOut,
                     });
 
-                    // Save the bed with the updated occupants
+
                     await bed.save();
                     console.log(`Marked bed ${bed.uuid} as occupied for the dates.`);
                 }
             }
 
-            // Mark the room as fully occupied
+
             roomAvailable = true;
         }
 
         if (property.id === 2) {
-            console.log("al centesimo chilometro");
+
             const property: PropertyType | null = await Property.findOne({ id: 2 });
             if (!property) {
 
@@ -145,7 +144,7 @@ export async function POST(request: Request) {
             let isMaleBedsAvailable = false;
             let isFemaleBedsAvailable = false;
 
-            // Check availability for male guests only if there are male guests
+
 
             if (male_guests.length > 0) {
                 const { passed } = checkBedsAvailability(beds_for_male_room, booking, male_guests.length);
@@ -153,7 +152,7 @@ export async function POST(request: Request) {
 
             }
 
-            // Check availability for female guests only if there are female guests
+
 
             if (female_guests.length > 0) {
                 const { passed } = checkBedsAvailability(beds_for_female_room, booking, female_guests.length);
@@ -174,10 +173,10 @@ export async function POST(request: Request) {
                 roomAvailable = true;
 
                 if (roomAvailable) {
-                    // Create a list of all guests first
+
                     const allGuests = [...male_guests, ...female_guests];
 
-                    // Group guests by gender to process male and female rooms separately
+
                     const groupedGuests = {
                         male: allGuests.filter(guest => guest.gender === "male"),
                         female: allGuests.filter(guest => guest.gender === "female"),
@@ -189,9 +188,9 @@ export async function POST(request: Request) {
 
 
 
-                        let remainingGuests = [...guests]; // Track unassigned guests
+                        let remainingGuests = [...guests]; // unassigned guests
 
-                        // Filter male and female beds
+
                         const maleBeds = targetRoom.filter((bed) => bed.room_gender === 'male');
                         const femaleBeds = targetRoom.filter((bed) => bed.room_gender === 'female');
 
@@ -212,7 +211,7 @@ export async function POST(request: Request) {
                             });
                         };
 
-                        // Assign male guests to male beds
+
 
                         if (remainingGuests.some(guest => guest.gender === 'male')) {
                             // eslint-disable-next-line
@@ -220,7 +219,7 @@ export async function POST(request: Request) {
                                 if (remainingGuests.length === 0) break;
                                 const guest = remainingGuests.find((g) => g.gender === 'male');
                                 if (guest && !isBedOccupied(bed, guest.check_in!, guest.check_out!)) {
-                                    // Add guest to the bed's occupants array if the dates match
+
                                     bed.occupants.push({
                                         name: guest.name,
                                         gender: guest.gender,
@@ -239,7 +238,7 @@ export async function POST(request: Request) {
                             }
                         }
 
-                        // Assign female guests to female beds
+
 
                         if (remainingGuests.some((guest) => guest.gender === 'female')) {
                             // eslint-disable-next-line
@@ -248,7 +247,7 @@ export async function POST(request: Request) {
 
                                 const guest = remainingGuests.find((g) => g.gender === 'female');
                                 if (guest && !isBedOccupied(bed, guest.check_in!, guest.check_out!)) {
-                                    // Add guest to the bed's occupants array if the dates match
+
                                     bed.occupants.push({
                                         name: guest.name,
                                         gender: guest.gender,
@@ -267,7 +266,7 @@ export async function POST(request: Request) {
                             }
                         }
 
-                        // If there are remaining guests, log the issue
+
                         if (remainingGuests.length > 0) {
                             console.log(`Some guests could not be assigned to beds. Remaining guests: ${remainingGuests.length}`);
                         }
@@ -312,6 +311,14 @@ export async function POST(request: Request) {
         });
     } catch (err) {
         console.log("General error in booking route api", err, JSON.stringify(err))
+        const logErrorToDb = new Log({
+            endpoint: "api/booking",
+            message: "something failed creating a booking",
+            requestData: JSON.stringify(err),
+            occurredAt: new Date(),
+            method: "POST"
+        })
+        await logErrorToDb.save()
         return responseHandler.respond({
             error: true,
             errorDetails: ` Error details: ${JSON.stringify(err)}`,
