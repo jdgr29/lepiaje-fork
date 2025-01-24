@@ -3,7 +3,7 @@ import { Payment } from "@/types";
 
 const paymentSchema = new Schema<Payment>(
     {
-        bookingId: {
+        bookerEmail: {
             type: String,
             ref: "bookings",
             required: true,
@@ -14,7 +14,7 @@ const paymentSchema = new Schema<Payment>(
         },
         paymentMethod: {
             type: String,
-            required: true,
+            required: false,
         },
         paymentDate: {
             type: Date,
@@ -23,7 +23,6 @@ const paymentSchema = new Schema<Payment>(
         status: {
             type: String,
             required: true,
-            enum: ["pending", "completed", "failed"], // Possible payment statuses
         },
         transactionId: {
             type: String,

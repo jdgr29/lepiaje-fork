@@ -57,7 +57,6 @@ export async function POST(request: Request) {
       });
     }
     if (!emailData.numberOfGuests) {
-      console.log("number of guests");
       return responseHandler.respond({
         error: true,
         errorDetails: "N/A",
@@ -66,7 +65,6 @@ export async function POST(request: Request) {
       });
     }
     if (!emailData.propertyName) {
-      console.log("number of guests?");
       return responseHandler.respond({
         error: true,
         errorDetails: "N/A",

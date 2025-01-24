@@ -2,12 +2,13 @@ import Room from "@/models/Room";
 import Bed from "@/models/Bed"; // Import your Bed model directly
 import Booking from "@/models/Booking";
 import Property from "@/models/Property";
+import Log from "@/models/Log";
 import { ResponseHandler } from "@/helpers/response_handler";
 import { HttpStatusCode } from "@/enums";
 import { connection } from "@/config/db";
 import { BookingType, Guests, Occupant, Property as PropertyType } from "@/types";
 import { checkBedsAvailability } from "@/utils/check_beds_availability";
-import Log from "@/models/Log";
+
 export async function POST(request: Request) {
     const responseHandler = new ResponseHandler();
     try {
@@ -22,9 +23,16 @@ export async function POST(request: Request) {
         }
 
         const booking: BookingType = await request.json();
-        if (!booking.checkIn || !booking.checkOut || !booking.bookerEmail || !booking.numberOfGuests || !booking.totalPaid || !booking.propertyName) {
 
-            console.log("what is cooking here", booking);
+        if (booking.totalPaid! < 0) {
+            return responseHandler.respond({
+                error: true,
+                errorDetails: `total paid is less than 0`,
+                message: "total paid is less than 0",
+                status: HttpStatusCode.BAD_REQUEST
+            });
+        }
+        if (!booking.checkIn || !booking.checkOut || !booking.bookerEmail || !booking.numberOfGuests || !booking.propertyName) {
             return responseHandler.respond({
                 error: true,
                 errorDetails: `Missing required fields in booking ${JSON.stringify(booking)}`,
@@ -144,20 +152,14 @@ export async function POST(request: Request) {
             let isMaleBedsAvailable = false;
             let isFemaleBedsAvailable = false;
 
-
-
             if (male_guests.length > 0) {
                 const { passed } = checkBedsAvailability(beds_for_male_room, booking, male_guests.length);
                 isMaleBedsAvailable = passed
-
             }
-
-
 
             if (female_guests.length > 0) {
                 const { passed } = checkBedsAvailability(beds_for_female_room, booking, female_guests.length);
                 isFemaleBedsAvailable = passed
-
             }
 
             const Beds = await Bed.find();
@@ -186,15 +188,10 @@ export async function POST(request: Request) {
                     // eslint-disable-next-line
                     const assignGuestsToRoom = async (targetRoom: any[], guests: Guests[]) => {
 
-
-
                         let remainingGuests = [...guests]; // unassigned guests
-
 
                         const maleBeds = targetRoom.filter((bed) => bed.room_gender === 'male');
                         const femaleBeds = targetRoom.filter((bed) => bed.room_gender === 'female');
-
-
 
                         // eslint-disable-next-line
                         const isBedOccupied = (bed: any, check_in: string | Date, check_out: string | Date) => {
@@ -205,13 +202,10 @@ export async function POST(request: Request) {
                                 const existingCheckOut = new Date(o.check_out);
                                 const newCheckIn = new Date(check_in);
                                 const newCheckOut = new Date(check_out);
-
                                 // Overlapping condition: new check-in is before existing check-out and new check-out is after existing check-in
                                 return newCheckIn < existingCheckOut && newCheckOut > existingCheckIn;
                             });
                         };
-
-
 
                         if (remainingGuests.some(guest => guest.gender === 'male')) {
                             // eslint-disable-next-line
@@ -238,8 +232,6 @@ export async function POST(request: Request) {
                             }
                         }
 
-
-
                         if (remainingGuests.some((guest) => guest.gender === 'female')) {
                             // eslint-disable-next-line
                             for (let bed of femaleBeds) {
@@ -265,7 +257,6 @@ export async function POST(request: Request) {
                                 }
                             }
                         }
-
 
                         if (remainingGuests.length > 0) {
                             console.log(`Some guests could not be assigned to beds. Remaining guests: ${remainingGuests.length}`);

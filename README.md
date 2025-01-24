@@ -45,3 +45,11 @@ your stripe publishable key which you can get at the stripe page login in to you
 
 `STRIPE_SECRET_KEY=sk_test_your_secret_key`
 your stripe secret key which you can get at the stripe page login in to your account
+
+`STRIPE_WEBHOOK_SECRET`
+your stripe webhook secret string
+
+`usernameENV`
+the username to login to admin panel
+`passwordENV`
+the password to login to admin panel

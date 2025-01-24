@@ -9,8 +9,7 @@ import {
 import { BookingType } from "@/types";
 import { useLocale } from "next-intl";
 import { submit_new_booking } from "@/services/submit_new_booking";
-import Payment from "@/models/Payment";
-import { connection } from "@/config/db";
+
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
 );
@@ -31,7 +30,11 @@ export function PaymentWrapper({
       const response = await fetch("/api/payment", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ amount: bookingData.totalPaid!, bookingData }),
+        body: JSON.stringify({
+          amount: bookingData.totalPaid!,
+          bookingData,
+          bookerEmail: bookingData.bookerEmail,
+        }),
       });
       if (!response) {
         throw new Error(
@@ -127,7 +130,7 @@ function PaymentForm({
       elements,
       confirmParams: {
         receipt_email: bookingData.bookerEmail, // Optional: Email for payment receipt ?
-        return_url: `${window.location.origin}/payment/success`,
+        return_url: `http://localhost:3000/payment/success`,
       },
     });
 
@@ -135,13 +138,6 @@ function PaymentForm({
       setErrorMessage(error.message || "not error set");
       setIsProcessing(false);
     }
-    await connection();
-    const registerNewPayment = new Payment({
-      bookingId: bookingData.uuid!,
-      paymentDate: bookingData.totalPaid!,
-      status: error ? "failed" : "completed",
-    });
-    await registerNewPayment.save();
   };
 
   return (
