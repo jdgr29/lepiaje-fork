@@ -1,12 +1,12 @@
 import { Directions } from "./directions.types";
 
-
 export type Property = {
     uuid: string,
     id: number;
     name: string;
     location_name: string;
     price_per_night: number;
+    price_per_additional_guest: number;
     description: string;
     room_features?: string[],
     rooms: string[],

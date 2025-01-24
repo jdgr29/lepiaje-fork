@@ -26,6 +26,7 @@ export default async function PropertyPage({
       ? PropertyEnum.LA_VILLA_PERLATA
       : PropertyEnum.AL_CENTESIMO_CHILOMETRO
   );
+
   if (!property) {
     return (
       <div className="w-full h-full bg-[#121212] flex items-center justify-center">
@@ -43,7 +44,6 @@ export default async function PropertyPage({
         name={property.name}
         location_name={property.location_name}
       />
-
       <div className="mt-6">
         <PropertyGallery images={images} />
       </div>
@@ -66,14 +66,16 @@ export default async function PropertyPage({
           </div>
           {/* TODO<> add reviews here</> */}
         </div>
+
         <div className="md:max-2xl:order-2 order-1">
           <PropertyBooking
-            propertyId={property.id}
+            price={property.price_per_night}
             airbnb={property.airbnb_url_address}
             booking={property.booking_dot_com_url_address}
-            price={property.price_per_night}
+            propertyId={property.id}
             propertyName={property.name}
             isLaVillaPerlata={isLaVillaPerlata}
+            pricePerAdditionalGuest={property.price_per_additional_guest}
           />
         </div>
       </div>

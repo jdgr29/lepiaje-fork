@@ -1,5 +1,5 @@
 export interface Payment {
-    bookingId: string; // Reference to the booking ID
+    bookerEmail: string; // Reference to the booking ID
     amount: number; // Total payment amount
     paymentMethod: string // Allowed payment methods
     paymentDate?: Date; // Date of the payment, defaults to the current date

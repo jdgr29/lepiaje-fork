@@ -18,7 +18,7 @@ const propertySchema = new Schema<PropertyType>({
         type: String,
         required: true,
         trim: true,
-        default: String(uuidv4)
+        default: uuidv4()
     },
     id: {
         type: Number,
@@ -33,6 +33,10 @@ const propertySchema = new Schema<PropertyType>({
         required: true
     },
     price_per_night: {
+        required: true,
+        type: Number
+    },
+    price_per_additional_guest: {
         required: true,
         type: Number
     },

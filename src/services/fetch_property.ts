@@ -12,7 +12,6 @@ export async function fetch_property(propertyId: number): Promise<PropertyType |
         if (!result) {
             throw new Error(`error while fetching db data for property ${result} ${JSON.stringify(result)}`);
         }
-
         return result;
 
 

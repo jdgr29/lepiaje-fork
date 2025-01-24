@@ -20,9 +20,9 @@ export async function POST(req: Request) {
     }
 
     try {
-        const { amount, bookingData }: { amount: number, bookingData: BookingType } = await req.json();
+        const { amount, bookingData, bookerEmail }: { amount: number, bookingData: BookingType, bookerEmail: string } = await req.json();
 
-        if (!amount || !bookingData) {
+        if (!amount || !bookingData || !bookerEmail) {
             return responseHandler.respond({
                 status: HttpStatusCode.BAD_REQUEST,
                 error: true,
@@ -36,9 +36,9 @@ export async function POST(req: Request) {
             currency: "eur",
             description: `Payment for booking - ${amount} EUR`,
             metadata: {
-                amount: amount! * 100
-            }
-
+                amount: amount! * 100,
+                bookerEmail,
+            },
         });
 
         if (!paymentIntent) {
@@ -49,8 +49,6 @@ export async function POST(req: Request) {
                 error: true
             })
         }
-
-
 
         return responseHandler.respond({
             status: HttpStatusCode.OK,

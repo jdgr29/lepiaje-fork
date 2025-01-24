@@ -53,6 +53,7 @@ export const propertySeedDataForLePiaje: Property[] = [
         name: "La Villa Perlata",
         location_name: "Via del Lago, 65, 01027 Montefiascone VT, Italy",
         price_per_night: 20,
+        price_per_additional_guest: 15,
         description: `The accommodation is located 2km from the shores of Lake Bolsena and close to many country trails. You will love it for its views, vast outdoor spaces, atmosphere and privacy. It is suitable for couples and families (with children).
             The space 
             Located in the so-called "Pearl Valley", you will have the opportunity to immerse yourself in nature, crossing numerous paths and reach the lake on foot without being disturbed by the noise of traffic. The accommodation is framed by the fields of the farm, where fruits, olives and especially grapes are produced.
@@ -167,6 +168,7 @@ export const propertySeedDataForLePiaje: Property[] = [
         name: "Al Centesimo Chilometro",
         location_name: "164 Via Asinello, 01027 Montefiascone, Italy",
         price_per_night: 20,
+        price_per_additional_guest: 13,
         description: `Located in Montefiascone, 18 miles from Duomo Orvieto, Al Centesimo Chilometro - Ristoro del Pellegrino has accommodations with a garden, free private parking and a shared lounge. The property is around 12 miles from Cività di Bagnoregio, 12 miles from Villa Lante and 20 miles from Bomarzo - The Monster Park. Certain accommodations at the property have a patio with a garden view.
             With a private bathroom equipped with a shower and a hairdryer, rooms at the hostel also feature free WiFi, while certain rooms are equipped with a city view.
         

@@ -22,8 +22,6 @@ export const submit_new_booking = async (bookingData: BookingType): Promise<{ er
             }
         }
 
-
-
         const emailSent = await notifyAdmin(message, Email.BOOKING)
         if (emailSent.error) {
             console.log("something went wrong sending the email", emailSent)

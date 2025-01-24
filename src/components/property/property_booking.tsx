@@ -54,6 +54,7 @@ interface PropertyBookingProps {
   propertyName: string;
   booking?: string;
   isLaVillaPerlata?: boolean;
+  pricePerAdditionalGuest: number;
 }
 const validationSchema = Yup.object().shape({
   bookerName: Yup.string().required("Booker name is required"),
@@ -69,6 +70,7 @@ export function PropertyBooking({
   airbnb,
   propertyId,
   propertyName,
+  pricePerAdditionalGuest,
   booking,
   isLaVillaPerlata,
 }: PropertyBookingProps) {
@@ -80,15 +82,13 @@ export function PropertyBooking({
   const [guestList, setGuestList] = useState<
     { name: string; gender: string }[]
   >([]);
+  const locale = useLocale();
   const [bookerEmail, setBookerEmail] = useState<string>("");
   const [bookerPhone, setBookerPhone] = useState<string>("");
   const [bookerName, setBookerName] = useState<string>("");
   const [bookerGender, setBookerGender] = useState<string>("");
-  const locale = useLocale();
   const [showSummary, setShowSummary] = useState<boolean>(false);
   const [priceDetails, setPriceDetails] = useState<null | PriceDetails>(null);
-  const pricePerNight: number = 30;
-  const pricePerAdditionalGuest: number = 6;
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [unAvailableDates, setUnAvailableDates] = useState<Range[]>([]);
@@ -131,14 +131,15 @@ export function PropertyBooking({
     return false;
   }
 
-  //TODO check why in front is not updating in real time  and email sending fail when it is la villa perlata tho is fixed kinda
   useEffect(() => {
     let ws: WebSocket | undefined;
 
     const connectWebSocket = () => {
       const propertyId = isLaVillaPerlata ? 1 : 2;
 
-      ws = new WebSocket(`ws://localhost:8000/?propertyId=${propertyId}`);
+      ws = new WebSocket(
+        `${process.env.NEXT_PUBLIC_WEB_SOCKET_SERVER}/?propertyId=${propertyId}`
+      );
 
       ws.onopen = () => {
         console.log("WebSocket connected.");
@@ -332,12 +333,18 @@ export function PropertyBooking({
   useEffect(() => {
     const pricing = calculate_price(
       dates,
-      pricePerNight,
+      price,
       pricePerAdditionalGuest,
       guestList.length + 1
     );
     setPriceDetails(pricing);
+    // eslint-disable-next-line
   }, [dates, guestList]);
+  useEffect(() => {
+    if (isLaVillaPerlata) {
+      setBookerGender("mixed");
+    }
+  }, [isLaVillaPerlata]);
 
   const bookingData: BookingType = {
     propertyId,
@@ -379,7 +386,6 @@ export function PropertyBooking({
     }
     // eslint-disable-next-line
   }, [dates, beds, propertyId]);
-
   return (
     <div className="border rounded-lg p-6">
       <h2 className="text-2xl text-gray-200 font-bold mb-4">
@@ -432,7 +438,6 @@ export function PropertyBooking({
             />
           </PopoverContent>
         </Popover>
-
         <div className="border rounded-lg p-6">
           <Formik
             initialValues={{
@@ -451,7 +456,9 @@ export function PropertyBooking({
                 setBookerEmail(values.bookerEmail);
                 setBookerPhone(values.bookerPhone);
                 setBookerName(values.bookerName);
-                setBookerGender(values.bookerGender);
+                if (!isLaVillaPerlata) {
+                  setBookerGender(values.bookerGender);
+                }
               }, [values]);
 
               return (
@@ -479,7 +486,7 @@ export function PropertyBooking({
                         <div>
                           <p className="text-gray-300 text-md">
                             {" "}
-                            max occupancy: {availableMixedBeds ?? "N/A"}
+                            max occupancy: {Math.max(availableMixedBeds, 0)}
                           </p>
                         </div>
                       )}
@@ -501,20 +508,22 @@ export function PropertyBooking({
                         className="w-[80%] border rounded p-2 text-gray-700"
                       />
 
-                      <select
-                        name="bookerGender"
-                        onBlur={handleBlur}
-                        value={values.bookerGender || ""}
-                        onChange={handleChange}
-                        className={`border w-[6em] rounded border-1 p-2 text-gray-700 ${bookerGender ? "border-none" : "border-red-400"}`}
-                        required
-                      >
-                        <option value="" disabled>
-                          Gender
-                        </option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                      </select>
+                      {!isLaVillaPerlata && (
+                        <select
+                          name="bookerGender"
+                          onBlur={handleBlur}
+                          value={values.bookerGender || ""}
+                          onChange={handleChange}
+                          className={`border w-[6em] rounded border-1 p-2 text-gray-700 ${bookerGender ? "border-none" : "border-red-400"}`}
+                          required
+                        >
+                          <option value="" disabled>
+                            Gender
+                          </option>
+                          <option value="male">Male</option>
+                          <option value="female">Female</option>
+                        </select>
+                      )}
                     </div>
                     <ErrorMessage
                       name="bookerName"
@@ -578,6 +587,7 @@ export function PropertyBooking({
           maxGuests={
             isLaVillaPerlata ? 3 : availableFemaleBeds + availableMaleBeds
           }
+          isLaVillaPerlata={isLaVillaPerlata!}
           guestList={guestList}
           setGuestList={setGuestList}
         />
@@ -585,8 +595,9 @@ export function PropertyBooking({
         <PriceBreakdown
           priceDetails={priceDetails}
           pricePerGuest={pricePerAdditionalGuest}
-          pricePerNight={pricePerNight}
+          pricePerNight={price}
         />
+
         <Button
           onClick={async () => {
             setShowSummary(true);
@@ -606,7 +617,7 @@ export function PropertyBooking({
           }`}
         >
           {hasOverlap || error
-            ? "Selected dates are not availble"
+            ? "Selected dates are not available"
             : "Book now!"}
         </Button>
 
