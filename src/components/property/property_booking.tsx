@@ -137,7 +137,9 @@ export function PropertyBooking({
     const connectWebSocket = () => {
       const propertyId = isLaVillaPerlata ? 1 : 2;
 
-      ws = new WebSocket(`ws://localhost:8000/?propertyId=${propertyId}`);
+      ws = new WebSocket(
+        `${process.env.NEXT_PUBLIC_WEB_SOCKET_SERVER}/?propertyId=${propertyId}`
+      );
 
       ws.onopen = () => {
         console.log("WebSocket connected.");

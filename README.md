@@ -51,5 +51,6 @@ your stripe webhook secret string
 
 `usernameENV`
 the username to login to admin panel
+
 `passwordENV`
 the password to login to admin panel
