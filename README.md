@@ -49,8 +49,8 @@ your stripe secret key which you can get at the stripe page login in to your acc
 `STRIPE_WEBHOOK_SECRET`
 your stripe webhook secret string
 
-`usernameENV`
+`USERNAME`
 the username to login to admin panel
 
-`passwordENV`
+`USER_PASSWORD`
 the password to login to admin panel
